@@ -1,0 +1,26 @@
+#
+# ci.yml
+#
+# Run tests for all pushed commits and opened pull requests on Github.
+#
+
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Set up NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: Git checkout
+        uses: actions/checkout@v3
+      - name: NPM ci, build, & test
+        run: |
+          yarn build --if-present
+          yarn test
+        env:
+          CI: true
