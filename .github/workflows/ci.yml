@@ -18,7 +18,9 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-      - name: NPM ci, build, & test
+      - name: install
+        run: yarn install --frozen-lockfile
+      - name: build & test
         run: |
           yarn build
           yarn test
