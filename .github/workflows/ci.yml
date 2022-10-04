@@ -20,7 +20,8 @@ jobs:
           cache: 'yarn'
       - name: NPM ci, build, & test
         run: |
-          yarn build --if-present
+          yarn build
           yarn test
+        #          yarn lint    # linting happens on client side pre-commit hook
         env:
           CI: true
