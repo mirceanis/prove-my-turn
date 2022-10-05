@@ -1,6 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
+  "extends": ["config:base", "group:allNonMajor"],
+  "labels": ["maintenance"],
+  "automergeType": "branch",
+  "automerge": true,
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["snarkyjs"],
+      "matchUpdateTypes": ["bump", "patch", "minor", "major"],
+      "groupName": "zk-dependencies",
+      "commitMessagePrefix": "fix(deps):"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "groupName": "devDeps",
+      "schedule": ["before 5am on Monday"]
+    }
   ]
 }

@@ -15,7 +15,7 @@
   "types": "build/src/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "coverage": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --coverage",
+    "coverage": "yarn test --coverage",
     "format": "prettier --write --ignore-unknown **/*",
     "prepare": "husky install",
     "test": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js",
