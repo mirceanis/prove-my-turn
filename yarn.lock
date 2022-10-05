@@ -2057,10 +2057,10 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-plugin-snarkyjs@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-snarkyjs/-/eslint-plugin-snarkyjs-0.1.0.tgz#69c48a88efaf4ab0baae846599e5b5c3cfce1bc5"
-  integrity sha512-wq23R8uAQcdBQwVyweI4hKPGtPExPSMCJXGNJggn4iYv7B4isuE29ETj3+Jpw9r3kmm4rng92HnqvZdl3c6ihQ==
+eslint-plugin-snarkyjs@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-snarkyjs/-/eslint-plugin-snarkyjs-0.3.0.tgz#4bb64b0839593de28a8e8fb09403fc69777547db"
+  integrity sha512-ncREhfSXrd+F2yp2e5en/WOYBHBGHNJY65JSYqi6Hc/UVyqkAS8tHnZ4tiPRb2cotewFfLhguLftkmYzUhpoEw==
 
 eslint-scope@^5.1.1:
   version "5.1.1"
