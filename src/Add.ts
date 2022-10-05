@@ -1,12 +1,4 @@
-import {
-  Field,
-  SmartContract,
-  state,
-  State,
-  method,
-  DeployArgs,
-  Permissions,
-} from 'snarkyjs';
+import { Field, SmartContract, state, State, method, DeployArgs, Permissions } from 'snarkyjs';
 
 /**
  * Basic Example

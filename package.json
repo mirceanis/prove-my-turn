@@ -1,8 +1,8 @@
 {
   "name": "zhuffle",
   "version": "0.1.5",
-  "description": "",
-  "author": "",
+  "description": "Experiments in zk gaming",
+  "author": "Mircea Nistor",
   "license": "Apache-2.0",
   "keywords": [
     "mina-zkapp",

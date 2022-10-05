@@ -1,4 +1,4 @@
-# prove-my-turn
+# prove-my-turn (zhuffle)
 
 Experiments in zk gaming
 
@@ -24,4 +24,3 @@ npm run coverage
 ## License
 
 [Apache-2.0](LICENSE)
-

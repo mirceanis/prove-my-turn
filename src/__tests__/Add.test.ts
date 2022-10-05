@@ -1,13 +1,5 @@
 import { Add } from '../Add';
-import {
-  isReady,
-  shutdown,
-  Field,
-  Mina,
-  PrivateKey,
-  PublicKey,
-  AccountUpdate,
-} from 'snarkyjs';
+import { isReady, shutdown, Field, Mina, PrivateKey, PublicKey, AccountUpdate } from 'snarkyjs';
 
 /*
  * This file specifies how to test the `Add` example smart contract. It is safe to delete this file and replace
@@ -22,11 +14,7 @@ function createLocalBlockchain() {
   return Local.testAccounts[0].privateKey;
 }
 
-async function localDeploy(
-  zkAppInstance: Add,
-  zkAppPrivatekey: PrivateKey,
-  deployerAccount: PrivateKey
-) {
+async function localDeploy(zkAppInstance: Add, zkAppPrivatekey: PrivateKey, deployerAccount: PrivateKey) {
   const txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivatekey });
@@ -37,9 +25,7 @@ async function localDeploy(
 }
 
 describe('Add', () => {
-  let deployerAccount: PrivateKey,
-    zkAppAddress: PublicKey,
-    zkAppPrivateKey: PrivateKey;
+  let deployerAccount: PrivateKey, zkAppAddress: PublicKey, zkAppPrivateKey: PrivateKey;
 
   beforeEach(async () => {
     await isReady;
