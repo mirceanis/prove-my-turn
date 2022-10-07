@@ -1,15 +1,14 @@
+import { CircuitString, Poseidon, PrivateKey } from 'snarkyjs';
 import { Card } from './card';
-import { CircuitString, Poseidon, PrivateKey, PublicKey } from 'snarkyjs';
-import { Player } from './player';
-import { computeJointKey, ZERO_KEY } from './utils';
+import { ZERO_KEY } from './utils';
 
 export class Deck {
-  cards: Array<Card> = Deck.cardFaces.map(Deck.face2Card);
-  jointShuffleKey: PublicKey;
-  jointCardKeys: Array<PublicKey> = [];
+  private readonly _cardFaces: string[];
+  public readonly cards: Array<Card>;
 
-  constructor(players: Array<Player>) {
-    this.jointShuffleKey = computeJointKey(players.map((p) => p.shuffleKey));
+  constructor(cardFaces: string[] = Deck.cardFaces) {
+    this._cardFaces = cardFaces;
+    this.cards = this._cardFaces.map(Deck.face2Card);
   }
 
   static buildCardFaces(): string[] {
@@ -31,10 +30,10 @@ export class Deck {
 
   static face2Card(cardFace: string): Card {
     const cardPoint = PrivateKey.ofFields([Poseidon.hash(CircuitString.fromString(cardFace).toFields())]).toPublicKey();
-    return new Card(ZERO_KEY, cardPoint);
+    return new Card(ZERO_KEY, cardPoint, ZERO_KEY);
   }
 
   static card2Face(card: Card): string {
-    return Deck.cardFaces.find((k) => Deck.face2Card(k).maskedPoint.equals(card.maskedPoint).toBoolean()) ?? 'unknown';
+    return Deck.cardFaces.find((k) => Deck.face2Card(k).msg.equals(card.msg).toBoolean()) ?? 'unknown';
   }
 }

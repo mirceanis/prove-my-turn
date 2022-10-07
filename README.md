@@ -1,6 +1,6 @@
 # prove-my-turn (zhuffle)
 
-Experiments in zk gaming
+Experiments in zk gaming.
 
 ## How to build
 

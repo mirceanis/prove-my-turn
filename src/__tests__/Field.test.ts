@@ -1,6 +1,5 @@
-import { Field, Group, isReady, PrivateKey, PublicKey, Scalar, shutdown } from 'snarkyjs';
-import { Deck } from '../deck';
-import { computeJointKey, mask, partialUnmask, ZERO_KEY } from '../utils';
+import { Field, Group, isReady, PrivateKey, Scalar, shutdown } from 'snarkyjs';
+import { ZERO_KEY } from '../utils';
 
 describe('Field EC operations', () => {
   beforeEach(async () => {
@@ -44,7 +43,7 @@ describe('Field EC operations', () => {
   });
 
   /**
-   * (g^a)^b === g^(a*b)
+   * (G^a)^b === G^(a*b)
    */
   it('multi scaling in point space equivalent to multiplication in scalar space', async () => {
     const s1 = Scalar.fromJSON(2)!;
@@ -55,7 +54,7 @@ describe('Field EC operations', () => {
   });
 
   /**
-   * g^a * g^b === g^(a+b)
+   * G^a * G^b === G^(a+b)
    */
   it('adding in point space equivalent to adding in scalar space', async () => {
     const s1 = Scalar.fromJSON(2)!;
@@ -63,5 +62,113 @@ describe('Field EC operations', () => {
     const scalarSpace = s1.add(s2);
     const pointSpace = Group.generator.scale(s1).add(Group.generator.scale(s2));
     expect(pointSpace).toEqual(Group.generator.scale(scalarSpace));
+  });
+
+  it('masks and unmasks message 2 players', async () => {
+    const s1 = Scalar.random();
+    const s2 = Scalar.random();
+    const P1 = Group.generator.scale(s1);
+    const P2 = Group.generator.scale(s2);
+    const msg = Group.generator.scale(Scalar.fromJSON(42)!);
+
+    // // initialize:
+    // joint ephemeral key
+    let epk = ZERO_KEY.toGroup();
+    // masked message point
+    let masked = msg;
+    // joint public key
+    let pk = ZERO_KEY.toGroup();
+
+    // first player joining
+    pk = pk.add(P1);
+    // masked = masked.add(epk.scale(s1)); // throws "to_affine_exn: Got identity" because JE is initially ZERO
+
+    // masking
+    const r1 = Scalar.random();
+    epk = epk.add(Group.generator.scale(r1));
+    masked = masked.add(pk.scale(r1));
+
+    // second player joining the game
+    pk = pk.add(P2);
+    masked = masked.add(epk.scale(s2));
+
+    // second player masks
+    const r2 = Scalar.random();
+    epk = epk.add(Group.generator.scale(r2));
+    masked = masked.add(pk.scale(r2));
+
+    // first player unmasks
+    pk = pk.sub(P2);
+    masked = masked.sub(epk.scale(s1));
+
+    // second player unmasks
+    pk = pk.sub(P1);
+    masked = masked.sub(epk.scale(s2));
+
+    expect(masked).toEqual(msg);
+    expect(pk).toEqual(ZERO_KEY.toGroup());
+  });
+
+  it('masks and unmasks message interleaved by 3 players', async () => {
+    const s1 = Scalar.random();
+    const s2 = Scalar.random();
+    const s3 = Scalar.random();
+    const P1 = Group.generator.scale(s1);
+    const P2 = Group.generator.scale(s2);
+    const P3 = Group.generator.scale(s3);
+    const msg = Group.generator.scale(Scalar.fromJSON(42)!);
+
+    // initialize
+    let epk = ZERO_KEY.toGroup();
+    let masked = msg;
+    let pk = ZERO_KEY.toGroup();
+
+    // first player masking, using only his public key
+    pk = pk.add(P1);
+
+    const r1 = Scalar.random();
+    epk = epk.add(Group.generator.scale(r1));
+    masked = masked.add(pk.scale(r1));
+
+    // second player joining the game
+    pk = pk.add(P2);
+    // c1 = c1
+    masked = masked.add(epk.scale(s2));
+
+    // second player masks
+    const r2 = Scalar.random();
+    epk = epk.add(Group.generator.scale(r2));
+    masked = masked.add(pk.scale(r2));
+
+    // first player unmasks
+    const d1 = epk.scale(s1);
+    pk = pk.sub(P1);
+    // c1 = c1
+    masked = masked.sub(d1);
+
+    // third player joining the game
+    pk = pk.add(P3);
+    // c1 = c1
+    masked = masked.add(epk.scale(s3));
+
+    // third player masks
+    const r3 = Scalar.random();
+    epk = epk.add(Group.generator.scale(r3));
+    masked = masked.add(pk.scale(r3));
+
+    // second player unmasks
+    const d2 = epk.scale(s2);
+    pk = pk.sub(P2);
+    // c1 = c1
+    masked = masked.sub(d2);
+
+    // third player unmasks
+    const d3 = epk.scale(s3);
+    pk = pk.sub(P3);
+    // c1 = c1
+    masked = masked.sub(d3);
+
+    expect(masked).toEqual(msg);
+    expect(pk).toEqual(ZERO_KEY.toGroup());
   });
 });

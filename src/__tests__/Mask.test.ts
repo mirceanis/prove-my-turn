@@ -1,6 +1,6 @@
-import { isReady, PrivateKey, Scalar, shutdown } from 'snarkyjs';
+import { isReady, PrivateKey, shutdown } from 'snarkyjs';
 import { Deck } from '../deck';
-import { computeJointKey, mask, partialUnmask } from '../utils';
+import { addPlayerToCardMask, mask, partialUnmask } from '../utils';
 
 describe('Mask', () => {
   beforeEach(async () => {
@@ -14,26 +14,55 @@ describe('Mask', () => {
     setTimeout(shutdown, 0);
   });
 
-  it('masks one card twice and unmask in different orders', async () => {
+  it('masks one card by 2 players and unmask in different orders', async () => {
     const priv1 = PrivateKey.random();
     const priv2 = PrivateKey.random();
-    const pub1 = priv1.toPublicKey();
-    const pub2 = priv2.toPublicKey();
 
     const originalCard = Deck.face2Card('Ace of spades');
 
-    const jointKey = computeJointKey([pub1, pub2]);
-    const masked_once = mask(originalCard, jointKey, Scalar.random());
-    const masked_twice = mask(masked_once, jointKey, Scalar.random());
+    const c1 = addPlayerToCardMask(originalCard, priv1);
+    const masked_once = mask(c1);
+    const c2 = addPlayerToCardMask(masked_once, priv2);
+    const masked_twice = mask(c2);
+
+    expect(originalCard.msg).not.toEqual(masked_once.msg);
+    expect(masked_once.msg).not.toEqual(masked_twice.msg);
 
     // unmasking first by player2, then player1
     const unmasked_once_2 = partialUnmask(masked_twice, priv2);
+    expect(unmasked_once_2.msg).not.toEqual(masked_once.msg);
     const unmasked_twice_1 = partialUnmask(unmasked_once_2, priv1);
-    expect(unmasked_twice_1.maskedPoint).toEqual(originalCard.maskedPoint);
+    expect(unmasked_twice_1.msg).toEqual(originalCard.msg);
 
     // unmasking first by player1, then player2
     const unmasked_once_1 = partialUnmask(masked_twice, priv1);
+    expect(unmasked_once_1.msg).not.toEqual(masked_once.msg);
     const unmasked_twice_2 = partialUnmask(unmasked_once_1, priv2);
-    expect(unmasked_twice_2.maskedPoint).toEqual(originalCard.maskedPoint);
+    expect(unmasked_twice_2.msg).toEqual(originalCard.msg);
+  });
+
+  it('masks one card by 2 players and unmask in different orders', async () => {
+    const priv1 = PrivateKey.random();
+    const priv2 = PrivateKey.random();
+
+    const originalCard = Deck.face2Card('Ace of spades');
+
+    const m1 = mask(mask(mask(addPlayerToCardMask(originalCard, priv1))));
+    const m2 = mask(mask(mask(addPlayerToCardMask(m1, priv2))));
+
+    expect(originalCard.msg).not.toEqual(m1.msg);
+    expect(m1.msg).not.toEqual(m2.msg);
+
+    // unmasking first by player2, then player1
+    const unmasked_once_2 = partialUnmask(m2, priv2);
+    expect(unmasked_once_2.msg).not.toEqual(m1.msg);
+    const unmasked_twice_1 = partialUnmask(unmasked_once_2, priv1);
+    expect(unmasked_twice_1.msg).toEqual(originalCard.msg);
+
+    // unmasking first by player1, then player2
+    const unmasked_once_1 = partialUnmask(m2, priv1);
+    expect(unmasked_once_1.msg).not.toEqual(m1.msg);
+    const unmasked_twice_2 = partialUnmask(unmasked_once_1, priv2);
+    expect(unmasked_twice_2.msg).toEqual(originalCard.msg);
   });
 });
