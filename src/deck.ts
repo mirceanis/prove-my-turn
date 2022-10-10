@@ -4,7 +4,8 @@ import { ZERO_KEY } from './utils';
 
 export class Deck {
   private readonly _cardFaces: string[];
-  public readonly cards: Array<Card>;
+  public cards: Array<Card>;
+  static UNKNOWN_CARD: '__unknown_card__';
 
   constructor(cardFaces: string[] = Deck.cardFaces) {
     this._cardFaces = cardFaces;
@@ -29,11 +30,13 @@ export class Deck {
   static cardFaces = Deck.buildCardFaces();
 
   static face2Card(cardFace: string): Card {
-    const cardPoint = PrivateKey.ofFields([Poseidon.hash(CircuitString.fromString(cardFace).toFields())]).toPublicKey();
+    const cardPoint = PrivateKey.ofBits(
+      Poseidon.hash(CircuitString.fromString(cardFace).toFields()).toBits()
+    ).toPublicKey();
     return new Card(ZERO_KEY, cardPoint, ZERO_KEY);
   }
 
-  static card2Face(card: Card): string {
-    return Deck.cardFaces.find((k) => Deck.face2Card(k).msg.equals(card.msg).toBoolean()) ?? 'unknown';
+  card2Face(card: Card): string {
+    return this._cardFaces.find((k) => Deck.face2Card(k).msg.equals(card.msg).toBoolean()) ?? Deck.UNKNOWN_CARD;
   }
 }
