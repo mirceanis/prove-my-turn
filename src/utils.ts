@@ -13,7 +13,7 @@ export const ZERO_KEY = PublicKey.fromGroup(Group.generator.sub(Group.generator)
  * @returns a `PublicKey` element representing the shared secret.
  */
 export function computeSharedSecret(local: PrivateKey, remote: PublicKey): PublicKey {
-  return PublicKey.fromGroup(remote.toGroup().scale(Scalar.ofFields(local.toFields())));
+  return PublicKey.fromGroup(remote.toGroup().scale(Scalar.fromFields(local.toFields())));
 }
 
 /**
@@ -32,7 +32,7 @@ export function mask(card: Card, nonce: Scalar = Scalar.random()): Card {
   if (!hasPlayers) {
     throw new Error('illegal_operation: unable to mask as there are no players available to unmask');
   }
-  const ePriv = PrivateKey.ofFields(nonce.toFields());
+  const ePriv = PrivateKey.fromFields(nonce.toFields());
   const ePub = PublicKey.fromPrivateKey(ePriv);
 
   const epk = card.epk.toGroup().add(ePub.toGroup()); // add an ephemeral public key to the joint ephemeral
@@ -73,7 +73,7 @@ export function addPlayerToCardMask(card: Card, playerSecret: PrivateKey): Card 
   const isUnmasked = card.pk.equals(ZERO_KEY);
   const pk = card.pk.toGroup().add(playerSecret.toPublicKey().toGroup());
   const epk = Circuit.if(isUnmasked, Group.generator, card.epk.toGroup()); // when unmasked, the epk is ZERO_KEY
-  const newMsg = card.msg.toGroup().add(epk.scale(Scalar.ofFields(playerSecret.toFields())));
+  const newMsg = card.msg.toGroup().add(epk.scale(Scalar.fromFields(playerSecret.toFields())));
   const msg = Circuit.if(isUnmasked, card.msg.toGroup(), newMsg);
   return new Card(card.epk, PublicKey.fromGroup(msg), PublicKey.fromGroup(pk));
 }

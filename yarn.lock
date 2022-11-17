@@ -3845,10 +3845,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snarkyjs@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/snarkyjs/-/snarkyjs-0.6.0.tgz#65a820e5fcdbe1005002695e26a92cd989c76b40"
-  integrity sha512-JcPlGrG3Ixi3o76m4nlEKyMxbelh7ZVxThdbWH7CmW81jSid89VGwVuBzVWcnrMElCl8PBV5LOONTO34VsWY8A==
+snarkyjs@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/snarkyjs/-/snarkyjs-0.7.1.tgz#2650834613d32df5cd588fc4f588e5514816c820"
+  integrity sha512-aZeSoa12HhymEx4w7nu+d22bs8PMaKASJKSoKoz+di/QkX2fxbAlt/e9pJJk1nVnoTtq3muB0kojChTzFPUt8Q==
   dependencies:
     env "^0.0.2"
     isomorphic-fetch "^3.0.0"

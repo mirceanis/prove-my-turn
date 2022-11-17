@@ -14,15 +14,15 @@ describe('Field EC operations', () => {
   });
 
   it('different private keys ofBits generate different public keys', () => {
-    const p1 = PrivateKey.ofBits(Field(2).toBits()).toPublicKey();
-    const p2 = PrivateKey.ofBits(Field(3).toBits()).toPublicKey();
+    const p1 = PrivateKey.fromBits(Field(2).toBits()).toPublicKey();
+    const p2 = PrivateKey.fromBits(Field(3).toBits()).toPublicKey();
     expect(p1).not.toEqual(p2);
   });
 
   it.skip('why are they not equal?', () => {
     const f1 = Field.random();
-    const p1 = PrivateKey.ofFields(f1.toFields());
-    const p2 = PrivateKey.ofBits(f1.toBits());
+    const p1 = PrivateKey.fromFields(f1.toFields());
+    const p2 = PrivateKey.fromBits(f1.toBits());
     expect(p1).toEqual(p2);
   });
 
