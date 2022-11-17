@@ -17,12 +17,12 @@ import { Deck } from '../deck';
 import { Card } from '../card';
 import { Player } from '../player';
 
-class GameState extends CircuitValue {
+class TestGameState extends CircuitValue {
   static numPlayers = 2;
 
   @prop playerIndex: Field;
   @prop card: Card;
-  @arrayProp(PublicKey, GameState.numPlayers) players: PublicKey[];
+  @arrayProp(PublicKey, TestGameState.numPlayers) players: PublicKey[];
 
   constructor(card: Card, players: PublicKey[]) {
     super();
@@ -33,12 +33,12 @@ class GameState extends CircuitValue {
 }
 
 let cardOperations = Experimental.ZkProgram({
-  publicInput: GameState,
+  publicInput: TestGameState,
   methods: {
     init: {
       privateInputs: [],
 
-      method(publicInput: GameState) {
+      method(publicInput: TestGameState) {
         const card = publicInput.card;
         card.msg.equals(ZERO_KEY).assertEquals(false);
         card.epk.assertEquals(ZERO_KEY);
@@ -46,16 +46,16 @@ let cardOperations = Experimental.ZkProgram({
       },
     },
     join: {
-      privateInputs: [PrivateKey, SelfProof<GameState>],
+      privateInputs: [PrivateKey, SelfProof<TestGameState>],
 
-      method(publicInput: GameState, playerSecret: PrivateKey, earlierProof: SelfProof<GameState>) {
+      method(publicInput: TestGameState, playerSecret: PrivateKey, earlierProof: SelfProof<TestGameState>) {
         // earlierProof.verify();
 
         // verify that the player is legit
 
         // const pubKey = playerSecret.toPublicKey();
         // let count = Field.zero
-        // for (let i = 0; i < GameState.numPlayers; i++) {
+        // for (let i = 0; i < TestGameState.numPlayers; i++) {
         //   const foundPlayer = earlierProof.publicInput.players[i].equals(pubKey);
         //   count = count.add(Circuit.if(foundPlayer, Field(1), Field(0)));
         // }
@@ -72,7 +72,7 @@ let cardOperations = Experimental.ZkProgram({
     },
     mask: {
       privateInputs: [Scalar, SelfProof],
-      method(publicInput: GameState, nonce: Scalar, earlierProof: SelfProof<GameState>) {
+      method(publicInput: TestGameState, nonce: Scalar, earlierProof: SelfProof<TestGameState>) {
         // earlierProof.verify();
         const newCard = mask(earlierProof.publicInput.card, nonce);
         newCard.assertEquals(publicInput.card);
@@ -102,7 +102,7 @@ describe('zkProgram test', () => {
     setTimeout(shutdown, 0);
   });
 
-  it('program operations', async () => {
+  it.skip('program operations', async () => {
     let MyProof = Experimental.ZkProgram.Proof(cardOperations);
     const originalDeck = new Deck(['hello world']);
     let cards = originalDeck.cards;
@@ -117,7 +117,7 @@ describe('zkProgram test', () => {
     console.timeEnd('compiling');
     console.log('verification key', verificationKey.slice(0, 10) + '..');
 
-    const gs = new GameState(cards[0], [ZERO_KEY, ZERO_KEY]);
+    const gs = new TestGameState(cards[0], [ZERO_KEY, ZERO_KEY]);
     // gs.players
 
     console.log('initial state');
