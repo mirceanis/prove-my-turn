@@ -25,29 +25,29 @@ describe('basic deck operations', () => {
   });
 
   it('shuffles and masks', async () => {
-    const deck = new Deck(['hello', 'world']);
-    const p1 = new Player(deck.cards.length);
-    const p2 = new Player(deck.cards.length);
+    const dd = new Deck(['hello', 'world']);
+    let deck = dd.cards;
+    const p1 = new Player(deck.length);
+    const p2 = new Player(deck.length);
 
     // player 1 shuffles and masks every card
-    p1.shuffleAndMaskDeck(deck);
+    deck = p1.shuffleAndMaskDeck(deck);
     // player 2 shuffles and masks every card
-    p2.shuffleAndMaskDeck(deck);
+    deck = p2.shuffleAndMaskDeck(deck);
     // player 1 unmasks each card with their shuffle key and re-masks using a card index key
-    p1.reMaskEachCard(deck);
+    deck = p1.reMaskEachCard(deck);
     // player 2 unmasks each card with their shuffle key and re-masks using a card index key
-    p2.reMaskEachCard(deck);
-    // player 1 unmasks top card
-    p1.openCard(deck, 0);
-    // player 2 unmasks top card
-    const topCard = p2.openCard(deck, 0);
+    deck = p2.reMaskEachCard(deck);
+    // unmask all cards
+    for (let i = 0; i < deck.length; i++) {
+      // player 1 unmasks card
+      deck = p1.openCard(deck, i);
+      // player 2 unmasks card
+      deck = p2.openCard(deck, i);
+    }
     // expect(topCard).to be one of the original pack
-    expect(deck.card2Face(topCard)).not.toEqual(Deck.UNKNOWN_CARD);
-
-    p1.openCard(deck, 1);
-    const secondCard = p2.openCard(deck, 1);
-
-    expect(deck.card2Face(secondCard)).not.toEqual(Deck.UNKNOWN_CARD);
-    expect(deck.card2Face(secondCard)).not.toEqual(deck.card2Face(topCard));
+    expect(dd.card2Face(deck[0])).not.toEqual(Deck.UNKNOWN_CARD);
+    expect(dd.card2Face(deck[1])).not.toEqual(Deck.UNKNOWN_CARD);
+    expect(dd.card2Face(deck[1])).not.toEqual(dd.card2Face(deck[0]));
   });
 });

@@ -30,7 +30,7 @@ export class Deck {
   static cardFaces = Deck.buildCardFaces();
 
   static face2Card(cardFace: string): Card {
-    const cardPoint = PrivateKey.ofBits(
+    const cardPoint = PrivateKey.fromBits(
       Poseidon.hash(CircuitString.fromString(cardFace).toFields()).toBits()
     ).toPublicKey();
     return new Card(ZERO_KEY, cardPoint, ZERO_KEY);
