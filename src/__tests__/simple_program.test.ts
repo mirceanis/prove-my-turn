@@ -45,39 +45,39 @@ let cardOperations = Experimental.ZkProgram({
         card.pk.assertEquals(ZERO_KEY);
       },
     },
-    // join: {
-    //   privateInputs: [PrivateKey, SelfProof<GameState>],
-    //
-    //   method(publicInput: GameState, playerSecret: PrivateKey, earlierProof: SelfProof<GameState>) {
-    //     // earlierProof.verify();
-    //
-    //     // verify that the player is legit
-    //
-    //     // const pubKey = playerSecret.toPublicKey();
-    //     // let count = Field.zero
-    //     // for (let i = 0; i < GameState.numPlayers; i++) {
-    //     //   const foundPlayer = earlierProof.publicInput.players[i].equals(pubKey);
-    //     //   count = count.add(Circuit.if(foundPlayer, Field(1), Field(0)));
-    //     // }
-    //     // // assert that player matches their public commitment, appearing once
-    //     // count.assertEquals(Field(1))
-    //
-    //     // TODO: assert that player did not replace someone else
-    //     // ??? don't know how yet
-    //
-    //     const newCard = addPlayerToCardMask(earlierProof.publicInput.card, playerSecret);
-    //     // card matches the expected pre-masked state
-    //     newCard.assertEquals(publicInput.card);
-    //   },
-    // },
-    // mask: {
-    //   privateInputs: [Scalar, SelfProof],
-    //   method(publicInput: GameState, nonce: Scalar, earlierProof: SelfProof<GameState>) {
-    //     // earlierProof.verify();
-    //     const newCard = mask(earlierProof.publicInput.card, nonce);
-    //     newCard.assertEquals(publicInput.card);
-    //   },
-    // },
+    join: {
+      privateInputs: [PrivateKey, SelfProof<GameState>],
+
+      method(publicInput: GameState, playerSecret: PrivateKey, earlierProof: SelfProof<GameState>) {
+        // earlierProof.verify();
+
+        // verify that the player is legit
+
+        // const pubKey = playerSecret.toPublicKey();
+        // let count = Field.zero
+        // for (let i = 0; i < GameState.numPlayers; i++) {
+        //   const foundPlayer = earlierProof.publicInput.players[i].equals(pubKey);
+        //   count = count.add(Circuit.if(foundPlayer, Field(1), Field(0)));
+        // }
+        // // assert that player matches their public commitment, appearing once
+        // count.assertEquals(Field(1))
+
+        // TODO: assert that player did not replace someone else
+        // ??? don't know how yet
+
+        const newCard = addPlayerToCardMask(earlierProof.publicInput.card, playerSecret);
+        // card matches the expected pre-masked state
+        newCard.assertEquals(publicInput.card);
+      },
+    },
+    mask: {
+      privateInputs: [Scalar, SelfProof],
+      method(publicInput: GameState, nonce: Scalar, earlierProof: SelfProof<GameState>) {
+        // earlierProof.verify();
+        const newCard = mask(earlierProof.publicInput.card, nonce);
+        newCard.assertEquals(publicInput.card);
+      },
+    },
     // unmask: {
     //   privateInputs: [PrivateKey, SelfProof],
     //
@@ -135,29 +135,29 @@ describe('zkProgram test', () => {
     console.log('player 1 joining...');
     gs.card = addPlayerToCardMask(gs.card, p1.secrets._shuffleKey);
     gs.players[0] = p1.publicKeys.shuffleKey;
-    // console.time('player 1 joining...');
-    // proof = await cardOperations.join(gs, p1.secrets._shuffleKey, proof);
-    // console.timeEnd('player 1 joining...');
-    // proof = testJsonRoundtrip(proof);
-    //
-    // console.log('verify using program...');
-    // ok = await cardOperations.verify(proof);
-    // console.log('ok (alternative)?', ok);
-    //
-    // console.log('verify directly...');
-    // ok = await verify(proof, verificationKey);
-    // console.log('ok?', ok);
-    //
-    // console.log('player 1 masking...');
-    // const maskingNonce = Scalar.random();
-    // gs.card = mask(gs.card, maskingNonce);
-    // proof = await cardOperations.mask(gs, maskingNonce, proof);
-    // proof = testJsonRoundtrip(proof);
-    //
-    // console.log('verify...');
-    // ok = await verify(proof.toJSON(), verificationKey);
-    //
-    // console.log('ok?', ok);
+    console.time('player 1 joining...');
+    proof = await cardOperations.join(gs, p1.secrets._shuffleKey, proof);
+    console.timeEnd('player 1 joining...');
+    proof = testJsonRoundtrip(proof);
+
+    console.log('verify using program...');
+    ok = await cardOperations.verify(proof);
+    console.log('ok (alternative)?', ok);
+
+    console.log('verify directly...');
+    ok = await verify(proof, verificationKey);
+    console.log('ok?', ok);
+
+    console.log('player 1 masking...');
+    const maskingNonce = Scalar.random();
+    gs.card = mask(gs.card, maskingNonce);
+    proof = await cardOperations.mask(gs, maskingNonce, proof);
+    proof = testJsonRoundtrip(proof);
+
+    console.log('verify...');
+    ok = await verify(proof.toJSON(), verificationKey);
+
+    console.log('ok?', ok);
 
     function testJsonRoundtrip(proof: any): any {
       let jsonProof = proof.toJSON();
