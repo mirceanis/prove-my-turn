@@ -36,7 +36,6 @@ export function PlayerSecretsFactory(numCards: number): typeof BasePlayerSecrets
       super();
       this._shuffleKey = PrivateKey.random();
       this._cardKeys = [];
-      console.log(`player secrets with ${PlayerSecrets_.numCards}`);
       for (let i = 0; i < PlayerSecrets_.numCards; i++) {
         this._cardKeys.push(PrivateKey.random());
       }
@@ -89,11 +88,8 @@ export class Player {
     class PlayerSecrets extends PlayerSecretsFactory(numCards) {}
     class PlayerKeys extends PlayerKeysFactory(numCards) {}
 
-    console.log('creating player secrets');
     this.secrets = new PlayerSecrets();
-    console.log('deriving player keys');
     this.publicKeys = new PlayerKeys(this.secrets);
-    console.log('done');
   }
 
   /**
