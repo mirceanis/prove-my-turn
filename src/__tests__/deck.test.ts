@@ -14,6 +14,12 @@ describe('basic deck operations', () => {
     setTimeout(shutdown, 0);
   });
 
+  it('maps same card to same point', async () => {
+    const c1 = Deck.face2Card('hello');
+    const c2 = Deck.face2Card('hello');
+    expect(c1).toEqual(c2);
+  });
+
   it('maps cards to different points', async () => {
     const c1 = Deck.face2Card('hello');
     const c2 = Deck.face2Card('world');
