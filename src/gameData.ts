@@ -347,3 +347,12 @@ export function applyMask(oldGameData: GameData, player: Player): GameData {
   newGameData.deck = player.reMaskEachCard(oldGameData.deck);
   return newGameData;
 }
+
+export function openCard(oldGameData: GameData, player: Player, cardIndex: number): GameData {
+  const newGameData = Object.assign({}, oldGameData);
+  newGameData.nonce = newGameData.nonce.add(1);
+  newGameData.gameState = Field(GameState.deal);
+  newGameData.currentPlayer = bumpCurrentPlayer(oldGameData);
+  newGameData.deck = player.openCard(oldGameData.deck, cardIndex);
+  return newGameData;
+}
