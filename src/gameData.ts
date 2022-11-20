@@ -1,6 +1,6 @@
 import { CARDS_IN_DECK, Deck } from './deck';
-import { Player, PlayerKeys } from './player';
-import { Circuit, CircuitValue, Field, PublicKey, Struct } from 'snarkyjs';
+import { PlayerKeys } from './player';
+import { Circuit, Field, Struct } from 'snarkyjs';
 import { Card } from './card';
 
 export enum GameState {
@@ -15,6 +15,18 @@ export enum GameState {
 const NUM_PLAYERS = 2;
 
 /**
+ * Card owner constants.
+ *
+ * Player owners are set to be the player index (0..NUM_PLAYERS)
+ */
+// shuffled cards laying face-down. Their order is given by the order in the deck
+const FRESH_STACK = -1;
+// played cards stacked face-up. Their order does not matter for this game, except for the top card.
+const DISCARD_STACK = -1;
+// top card of the discard stack. There can be only one of these.
+const TOP_CARD = -1;
+
+/**
  * Holds the public game data
  */
 export class GameData extends Struct({
@@ -24,13 +36,14 @@ export class GameData extends Struct({
   currentPlayer: Field,
   // the array of masked cards. Once shuffled, these don't change position, but they can be unmasked in place
   deck: Circuit.array<Card>(Card, CARDS_IN_DECK),
-  // the array deciding where masked cards belong (which player or which pile)
+  // the array deciding where masked cards belong (which player or which pile); See `card owner constants` above.
   cardOwner: Circuit.array<Field>(Field, CARDS_IN_DECK),
   // the public keys of each player
   players: Circuit.array<PlayerKeys>(PlayerKeys, NUM_PLAYERS),
-
-  gameState: Field, // GameState (shuffling, dealing, playing, etc)
-  challenge: Field, // value specific to this game
+  // GameState (shuffling, dealing, playing, etc)
+  gameState: Field,
+  // value specific to this game
+  challenge: Field,
 }) {}
 
 /**
@@ -130,7 +143,7 @@ export function createGame(): GameData {
     deck: Deck.buildCardFaces().map(Deck.face2Card),
 
     // the array deciding where masked cards belong (which player or which pile)
-    cardOwner: Array(CARDS_IN_DECK).fill(Field(0)),
+    cardOwner: Array(CARDS_IN_DECK).fill(Field(FRESH_STACK)),
 
     // the public keys of each player
     players: Array(NUM_PLAYERS).fill(PlayerKeys.BLANK),
@@ -144,7 +157,8 @@ export function joinGame(oldGameData: GameData, player: PlayerKeys): GameData {
   const newGameData = Object.assign({}, oldGameData);
   newGameData.nonce = newGameData.nonce.add(1);
   newGameData.currentPlayer = newGameData.currentPlayer.add(1);
-  const playerIndex: number = JSON.parse(newGameData.nonce.toJSON());
+  // FIXME: this is not provable in a circuit
+  const playerIndex: number = JSON.parse(newGameData.currentPlayer.toJSON());
   newGameData.players[playerIndex] = player;
   return newGameData;
 }
