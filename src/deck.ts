@@ -1,13 +1,18 @@
-import { CircuitString, Poseidon, PrivateKey } from 'snarkyjs';
+import { CircuitString, Poseidon, PrivateKey, PublicKey } from 'snarkyjs';
 import { Card } from './card';
 import { ZERO_KEY } from './utils';
+
+/**
+ * A deck of playing cards including 2 jokers
+ */
+export const CARDS_IN_DECK = 13 * 4 + 2;
 
 export class Deck {
   private readonly _cardFaces: string[];
   public cards: Array<Card>;
   static UNKNOWN_CARD: '__unknown_card__';
 
-  constructor(cardFaces: string[] = Deck.cardFaces) {
+  constructor(cardFaces: string[] = []) {
     this._cardFaces = cardFaces;
     this.cards = this._cardFaces.map(Deck.face2Card);
   }
@@ -27,8 +32,6 @@ export class Deck {
     return cardFaces;
   }
 
-  static cardFaces = Deck.buildCardFaces();
-
   static face2Card(cardFace: string): Card {
     const cardPoint = PrivateKey.fromBits(
       Poseidon.hash(CircuitString.fromString(cardFace).toFields()).toBits()
@@ -38,5 +41,10 @@ export class Deck {
 
   card2Face(card: Card): string {
     return this._cardFaces.find((k) => Deck.face2Card(k).msg.equals(card.msg).toBoolean()) ?? Deck.UNKNOWN_CARD;
+  }
+
+  private static _standardDeckWithJokers: Deck;
+  static get standardDeckWithJokers(): Deck {
+    return this._standardDeckWithJokers || (this._standardDeckWithJokers = new Deck(this.buildCardFaces()));
   }
 }

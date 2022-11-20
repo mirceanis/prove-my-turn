@@ -1,5 +1,5 @@
-import { Deck } from './deck';
-import { Player, PlayerKeysFactory } from './player';
+import { CARDS_IN_DECK, Deck } from './deck';
+import { Player, PlayerKeys } from './player';
 import { Circuit, CircuitValue, Field, PublicKey, Struct } from 'snarkyjs';
 import { Card } from './card';
 
@@ -12,25 +12,7 @@ export enum GameState {
   win,
 }
 
-const CARDS_IN_DECK = 54; // 13 ranks * 4 suites + 2 jokers
 const NUM_PLAYERS = 2;
-
-class PlayerKeys extends Struct({
-  shuffleKey: PublicKey,
-  cardKeys: Circuit.array<PublicKey>(PublicKey, CARDS_IN_DECK),
-}) {
-  private static _BLANK: PlayerKeys;
-
-  static get BLANK() {
-    return (
-      this._BLANK ||
-      (this._BLANK = new PlayerKeys({
-        shuffleKey: PublicKey.empty(),
-        cardKeys: Array(CARDS_IN_DECK).fill(PublicKey.empty()),
-      }))
-    );
-  }
-}
 
 /**
  * Holds the public game data

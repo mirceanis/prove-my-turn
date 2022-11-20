@@ -26,15 +26,19 @@ describe('basic deck operations', () => {
     expect(c1).not.toEqual(c2);
   });
 
-  it('all cards are different points', () => {
-    expect(new Set(new Deck().cards.map((card) => card.msg)).size).toBe(13 * 4 + 2);
+  it('maps cards to distinct points', () => {
+    expect(new Set(new Deck(['hello', 'hello', 'world']).cards.map((card) => card.msg.toBase58())).size).toBe(2);
+  });
+
+  it('all cards in a standard deck are distinct points', () => {
+    expect(new Set(Deck.standardDeckWithJokers.cards.map((card) => card.msg.toBase58())).size).toBe(13 * 4 + 2);
   });
 
   it('shuffles and masks', async () => {
-    const dd = new Deck(['hello', 'world']);
+    const dd = Deck.standardDeckWithJokers;
     let deck = dd.cards;
-    const p1 = new Player(deck.length);
-    const p2 = new Player(deck.length);
+    const p1 = new Player();
+    const p2 = new Player();
 
     // player 1 shuffles and masks every card
     deck = p1.shuffleAndMaskDeck(deck);
