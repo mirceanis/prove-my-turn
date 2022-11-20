@@ -107,8 +107,8 @@ describe('zkProgram test', () => {
     let MyProof = Experimental.ZkProgram.Proof(cardOperations);
     const originalDeck = new Deck(['hello world']);
     let cards = originalDeck.cards;
-    const p1 = new Player(1);
-    const p2 = new Player(1);
+    const p1 = new Player();
+    const p2 = new Player();
 
     console.log('program digest', cardOperations.digest());
 

@@ -1,103 +1,57 @@
-import { arrayProp, CircuitValue, PrivateKey, prop, PublicKey } from 'snarkyjs';
+import { arrayProp, Circuit, CircuitValue, PrivateKey, prop, Provable, PublicKey, Struct } from 'snarkyjs';
 import { addPlayerToCardMask, generateShuffle, mask, partialUnmask, shuffleArray } from './utils';
 import { Card } from './card';
+import { CARDS_IN_DECK } from './deck';
 
-/**
- * Base class used in the factory that generates {@link PlayerSecrets_} class built for a specific number of cards.
- * It represents the secret keys used during the (de)encryption process.
- */
-export class BasePlayerSecrets extends CircuitValue {
-  /**
-   * The number of cards in the deck.
-   * This static number gets set by the factory.
-   */
-  static numCards: number;
+export class PlayerKeys extends Struct({
+  shuffleKey: PublicKey,
+  cardKeys: Circuit.array<PublicKey>(PublicKey, CARDS_IN_DECK),
+}) {
+  static _BLANK: PlayerKeys;
 
-  /**
-   * private key used during the first stage of the shuffle and mask operation
-   */
-  @prop _shuffleKey: PrivateKey;
-
-  /**
-   * List of private keys used for masking each card in the deck in the second stage of the shuffle and mask operation
-   */
-  _cardKeys: PrivateKey[];
-}
-
-/**
- * Creates a {@link PlayerSecrets_} class for a deck with a specific number of cards
- * @param numCards - the number of cards in the deck
- */
-export function PlayerSecretsFactory(numCards: number): typeof BasePlayerSecrets {
-  class PlayerSecrets_ extends BasePlayerSecrets {
-    static numCards = numCards;
-
-    constructor() {
-      super();
-      this._shuffleKey = PrivateKey.random();
-      this._cardKeys = [];
-      for (let i = 0; i < PlayerSecrets_.numCards; i++) {
-        this._cardKeys.push(PrivateKey.random());
-      }
-    }
+  static get BLANK() {
+    return (
+      this._BLANK ||
+      (this._BLANK = new PlayerKeys({
+        shuffleKey: PublicKey.empty(),
+        cardKeys: Array(CARDS_IN_DECK).fill(PublicKey.empty()),
+      }))
+    );
   }
 
-  arrayProp(PrivateKey, numCards)(PlayerSecrets_.prototype, 'numCards');
-  return PlayerSecrets_;
-}
-
-/**
- * Base class used in the factory that generates {@link PlayerKeys_} class built for a specific number of cards.
- * It represents the collection of public keys corresponding to the decryption keys in a {@link PlayerSecrets_}.
- */
-export class BasePlayerKeys extends CircuitValue {
-  static numCards: number;
-  @prop shuffleKey: PublicKey;
-  cardKeys: PublicKey[];
-}
-
-/**
- * Creates a {@link PlayerKeys_} class for a deck with a specific number of cards
- * @param numCards - the number of cards in the deck
- */
-export function PlayerKeysFactory(numCards: number): typeof BasePlayerKeys {
-  class PlayerKeys_ extends BasePlayerKeys {
-    static numCards = numCards;
-
-    constructor() {
-      super();
-      this.shuffleKey = PublicKey.empty();
-      this.cardKeys = Array(numCards).fill(PublicKey.empty());
+  static fromSecrets(secrets: PlayerSecrets): PlayerKeys {
+    if (secrets._cardKeys.length !== CARDS_IN_DECK) {
+      throw new Error(
+        `can't initialize different number of public keys(${CARDS_IN_DECK}) versus secret keys(${secrets._cardKeys.length})`
+      );
     }
-
-    static fromSecrets(secrets: BasePlayerSecrets): PlayerKeys_ {
-      const result = new PlayerKeys_();
-      if (secrets._cardKeys.length !== PlayerKeys_.numCards) {
-        throw new Error(
-          `can't initialize different number of public keys(${PlayerKeys_.numCards}) versus secret keys(${secrets._cardKeys.length})`
-        );
-      }
-      result.cardKeys = secrets._cardKeys.map((key) => key.toPublicKey());
-      result.shuffleKey = secrets._shuffleKey.toPublicKey();
-      return result;
-    }
+    const cardKeys = secrets._cardKeys.map((key) => key.toPublicKey());
+    const shuffleKey = secrets._shuffleKey.toPublicKey();
+    return { shuffleKey, cardKeys } as PlayerKeys;
   }
+}
 
-  arrayProp(PublicKey, numCards)(PlayerKeys_.prototype, 'numCards');
-  return PlayerKeys_;
+export class PlayerSecrets extends Struct({
+  _shuffleKey: PrivateKey,
+  _cardKeys: Circuit.array<PrivateKey>(PrivateKey, CARDS_IN_DECK),
+}) {
+  static generate(): PlayerSecrets {
+    const _shuffleKey = PrivateKey.random();
+    const _cardKeys = [];
+    for (let i = 0; i < CARDS_IN_DECK; i++) {
+      _cardKeys.push(PrivateKey.random());
+    }
+    return { _shuffleKey, _cardKeys };
+  }
 }
 
 export class Player {
-  secrets: BasePlayerSecrets;
-  publicKeys: BasePlayerKeys;
+  secrets: PlayerSecrets;
+  publicKeys: PlayerKeys;
 
-  constructor(numCards: number) {
-    class PlayerSecrets extends PlayerSecretsFactory(numCards) {}
-
-    class PlayerKeys extends PlayerKeysFactory(numCards) {}
-
-    this.secrets = new PlayerSecrets();
-    this.publicKeys = new PlayerKeys(this.secrets);
+  constructor() {
+    this.secrets = PlayerSecrets.generate();
+    this.publicKeys = PlayerKeys.fromSecrets(this.secrets);
   }
 
   /**
