@@ -159,7 +159,7 @@ export function createGame(): GameData {
     nonce: Field(0),
     currentPlayer: Field(-1),
     // the array of masked cards. Once shuffled, these don't change position, but they can be unmasked in place
-    deck: Deck.buildCardFaces().map(Deck.face2Card),
+    deck: Deck.standardDeckWithJokers.cards,
 
     // the array deciding where masked cards belong (which player or which pile)
     cardOwner: Array(CARDS_IN_DECK).fill(Field(FRESH_STACK)),

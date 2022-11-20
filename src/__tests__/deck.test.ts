@@ -1,4 +1,4 @@
-import { isReady, shutdown } from 'snarkyjs';
+import { isReady, PublicKey, shutdown } from 'snarkyjs';
 import { Deck } from '../deck';
 import { Player } from '../player';
 
@@ -59,5 +59,26 @@ describe('basic deck operations', () => {
     expect(dd.card2Face(deck[0])).not.toEqual(Deck.UNKNOWN_CARD);
     expect(dd.card2Face(deck[1])).not.toEqual(Deck.UNKNOWN_CARD);
     expect(dd.card2Face(deck[1])).not.toEqual(dd.card2Face(deck[0]));
+  });
+
+  it.skip('generates cards', async () => {
+    const builtCards = Deck.buildCardFaces();
+    const mapped = builtCards.cardFaces.map((face) => {
+      return { face, card: Deck.face2Card(face).msg.toBase58() };
+    });
+    const byFace: Record<string, string> = {};
+    for (const cc of mapped) {
+      byFace[cc.face] = cc.card;
+    }
+    const bySuite: Record<string, string[]> = {};
+    for (const suite of Object.keys(builtCards.bySuite)) {
+      bySuite[suite] = builtCards.bySuite[suite].map((face) => byFace[face]);
+    }
+    const byRank: Record<string, string[]> = {};
+    for (const rank of Object.keys(builtCards.byRank)) {
+      byRank[rank] = builtCards.byRank[rank].map((face) => byFace[face]);
+    }
+
+    console.dir({ byFace, bySuite, byRank }, { depth: 10 });
   });
 });
