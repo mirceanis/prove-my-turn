@@ -1,5 +1,6 @@
 import {
   arrayProp,
+  Circuit,
   CircuitValue,
   Experimental,
   Field,
@@ -67,7 +68,7 @@ let cardOperations = Experimental.ZkProgram({
 
         const newCard = addPlayerToCardMask(earlierProof.publicInput.card, playerSecret);
         // card matches the expected pre-masked state
-        newCard.assertEquals(publicInput.card);
+        Circuit.assertEqual(Card, newCard, publicInput.card);
       },
     },
     mask: {
@@ -75,7 +76,7 @@ let cardOperations = Experimental.ZkProgram({
       method(publicInput: TestGameState, nonce: Scalar, earlierProof: SelfProof<TestGameState>) {
         // earlierProof.verify();
         const newCard = mask(earlierProof.publicInput.card, nonce);
-        newCard.assertEquals(publicInput.card);
+        Circuit.assertEqual(Card, newCard, publicInput.card);
       },
     },
     // unmask: {

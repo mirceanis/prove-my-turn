@@ -25,10 +25,4 @@ export class Card extends Struct({
   constructor(c1: PublicKey, c2: PublicKey, h: PublicKey) {
     super({ pk: h, epk: c1, msg: c2 });
   }
-
-  assertEquals(other: Card) {
-    this.epk.assertEquals(other.epk);
-    this.pk.assertEquals(other.pk);
-    this.msg.assertEquals(other.msg);
-  }
 }
