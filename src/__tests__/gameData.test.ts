@@ -1,5 +1,5 @@
 import { Circuit, Field, isReady, shutdown } from 'snarkyjs';
-import { createGame, GameData, joinGame } from '../gameData';
+import { createGame, GameData, isValidTransition, joinGame } from '../gameData';
 import { Player } from '../player';
 
 describe('gameData', () => {
@@ -36,10 +36,13 @@ describe('gameData', () => {
     const initialState = createGame();
     const p1 = new Player();
     const p1Joined = joinGame(initialState, p1.publicKeys);
+    expect(isValidTransition(initialState, p1Joined)).toBeTruthy();
     const p2 = new Player();
     const p2Joined = joinGame(p1Joined, p2.publicKeys);
-
+    expect(isValidTransition(p1Joined, p2Joined)).toBeTruthy();
     p2Joined.currentPlayer.assertEquals(1);
     expect(p2Joined.players).toEqual([p1.publicKeys, p2.publicKeys]);
   });
+
+  it('can shuffle', async () => {});
 });
