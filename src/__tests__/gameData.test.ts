@@ -1,5 +1,5 @@
 import { Circuit, Field, isReady, shutdown } from 'snarkyjs';
-import { createGame, GameData, isValidTransition, joinGame } from '../gameData';
+import { applyMask, applyShuffle, createGame, GameData, isValidTransition, joinGame } from '../gameData';
 import { Player } from '../player';
 
 describe('gameData', () => {
@@ -42,5 +42,55 @@ describe('gameData', () => {
     expect(isValidTransition(p1Joined, p2Joined)).toBeTruthy();
     p2Joined.currentPlayer.assertEquals(1);
     expect(p2Joined.players).toEqual([p1.publicKeys, p2.publicKeys]);
+  });
+
+  it('players can shuffle cards', async () => {
+    const initialState = createGame();
+    const p1 = new Player();
+    const p2 = new Player();
+    const p1Joined = joinGame(initialState, p1.publicKeys);
+    const p2Joined = joinGame(p1Joined, p2.publicKeys);
+    const p1Shuffled = applyShuffle(p2Joined, p1);
+    expect(isValidTransition(p2Joined, p1Shuffled)).toBeTruthy();
+    const p2Shuffled = applyShuffle(p1Shuffled, p2);
+    expect(isValidTransition(p1Shuffled, p2Shuffled)).toBeTruthy();
+
+    // wrong player shuffling
+    const wrongPlayer = applyShuffle(p2Joined, p2);
+    expect(() => {
+      isValidTransition(p2Joined, wrongPlayer);
+    }).toThrow(/failed to check GameState.shuffle was performed correctly/);
+
+    // introductions after shuffling
+    const wrongOperation = joinGame(p1Shuffled, new Player().publicKeys);
+    expect(() => {
+      isValidTransition(p1Shuffled, wrongOperation);
+    }).toThrow(/failed to check GameState.introductions/);
+  });
+
+  it('players can mask cards', async () => {
+    const initialState = createGame();
+    const p1 = new Player();
+    const p2 = new Player();
+    const p1Joined = joinGame(initialState, p1.publicKeys);
+    const p2Joined = joinGame(p1Joined, p2.publicKeys);
+    const p1Shuffled = applyShuffle(p2Joined, p1);
+    const p2Shuffled = applyShuffle(p1Shuffled, p2);
+    const p1Mask = applyMask(p2Shuffled, p1);
+    expect(isValidTransition(p2Shuffled, p1Mask)).toBeTruthy();
+    const p2Mask = applyMask(p1Mask, p2);
+    expect(isValidTransition(p1Mask, p2Mask)).toBeTruthy();
+
+    // wrong player masking
+    const wrongPlayer = applyMask(p2Shuffled, p2);
+    expect(() => {
+      isValidTransition(p2Shuffled, wrongPlayer);
+    }).toThrow(/failed to check GameState.mask was performed correctly/);
+
+    // shuffling after masking
+    const wrongOperation = applyShuffle(p1Mask, p2);
+    expect(() => {
+      isValidTransition(p1Mask, wrongOperation);
+    }).toThrow(/failed to check GameState.shuffle was performed correctly/);
   });
 });
