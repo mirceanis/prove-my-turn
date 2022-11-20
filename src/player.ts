@@ -64,15 +64,22 @@ export function PlayerKeysFactory(numCards: number): typeof BasePlayerKeys {
   class PlayerKeys_ extends BasePlayerKeys {
     static numCards = numCards;
 
-    constructor(secrets: BasePlayerSecrets) {
+    constructor() {
       super();
+      this.shuffleKey = PublicKey.empty();
+      this.cardKeys = Array(numCards).fill(PublicKey.empty());
+    }
+
+    static fromSecrets(secrets: BasePlayerSecrets): PlayerKeys_ {
+      const result = new PlayerKeys_();
       if (secrets._cardKeys.length !== PlayerKeys_.numCards) {
         throw new Error(
           `can't initialize different number of public keys(${PlayerKeys_.numCards}) versus secret keys(${secrets._cardKeys.length})`
         );
       }
-      this.cardKeys = secrets._cardKeys.map((key) => key.toPublicKey());
-      this.shuffleKey = secrets._shuffleKey.toPublicKey();
+      result.cardKeys = secrets._cardKeys.map((key) => key.toPublicKey());
+      result.shuffleKey = secrets._shuffleKey.toPublicKey();
+      return result;
     }
   }
 
@@ -86,6 +93,7 @@ export class Player {
 
   constructor(numCards: number) {
     class PlayerSecrets extends PlayerSecretsFactory(numCards) {}
+
     class PlayerKeys extends PlayerKeysFactory(numCards) {}
 
     this.secrets = new PlayerSecrets();
