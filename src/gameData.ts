@@ -1,6 +1,6 @@
 import { CARDS_IN_DECK, Deck } from './deck';
 import { PlayerKeys } from './player';
-import { Circuit, Field, Struct } from 'snarkyjs';
+import { Bool, Circuit, Field, Struct } from 'snarkyjs';
 import { Card } from './card';
 
 export enum GameState {
@@ -68,16 +68,35 @@ export class GameData extends Struct({
  * @param newData
  */
 export function isValidTransition(oldData: GameData, newData: GameData): boolean {
-  // assert currentPlayer == oldPlayer + 1
   // assert game nonce is incremented by one
-  // assert nonce was not already used (check against local state)
+  newData.nonce.assertEquals(oldData.nonce.add(1));
+  // TODO: assert nonce was not already used (check against local state)
+  // assert currentPlayer == oldPlayer + 1
+  const expectedCurrentPlayer = Circuit.if(
+    oldData.currentPlayer.equals(NUM_PLAYERS - 1),
+    Field(0),
+    oldData.currentPlayer.add(1)
+  );
+  newData.currentPlayer.assertEquals(expectedCurrentPlayer);
+
+  // FIXME: this is not provable in circuit
   const oldState = Number.parseInt(oldData.gameState.toJSON());
   const newState = Number.parseInt(newData.gameState.toJSON());
   switch (oldState) {
     case GameState.introductions:
       if (newState === GameState.introductions) {
         // assert new state players array starts with old state players array
-        // assert player[currentPlayer] is not null
+        for (let i = 0; i < NUM_PLAYERS; i++) {
+          let condition: Bool;
+          if (Circuit.inCheckedComputation()) {
+            condition = oldData.currentPlayer.gt(i);
+          } else {
+            condition = Bool(oldData.currentPlayer.toBigInt() > i);
+          }
+          const compareWith = Circuit.if(condition, oldData.players[i], newData.players[i]);
+          Circuit.assertEqual(PlayerKeys, newData.players[i], compareWith);
+        }
+        // TODO: assert player[currentPlayer] is not null
       } else if (newState === GameState.shuffle) {
         // assert all players not null
         // assert currentPlayer == 0
@@ -132,7 +151,7 @@ export function isValidTransition(oldData: GameData, newData: GameData): boolean
       }
       break;
   }
-  return false;
+  return true;
 }
 
 export function createGame(): GameData {
