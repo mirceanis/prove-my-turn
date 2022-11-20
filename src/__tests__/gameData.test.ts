@@ -93,4 +93,8 @@ describe('gameData', () => {
       isValidTransition(p1Mask, wrongOperation);
     }).toThrow(/failed to check GameState.shuffle was performed correctly/);
   });
+
+  it.todo('cards can be dealt');
+  it.todo('player can place card');
+  it.todo('player can win');
 });
