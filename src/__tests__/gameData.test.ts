@@ -43,6 +43,4 @@ describe('gameData', () => {
     p2Joined.currentPlayer.assertEquals(1);
     expect(p2Joined.players).toEqual([p1.publicKeys, p2.publicKeys]);
   });
-
-  it('can shuffle', async () => {});
 });
