@@ -5,10 +5,7 @@ import { ZERO_KEY } from './utils';
 export class Deck {
   private readonly _cardFaces: string[];
   public cards: Array<Card>;
-  public cardOwner: Array<number>;
   static UNKNOWN_CARD: '__unknown_card__';
-  static FRESH_PILE: 0;
-  static DISCARD_PILE: -1;
 
   constructor(cardFaces: string[] = Deck.cardFaces) {
     this._cardFaces = cardFaces;
