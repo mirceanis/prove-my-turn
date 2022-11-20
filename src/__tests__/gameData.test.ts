@@ -1,8 +1,6 @@
-import { Circuit, CircuitValue, Field, isReady, PrivateKey, shutdown } from 'snarkyjs';
-import { Deck } from '../deck';
-import { addPlayerToCardMask, mask, partialUnmask } from '../utils';
-import { createGame, GameData } from '../gameData';
-import { Card } from '../card';
+import { Circuit, Field, isReady, shutdown } from 'snarkyjs';
+import { createGame, GameData, joinGame } from '../gameData';
+import { Player } from '../player';
 
 describe('gameData', () => {
   beforeEach(async () => {
@@ -24,9 +22,6 @@ describe('gameData', () => {
 
   it('can (de)serialize gameData', async () => {
     const initialState = createGame();
-    const gameDataString = JSON.stringify(GameData.toJSON(initialState));
-
-    console.log((<any>GameData).type);
 
     const serializedGameData = JSON.stringify(GameData.toFields(initialState).map((x) => x.toJSON()));
     const deserializedRaw: string[] = JSON.parse(serializedGameData);
@@ -35,5 +30,16 @@ describe('gameData', () => {
       []
     );
     Circuit.assertEqual<GameData>(GameData, initialState, reconstructed);
+  });
+
+  it('players can join the game', async () => {
+    const initialState = createGame();
+    const p1 = new Player();
+    const p1Joined = joinGame(initialState, p1.publicKeys);
+    const p2 = new Player();
+    const p2Joined = joinGame(p1Joined, p2.publicKeys);
+
+    p2Joined.currentPlayer.assertEquals(1);
+    expect(p2Joined.players).toEqual([p1.publicKeys, p2.publicKeys]);
   });
 });
