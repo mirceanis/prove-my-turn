@@ -1,6 +1,17 @@
 import { Circuit, Field, isReady, shutdown } from 'snarkyjs';
-import { applyMask, applyShuffle, createGame, dealFirstHand, GameData, isValidTransition, joinGame } from '../gameData';
+import {
+  applyMask,
+  applyShuffle,
+  createGame,
+  dealFirstHand,
+  GameData,
+  isValidTransition,
+  joinGame,
+  TOP_CARD,
+} from '../gameData';
 import { Player } from '../player';
+import { CARDS_IN_DECK, Deck } from '../deck';
+import { Card } from '../card';
 
 describe('gameData', () => {
   beforeEach(async () => {
@@ -112,6 +123,16 @@ describe('gameData', () => {
     expect(isValidTransition(p2Mask, p1Deal).toBoolean()).toBeTruthy();
     const p2Deal = dealFirstHand(p1Deal, p2);
     expect(isValidTransition(p1Deal, p2Deal).toBoolean()).toBeTruthy();
+
+    // print top card from discard pile
+    let card: Card = Deck.face2Card(Deck.UNKNOWN_CARD);
+    for (let i = 0; i < CARDS_IN_DECK; i++) {
+      if (p2Deal.cardOwner[i].equals(Field(TOP_CARD)).toBoolean()) {
+        card = p2Deal.deck[i];
+        break;
+      }
+    }
+    console.log(Deck.standardDeckWithJokers.card2Face(card));
 
     // wrong player dealing
     const wrongPlayer = dealFirstHand(p2Mask, p2);

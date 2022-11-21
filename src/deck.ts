@@ -11,7 +11,7 @@ export const INITIAL_NUM_CARDS = 5; // includes 2 jokers
 export class Deck {
   private readonly _cardFaces: string[];
   public cards: Array<Card>;
-  static UNKNOWN_CARD: '__unknown_card__';
+  static UNKNOWN_CARD = '__unknown_card__';
 
   constructor(cardFaces: string[] = []) {
     this._cardFaces = cardFaces;
