@@ -13,7 +13,7 @@ import {
   shutdown,
   verify,
 } from 'snarkyjs';
-import { addPlayerToCardMask, mask, ZERO_KEY } from '../utils';
+import { addPlayerToCardMask, KeyUtils, mask } from '../utils';
 import { Deck } from '../deck';
 import { Card } from '../card';
 import { Player } from '../player';
@@ -41,9 +41,9 @@ let cardOperations = Experimental.ZkProgram({
 
       method(publicInput: TestGameState) {
         const card = publicInput.card;
-        card.msg.equals(ZERO_KEY).assertEquals(false);
-        card.epk.assertEquals(ZERO_KEY);
-        card.pk.assertEquals(ZERO_KEY);
+        card.msg.equals(KeyUtils.emptyPublicKey).assertEquals(false);
+        card.epk.assertEquals(KeyUtils.emptyPublicKey);
+        card.pk.assertEquals(KeyUtils.emptyPublicKey);
       },
     },
     join: {
@@ -118,7 +118,7 @@ describe('zkProgram test', () => {
     console.timeEnd('compiling');
     console.log('verification key', verificationKey.slice(0, 10) + '..');
 
-    const gs = new TestGameState(cards[0], [ZERO_KEY, ZERO_KEY]);
+    const gs = new TestGameState(cards[0], [KeyUtils.emptyPublicKey, KeyUtils.emptyPublicKey]);
     // gs.players
 
     console.log('initial state');

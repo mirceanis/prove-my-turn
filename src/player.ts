@@ -1,13 +1,16 @@
-import { arrayProp, Circuit, CircuitValue, PrivateKey, prop, Provable, PublicKey, Struct } from 'snarkyjs';
-import { addPlayerToCardMask, generateShuffle, mask, partialUnmask, shuffleArray } from './utils';
+import { Circuit, PrivateKey, PublicKey, Struct } from 'snarkyjs';
+import { addPlayerToCardMask, generateShuffle, KeyUtils, mask, partialUnmask, shuffleArray } from './utils';
 import { Card } from './card';
 import { CARDS_IN_DECK } from './deck';
 
+/**
+ * Holds the Public Keys a player uses to mask cards
+ */
 export class PlayerKeys extends Struct({
   shuffleKey: PublicKey,
   cardKeys: Circuit.array<PublicKey>(PublicKey, CARDS_IN_DECK),
 }) {
-  static _BLANK: PlayerKeys;
+  private static _BLANK: PlayerKeys;
 
   static get BLANK() {
     return (
@@ -31,10 +34,25 @@ export class PlayerKeys extends Struct({
   }
 }
 
+/**
+ * Holds the private keys a player uses to open cards
+ */
 export class PlayerSecrets extends Struct({
   _shuffleKey: PrivateKey,
   _cardKeys: Circuit.array<PrivateKey>(PrivateKey, CARDS_IN_DECK),
 }) {
+  private static _BLANK: PlayerSecrets;
+
+  static get BLANK() {
+    return (
+      this._BLANK ||
+      (this._BLANK = new PlayerSecrets({
+        _shuffleKey: KeyUtils.emptyPrivateKey,
+        _cardKeys: Array(CARDS_IN_DECK).fill(KeyUtils.emptyPrivateKey),
+      }))
+    );
+  }
+
   static generate(): PlayerSecrets {
     const _shuffleKey = PrivateKey.random();
     const _cardKeys = [];

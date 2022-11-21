@@ -1,4 +1,4 @@
-import { isReady, PublicKey, shutdown } from 'snarkyjs';
+import { isReady, shutdown } from 'snarkyjs';
 import { Deck } from '../deck';
 import { Player } from '../player';
 

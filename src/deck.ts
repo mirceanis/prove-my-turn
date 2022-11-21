@@ -1,8 +1,9 @@
-import { CircuitString, Poseidon, PrivateKey, PublicKey } from 'snarkyjs';
+import { CircuitString, Poseidon, PrivateKey } from 'snarkyjs';
 import { Card } from './card';
-import { ZERO_KEY } from './utils';
+import { KeyUtils } from './utils';
 
 export const CARDS_IN_DECK = 13 * 4 + 2; // includes 2 jokers
+export const INITIAL_NUM_CARDS = 5; // includes 2 jokers
 
 /**
  * utility class to handle some operations of a deck of cards
@@ -40,7 +41,7 @@ export class Deck {
     const cardPoint = PrivateKey.fromBits(
       Poseidon.hash(CircuitString.fromString(cardFace).toFields()).toBits()
     ).toPublicKey();
-    return new Card(ZERO_KEY, cardPoint, ZERO_KEY);
+    return new Card(KeyUtils.emptyPublicKey, cardPoint, KeyUtils.emptyPublicKey);
   }
 
   card2Face(card: Card): string {

@@ -1,5 +1,5 @@
 import { Circuit, Field, isReady, shutdown } from 'snarkyjs';
-import { applyMask, applyShuffle, createGame, GameData, isValidTransition, joinGame } from '../gameData';
+import { applyMask, applyShuffle, createGame, dealFirstHand, GameData, isValidTransition, joinGame } from '../gameData';
 import { Player } from '../player';
 
 describe('gameData', () => {
@@ -94,7 +94,40 @@ describe('gameData', () => {
     }).toThrow(/failed to check GameState.shuffle was performed correctly/);
   });
 
-  it.todo('cards can be dealt');
+  it('cards can be dealt', async () => {
+    const initialState = createGame();
+    const p1 = new Player();
+    const p2 = new Player();
+    const p1Joined = joinGame(initialState, p1.publicKeys);
+    const p2Joined = joinGame(p1Joined, p2.publicKeys);
+    const p1Shuffled = applyShuffle(p2Joined, p1);
+    const p2Shuffled = applyShuffle(p1Shuffled, p2);
+    const p1Mask = applyMask(p2Shuffled, p1);
+    const p2Mask = applyMask(p1Mask, p2);
+    const p1Deal = dealFirstHand(p2Mask, p1);
+    expect(isValidTransition(p2Mask, p1Deal)).toBeTruthy();
+    const p2Deal = dealFirstHand(p1Deal, p2);
+    expect(isValidTransition(p1Deal, p2Deal)).toBeTruthy();
+
+    // wrong player dealing
+    const wrongPlayer = dealFirstHand(p2Mask, p2);
+    expect(() => {
+      isValidTransition(p2Mask, wrongPlayer);
+    }).toThrow(/failed to check GameState.deal was performed correctly/);
+
+    // masking after dealing
+    const wrongOperation1 = applyMask(p1Deal, p2);
+    expect(() => {
+      isValidTransition(p1Deal, wrongOperation1);
+    }).toThrow(/masking can only be done after shuffling/);
+
+    // shuffling after dealing
+    const wrongOperation2 = applyShuffle(p1Deal, p2);
+    expect(() => {
+      isValidTransition(p1Deal, wrongOperation2);
+    }).toThrow(/failed to check GameState.shuffle was performed correctly/);
+  });
+
   it.todo('player can place card');
   it.todo('player can win');
 });

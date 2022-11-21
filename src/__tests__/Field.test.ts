@@ -1,5 +1,5 @@
 import { Field, Group, isReady, PrivateKey, Scalar, shutdown } from 'snarkyjs';
-import { ZERO_KEY } from '../utils';
+import { KeyUtils } from '../utils';
 
 describe('Field EC operations', () => {
   beforeEach(async () => {
@@ -73,11 +73,11 @@ describe('Field EC operations', () => {
 
     // // initialize:
     // joint ephemeral key
-    let epk = ZERO_KEY.toGroup();
+    let epk = KeyUtils.emptyPublicKey.toGroup();
     // masked message point
     let masked = msg;
     // joint public key
-    let pk = ZERO_KEY.toGroup();
+    let pk = KeyUtils.emptyPublicKey.toGroup();
 
     // first player joining
     pk = pk.add(P1);
@@ -106,7 +106,7 @@ describe('Field EC operations', () => {
     masked = masked.sub(epk.scale(s2));
 
     expect(masked).toEqual(msg);
-    expect(pk).toEqual(ZERO_KEY.toGroup());
+    expect(pk).toEqual(KeyUtils.emptyPublicKey.toGroup());
   });
 
   it('masks and unmasks message interleaved by 3 players', async () => {
@@ -119,9 +119,9 @@ describe('Field EC operations', () => {
     const msg = Group.generator.scale(Scalar.fromJSON(42)!);
 
     // initialize
-    let epk = ZERO_KEY.toGroup();
+    let epk = KeyUtils.emptyPublicKey.toGroup();
     let masked = msg;
-    let pk = ZERO_KEY.toGroup();
+    let pk = KeyUtils.emptyPublicKey.toGroup();
 
     // first player masking, using only his public key
     pk = pk.add(P1);
@@ -169,6 +169,6 @@ describe('Field EC operations', () => {
     masked = masked.sub(d3);
 
     expect(masked).toEqual(msg);
-    expect(pk).toEqual(ZERO_KEY.toGroup());
+    expect(pk).toEqual(KeyUtils.emptyPublicKey.toGroup());
   });
 });
