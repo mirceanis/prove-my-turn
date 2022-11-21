@@ -1,17 +1,45 @@
 ## Game state machine
 
-The high level game states and transitions for preparation of the game:
+```mermaid
+graph TD;
+    subgraph setup
+      introductions ==> shuffle;
+      introductions --o introductions;
+      shuffle --o shuffle;
+      shuffle==>mask
+      mask --o mask
+      mask==>deal
+      deal --o deal
+      end
+    deal-.->playCard & requestCard & playChallenge
+    subgraph game
+      playChallenge-.->playChallenge
+      playChallenge-->failChallenge
+      failChallenge --o failChallenge
+      failChallenge-.->playCard & requestCard
+      requestCard-.->playCard
+      requestCard --o requestCard
+      playCard-.->playCard & requestCard
+      playCard-.-x win((WIN))
+    end
+```
+
+The high level game states and transitions for game setup:
 
 ```mermaid
 graph TD;
-    SHUFFLE-MASK((shuffle/mask))-->introductions[Players publish keys, introductions];
-    introductions-->shuffle[each player applies shuffle key and shuffles deck];
-    shuffle-->shuffle;
-    shuffle-->mask[each player applies mask key to each card];
-    mask-->mask
-    mask-->DEAL((deal cards))
-    DEAL-->cardIndex[cards get assigned a player index];
-    cardIndex-->keyShare[for every card whose index is not local, publish masking key]
+    subgraph SHUFFLE/MASK
+      introductions[Players generate keypairs and publish keys] --o introductions;
+      introductions-->shuffle[each player applies shuffle key and shuffles deck];
+      shuffle --o shuffle;
+      shuffle-->mask[each player removes shuffle key and applies mask key to each card];
+      mask --o mask
+    end
+    mask-->cardIndex[cards get assigned a player owner]
+    subgraph DEAL
+      cardIndex-->keyShare([for every non-local dealt card, publish masking key])
+      keyShare --o keyShare
+    end
     keyShare-->game((game progress))
 ```
 
