@@ -50,10 +50,13 @@ export class GameData extends Struct({
   challenge: Field,
 }) {}
 
-function getCurrentPlayerKeys(newData: GameData): PlayerKeys {
+/**
+ * Extract the current player public keys from a GameData struct
+ */
+function getCurrentPlayerKeys(newData: GameData, index: Field = newData.currentPlayer): PlayerKeys {
   const mask = Array(NUM_PLAYERS)
     .fill(null)
-    .map((_, i) => Field(i).equals(newData.currentPlayer));
+    .map((_, i) => Field(i).equals(index));
   return Circuit.switch(mask, PlayerKeys, newData.players);
 }
 
@@ -93,7 +96,7 @@ function getCard(deck: Card[], cardIndex: Field): Card {
 }
 
 /**
- * Checks if a new player is added correctly, without disturbing the existing players
+ * Checks if a new player is added correctly, without disturbing other GameData params.
  *
  * This check matters only when the current and previous state was {@link GameState.introductions}
  */
@@ -120,6 +123,11 @@ function checkNewPlayerAddedCorrectly(oldData: GameData, newData: GameData): Boo
   return result;
 }
 
+/**
+ * Check that no player keys were modified between 2 states
+ * @param oldData
+ * @param newData
+ */
 function checkPlayerKeysIntact(oldData: GameData, newData: GameData): Bool {
   // assert new state players array starts with old state players array
   let result = Bool(true);
@@ -133,7 +141,7 @@ function checkPlayerKeysIntact(oldData: GameData, newData: GameData): Bool {
 /**
  * Checks if the introductions state was completed correctly.
  *
- * This only matters if the new state is shuffling and the old state was introductions.
+ * This only matters if the new state is {@link GameState.shuffle} and the old state was {@link GameState.introductions}
  */
 function checkIntroductionsFinishedCorrectly(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
@@ -157,7 +165,7 @@ function checkIntroductionsFinishedCorrectly(oldData: GameData, newData: GameDat
 /**
  * Checks if the shuffling seems correct.
  *
- * This only matters if the new state is shuffling.
+ * This only matters if the new state is {@link GameState.shuffle}.
  */
 function checkShuffling(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
@@ -175,9 +183,9 @@ function checkShuffling(oldData: GameData, newData: GameData): Bool {
 }
 
 /**
- * Checks if the introductions state was completed correctly.
+ * Checks if the {@link GameState.shuffle} state was completed correctly.
  *
- * This only matters if the new state is shuffling and the old state was introductions.
+ * This only matters if the new state is {@link GameState.mask} and the old state was {@link GameState.shuffle}.
  */
 function checkShufflingFinishedCorrectly(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
@@ -189,9 +197,9 @@ function checkShufflingFinishedCorrectly(oldData: GameData, newData: GameData): 
 }
 
 /**
- * Checks if the shuffling seems correct.
+ * Checks if the masking seems correct.
  *
- * This only matters if the new state is shuffling.
+ * This only matters if the new state is {@link GameState.mask}.
  */
 function checkMasking(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
@@ -210,6 +218,11 @@ function checkMasking(oldData: GameData, newData: GameData): Bool {
   return result;
 }
 
+/**
+ * Checks if the {@link GameState.mask} state was completed correctly.
+ *
+ * This only matters if the new state is {@link GameState.deal} and the old state was {@link GameState.mask}.
+ */
 function checkMaskingFinishedCorrectly(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
   // assert currentPlayer == 0
@@ -222,13 +235,28 @@ function checkMaskingFinishedCorrectly(oldData: GameData, newData: GameData): Bo
   return result;
 }
 
+/**
+ * Validate the opening of a {@link Card} using a particular secret.
+ *
+ * @param newCard
+ * @param oldCard
+ * @param secret
+ */
 function checkCardWasUnmaskedBySecret(newCard: Card, oldCard: Card, secret: PrivateKey): Bool {
   const isBlank = secret.equals(KeyUtils.emptyPrivateKey);
   const safeSecret = Circuit.if(isBlank, PrivateKey.fromBits(Field(1).toBits()), secret);
   return Circuit.if(isBlank, Bool(false), Circuit.equal(Card, partialUnmask(oldCard, safeSecret), newCard));
 }
 
-function checkDealing(oldData: GameData, newData: GameData) {
+/**
+ * Validate that dealing was done correctly
+ * The current player must open 5 cards for each other player + one TOP card.
+ * Card owners are assigned, public key commitments must be checked.
+ *
+ * @param oldData
+ * @param newData
+ */
+function checkDealing(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
 
   const currentPlayerKeys = getCurrentPlayerKeys(newData);

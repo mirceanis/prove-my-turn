@@ -66,8 +66,8 @@ export function mask(card: Card, nonce: Scalar = Scalar.random()): Card {
  * @returns a new `Card`
  */
 export function partialUnmask(card: Card, playerSecret: PrivateKey): Card {
+  const isUnmasked = card.pk.equals(KeyUtils.emptyPublicKey);
   const pk = PublicKey.fromGroup(card.pk.toGroup().sub(playerSecret.toPublicKey().toGroup()));
-  const isUnmasked = pk.equals(KeyUtils.emptyPublicKey);
   const epk = Circuit.if(isUnmasked, KeyUtils.emptyPublicKey, card.epk);
   const safeEpk = Circuit.if(
     epk.equals(KeyUtils.emptyPublicKey),
