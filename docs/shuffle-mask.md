@@ -77,7 +77,9 @@ Consider a group element $m$.
 ### How is it commutative?
 
 $E(m_1)*E(m_2) := E(m_1 * m_2)$
+
 $c_1:=c_{11}*c_{12} = g^{y_1}*g^{y_2} = g^{y_1+y_2} = g^y$
+
 $c_2:=c_{21}*c_{22} = m_1*m_1*h^{y_1}*m_2*h^{y_2} = m_1*m_2*h^{y_1+y_2} = m_1*m_2*h^y$
 
 ## Card representations
@@ -98,7 +100,8 @@ paper [Mental Poker Revisited](http://archive.cone.informatik.uni-freiburg.de/te
 
 First, the joint public key of all $n$ participants must be computed as the product of all the player public keys (using
 group operations).
-$h := \prod_{i=1}^{n} h_i$
+
+$h := \prod_{i} h_i$
 
 A player wishing to mask this card would choose a random nonce $r \in [1,q-1]$ and produce the following [re]masked
 card:
@@ -140,21 +143,21 @@ Each card is encoded as 3 points on an elliptic curve (public keys).
 ### Add a player key to a card masking
 
 Player generates a secret Scalar `s` and shares the public key corresponding to it with the other  
-players ($g^s$ (`Group.generator.scale(s)`))
+players ( $g^s$ (`Group.generator.scale(s)`) )
 
-(`msg`, `pk`, `epk`) => ($msg * epk^s$, $pk * g^s$, $epk$)
+(`msg`, `pk`, `epk`) => ( $msg * epk^s$, $pk * g^s$, $epk$)
 
 ### Masking a card
 
 generate a nonce Scalar `r` as an ephemeral private key  
-(`msg`, `pk`, `epk`) => ($msg * pk^r$, $pk$, $epk * g^r$)
+(`msg`, `pk`, `epk`) => ( $msg * pk^r$, $pk$, $epk * g^r$)
 
 Masking can be done more than once.
 
 ### Unmasking a card by one player key
 
 Player uses their secret `s` to partially unmask:  
-(`msg`, `pk`, `epk`) => ($msg / epk^s$$, $pk / g^s$, $epk$)
+(`msg`, `pk`, `epk`) => ( $msg / epk^s$, $pk / g^s$, $epk$)
 
 This operation removes the player key from the joint `pk`, so the player can no longer participate in
 masking/unmasking.  
