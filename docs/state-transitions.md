@@ -79,19 +79,19 @@ required to perform these checks.
 - On m1 mac:
 
   - without other methods in program:
-    > compile: 23069 ms
-    > prove equalities: 346759 ms
+    > compile: 23069 ms;
+    > prove equalities: 346759 ms;
   - with other methods in program:
-    > compile: 81446 ms
-    > prove equalities: 376597 ms
+    > compile: 81446 ms;
+    > prove equalities: 376597 ms;
 
 - on PC:
   - without other methods in program:
-    > compile: 36469 ms
-    > prove equalities: 21439 ms
+    > compile: 36469 ms;
+    > prove equalities: 21439 ms;
   - with other methods in program:
-    > compile: 197172 ms
-    > prove equalities: 30138 ms
+    > compile: 197172 ms;
+    > prove equalities: 30138 ms;
 
 It is not (yet) reasonable to iterate using ZKPrograms and proofs directly, and it does not seem reasonable to use
 ZKProgram proofs for every move in the game.
