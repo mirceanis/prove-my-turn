@@ -21,11 +21,11 @@ const NUM_PLAYERS = 2;
  * Player owners are set to be the player index (0..NUM_PLAYERS)
  */
 // shuffled cards laying face-down. Their order is given by the order in the deck
-const FRESH_STACK = -1;
+export const FRESH_STACK = -1;
 // played cards stacked face-up. Their order does not matter for this game, except for the top card.
-const DISCARD_STACK = -2;
+export const DISCARD_STACK = -2;
 // top card of the discard stack. There can be only one of these.
-const TOP_CARD = -3;
+export const TOP_CARD = -3;
 
 /**
  * Holds the public game data
@@ -133,7 +133,6 @@ function checkPlayerKeysIntact(oldData: GameData, newData: GameData): Bool {
   let result = Bool(true);
   for (let i = 0; i < NUM_PLAYERS; i++) {
     result = result.and(Circuit.equal(PlayerKeys, newData.players[i], oldData.players[i]));
-    result = result.and(Circuit.equal(PlayerSecrets, newData.playerSecrets[i], oldData.playerSecrets[i]));
   }
   return result;
 }
@@ -249,6 +248,27 @@ function checkCardWasUnmaskedBySecret(newCard: Card, oldCard: Card, secret: Priv
 }
 
 /**
+ * Checks if the opening of a card was done correctly.
+ */
+function checkCardWasOpenedCorrectly(
+  currentPlayerSecrets: PlayerSecrets,
+  cardIndex: Field,
+  currentPlayerKeys: PlayerKeys,
+  newData: GameData,
+  oldData: GameData
+): Bool {
+  // check card key was published and that it matches public key
+  const cardSecret = getCardSecret(currentPlayerSecrets._cardKeys, cardIndex);
+  const cardKey = getCardKey(currentPlayerKeys.cardKeys, cardIndex);
+  const keyMatchesCommitment = cardSecret.toPublicKey().equals(cardKey);
+  // check card opened with key matches expected value
+  const newCard = getCard(newData.deck, cardIndex);
+  const oldCard = getCard(oldData.deck, cardIndex);
+  const wasOpenedCorrectly = checkCardWasUnmaskedBySecret(newCard, oldCard, cardSecret);
+  return keyMatchesCommitment.and(wasOpenedCorrectly);
+}
+
+/**
  * Validate that dealing was done correctly
  * The current player must open 5 cards for each other player + one TOP card.
  * Card owners are assigned, public key commitments must be checked.
@@ -271,30 +291,28 @@ function checkDealing(oldData: GameData, newData: GameData): Bool {
     const owner = getCardOwner(newData.cardOwner, cardIndex);
     result = result.and(owner.equals(expectedOwner));
     const ownerIsCurrentPlayer = owner.equals(newData.currentPlayer);
-    // check card key was published and that it matches public key
-    const cardSecret = getCardSecret(currentPlayerSecrets._cardKeys, cardIndex);
-    const cardKey = getCardKey(currentPlayerKeys.cardKeys, cardIndex);
-    const keyMatchesCommitment = cardSecret.toPublicKey().equals(cardKey);
-    // check card opened with key matches expected value
-    const newCard = getCard(newData.deck, cardIndex);
-    const oldCard = getCard(oldData.deck, cardIndex);
-    const wasOpenedCorrectly = checkCardWasUnmaskedBySecret(newCard, oldCard, cardSecret);
+    const correctOpening = checkCardWasOpenedCorrectly(
+      currentPlayerSecrets,
+      cardIndex,
+      currentPlayerKeys,
+      newData,
+      oldData
+    );
     // only cards opened to other players matter
-    result = result.and(Circuit.if(Bool.not(ownerIsCurrentPlayer), wasOpenedCorrectly, Bool(true)));
-    result = result.and(Circuit.if(Bool.not(ownerIsCurrentPlayer), keyMatchesCommitment, Bool(true)));
+    result = result.and(Circuit.if(Bool.not(ownerIsCurrentPlayer), correctOpening, Bool(true)));
   }
   // check opening of top card
   cardIndex = cardIndex.sub(1);
   const owner = getCardOwner(newData.cardOwner, cardIndex);
   result = result.and(owner.equals(Field(TOP_CARD)));
-  const cardSecret = getCardSecret(currentPlayerSecrets._cardKeys, cardIndex);
-  const cardKey = getCardKey(currentPlayerKeys.cardKeys, cardIndex);
-  const keyMatchesCommitment = cardSecret.toPublicKey().equals(cardKey);
-  const newCard = getCard(newData.deck, cardIndex);
-  const oldCard = getCard(oldData.deck, cardIndex);
-  const wasOpenedCorrectly = checkCardWasUnmaskedBySecret(newCard, oldCard, cardSecret);
-  result = result.and(keyMatchesCommitment);
-  result = result.and(wasOpenedCorrectly);
+  const correctOpening = checkCardWasOpenedCorrectly(
+    currentPlayerSecrets,
+    cardIndex,
+    currentPlayerKeys,
+    newData,
+    oldData
+  );
+  result = result.and(correctOpening);
 
   // walk through rest of cards and check that they are intact
   do {
@@ -307,6 +325,8 @@ function checkDealing(oldData: GameData, newData: GameData): Bool {
     const oldOwner = getCardOwner(oldData.cardOwner, cardIndex);
     result = result.and(Circuit.equal(Field, oldOwner, newOwner));
   } while (cardIndex.equals(Field(0)).not().toBoolean());
+
+  result = result.and(checkPlayerKeysIntact(oldData, newData));
 
   return result;
 }
