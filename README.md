@@ -19,13 +19,18 @@ them.
 
 Read more details about this [here](./docs/shuffle-mask.md).
 
-## How it works
+## How it works (or at least how it will work)
 
 Players share a communication channel where they publish game-state-transitions.
 Transitions represent various operations or moves that are considered valid in the game.
 It is the responsibility of other players to verify that the transitions are correct. There is no trust assumed between
-players.
-These transitions may be accompanied by proofs that these transitions were performed correctly.
+players. These transitions may be accompanied by proofs that these transitions were performed correctly.
+
+See a more detailed description [here](./docs/state-transitions.md)
+
+## Game rules
+
+Game rules are described [here](./docs/rules.md)
 
 ## How to build
 
