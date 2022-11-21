@@ -76,11 +76,17 @@ Consider a group element $m$.
 
 ### How is it commutative?
 
-$E(m_1)*E(m_2) := E(m_1 * m_2)$
+```math
+E(m_1)*E(m_2) := E(m_1 * m_2)
+```
 
-$c_1:=c_{11}*c_{12} = g^{y_1}*g^{y_2} = g^{y_1+y_2} = g^y$
+```math
+c_1:=c_{11}*c_{12} = g^{y_1}*g^{y_2} = g^{y_1+y_2} = g^y
+```
 
-$c_2:=c_{21}*c_{22} = m_1*m_1*h^{y_1}*m_2*h^{y_2} = m_1*m_2*h^{y_1+y_2} = m_1*m_2*h^y$
+```math
+c_2:=c_{21}*c_{22}=m_1*m_1*h^{y_1}*m_2*h^{y_2}=m_1*m_2*h^{y_1+y_2}=m_1*m_2*h^y
+```
 
 ## Card representations
 
