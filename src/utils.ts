@@ -1,7 +1,17 @@
-import { Circuit, Group, PrivateKey, PublicKey, Scalar } from 'snarkyjs';
+import { Circuit, Field, Group, PrivateKey, PublicKey, Scalar } from 'snarkyjs';
 import { Card } from './card';
 
-export const ZERO_KEY = PublicKey.fromGroup(Group.generator.sub(Group.generator));
+export class KeyUtils {
+  private static _emptyPublicKey: PublicKey;
+  static get emptyPublicKey() {
+    return this._emptyPublicKey || (this._emptyPublicKey = PublicKey.empty());
+  }
+
+  private static _emptyPrivateKey: PrivateKey;
+  static get emptyPrivateKey() {
+    return this._emptyPrivateKey || (this._emptyPrivateKey = PrivateKey.fromBits(Field(0).toBits()));
+  }
+}
 
 /**
  * Computes a shared secret between a "local" key pair and a "remote" key pair, given the local private part and the
@@ -28,7 +38,7 @@ export function computeSharedSecret(local: PrivateKey, remote: PublicKey): Publi
  * @returns a new `Card`
  */
 export function mask(card: Card, nonce: Scalar = Scalar.random()): Card {
-  const hasPlayers = card.pk.equals(ZERO_KEY);
+  const hasPlayers = card.pk.equals(KeyUtils.emptyPublicKey);
   if (!hasPlayers) {
     throw new Error('illegal_operation: unable to mask as there are no players available to unmask');
   }
@@ -56,12 +66,17 @@ export function mask(card: Card, nonce: Scalar = Scalar.random()): Card {
  * @returns a new `Card`
  */
 export function partialUnmask(card: Card, playerSecret: PrivateKey): Card {
-  const d1 = computeSharedSecret(playerSecret, card.epk);
-  const msg = PublicKey.fromGroup(card.msg.toGroup().sub(d1.toGroup()));
   const pk = PublicKey.fromGroup(card.pk.toGroup().sub(playerSecret.toPublicKey().toGroup()));
-  const isUnmasked = pk.equals(ZERO_KEY);
-  const epk = Circuit.if(isUnmasked, ZERO_KEY, card.epk);
-  return new Card(epk, msg, pk);
+  const isUnmasked = pk.equals(KeyUtils.emptyPublicKey);
+  const epk = Circuit.if(isUnmasked, KeyUtils.emptyPublicKey, card.epk);
+  const safeEpk = Circuit.if(
+    epk.equals(KeyUtils.emptyPublicKey),
+    PublicKey.fromPrivateKey(PrivateKey.fromBits(Field(1).toBits())),
+    card.epk
+  );
+  const d1 = computeSharedSecret(playerSecret, safeEpk);
+  const msg = PublicKey.fromGroup(card.msg.toGroup().sub(d1.toGroup()));
+  return Circuit.if(isUnmasked, new Card(epk, card.msg, card.pk), new Card(epk, msg, pk));
 }
 
 /**
@@ -70,7 +85,7 @@ export function partialUnmask(card: Card, playerSecret: PrivateKey): Card {
  * @param playerSecret the secret key of the player
  */
 export function addPlayerToCardMask(card: Card, playerSecret: PrivateKey): Card {
-  const isUnmasked = card.pk.equals(ZERO_KEY);
+  const isUnmasked = card.pk.equals(KeyUtils.emptyPublicKey);
   const pk = card.pk.toGroup().add(playerSecret.toPublicKey().toGroup());
   const epk = Circuit.if(isUnmasked, Group.generator, card.epk.toGroup()); // when unmasked, the epk is ZERO_KEY
   const newMsg = card.msg.toGroup().add(epk.scale(Scalar.fromFields(playerSecret.toFields())));
