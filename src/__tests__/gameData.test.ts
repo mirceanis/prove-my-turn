@@ -14,7 +14,7 @@ describe('gameData', () => {
     setTimeout(shutdown, 0);
   });
 
-  it.skip('can create game', async () => {
+  it('can create game', async () => {
     const initialState = createGame();
     expect(initialState.currentPlayer.toJSON()).toEqual(Field(-1).toJSON());
     expect(initialState.deck.length).toBeGreaterThan(0);
@@ -36,10 +36,14 @@ describe('gameData', () => {
     const initialState = createGame();
     const p1 = new Player();
     const p1Joined = joinGame(initialState, p1.publicKeys);
-    expect(isValidTransition(initialState, p1Joined)).toBeTruthy();
+    expect(isValidTransition(initialState, p1Joined).toBoolean()).toBeTruthy();
+    //can run in circuit
+    Circuit.runAndCheck(() => {
+      isValidTransition(initialState, p1Joined).assertTrue();
+    });
     const p2 = new Player();
     const p2Joined = joinGame(p1Joined, p2.publicKeys);
-    expect(isValidTransition(p1Joined, p2Joined)).toBeTruthy();
+    expect(isValidTransition(p1Joined, p2Joined).toBoolean()).toBeTruthy();
     p2Joined.currentPlayer.assertEquals(1);
     expect(p2Joined.players).toEqual([p1.publicKeys, p2.publicKeys]);
   });
@@ -51,9 +55,9 @@ describe('gameData', () => {
     const p1Joined = joinGame(initialState, p1.publicKeys);
     const p2Joined = joinGame(p1Joined, p2.publicKeys);
     const p1Shuffled = applyShuffle(p2Joined, p1);
-    expect(isValidTransition(p2Joined, p1Shuffled)).toBeTruthy();
+    expect(isValidTransition(p2Joined, p1Shuffled).toBoolean()).toBeTruthy();
     const p2Shuffled = applyShuffle(p1Shuffled, p2);
-    expect(isValidTransition(p1Shuffled, p2Shuffled)).toBeTruthy();
+    expect(isValidTransition(p1Shuffled, p2Shuffled).toBoolean()).toBeTruthy();
 
     // wrong player shuffling
     const wrongPlayer = applyShuffle(p2Joined, p2);
@@ -77,9 +81,9 @@ describe('gameData', () => {
     const p1Shuffled = applyShuffle(p2Joined, p1);
     const p2Shuffled = applyShuffle(p1Shuffled, p2);
     const p1Mask = applyMask(p2Shuffled, p1);
-    expect(isValidTransition(p2Shuffled, p1Mask)).toBeTruthy();
+    expect(isValidTransition(p2Shuffled, p1Mask).toBoolean()).toBeTruthy();
     const p2Mask = applyMask(p1Mask, p2);
-    expect(isValidTransition(p1Mask, p2Mask)).toBeTruthy();
+    expect(isValidTransition(p1Mask, p2Mask).toBoolean()).toBeTruthy();
 
     // wrong player masking
     const wrongPlayer = applyMask(p2Shuffled, p2);
@@ -105,9 +109,9 @@ describe('gameData', () => {
     const p1Mask = applyMask(p2Shuffled, p1);
     const p2Mask = applyMask(p1Mask, p2);
     const p1Deal = dealFirstHand(p2Mask, p1);
-    expect(isValidTransition(p2Mask, p1Deal)).toBeTruthy();
+    expect(isValidTransition(p2Mask, p1Deal).toBoolean()).toBeTruthy();
     const p2Deal = dealFirstHand(p1Deal, p2);
-    expect(isValidTransition(p1Deal, p2Deal)).toBeTruthy();
+    expect(isValidTransition(p1Deal, p2Deal).toBoolean()).toBeTruthy();
 
     // wrong player dealing
     const wrongPlayer = dealFirstHand(p2Mask, p2);

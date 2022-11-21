@@ -332,11 +332,14 @@ function checkDealing(oldData: GameData, newData: GameData): Bool {
  * @param oldData
  * @param newData
  */
-export function isValidTransition(oldData: GameData, newData: GameData): boolean {
+export function isValidTransition(oldData: GameData, newData: GameData): Bool {
+  let result = Bool(true);
+  // FIXME: snarkyjs bug? I need to copy data because otherwise Circuit.if will complain that the types are different
   oldData = GameData.fromFields(GameData.toFields(oldData), []);
   newData = GameData.fromFields(GameData.toFields(newData), []);
   // assert game nonce is incremented by one
-  newData.nonce.assertEquals(oldData.nonce.add(1));
+  result = result.and(newData.nonce.equals(oldData.nonce.add(1)));
+  result.assertTrue('wrong nonce. must increase by 1');
   // TODO: assert nonce was not already used (check against local state)
   // assert currentPlayer == oldPlayer + 1
   const expectedCurrentPlayer = Circuit.if(
@@ -344,7 +347,8 @@ export function isValidTransition(oldData: GameData, newData: GameData): boolean
     Field(0),
     oldData.currentPlayer.add(1)
   );
-  newData.currentPlayer.assertEquals(expectedCurrentPlayer);
+  result = result.and(newData.currentPlayer.equals(expectedCurrentPlayer));
+  result.assertTrue('wrong player is trying to make a move');
 
   // check if new players are added correctly in case the game state is introductions
   const isIntroductions = newData.gameState.equals(GameState.introductions);
@@ -354,19 +358,24 @@ export function isValidTransition(oldData: GameData, newData: GameData): boolean
     wasIntroductions.and(checkNewPlayerAddedCorrectly(oldData, newData)),
     Bool(true)
   );
-  checkIntroductions.assertTrue('failed to check GameState.introductions');
+  result = result.and(checkIntroductions);
+  result.assertTrue('failed to check GameState.introductions');
 
+  // check shuffling
   const isShuffle = newData.gameState.equals(GameState.shuffle);
   const checkIntroductionsCompleted = Circuit.if(
     isShuffle.and(wasIntroductions),
     checkIntroductionsFinishedCorrectly(oldData, newData),
     Bool(true)
   );
-  checkIntroductionsCompleted.assertTrue('failed to check GameState.introductions was completed correctly');
+  result = result.and(checkIntroductionsCompleted);
+  result.assertTrue('failed to check GameState.introductions was completed correctly');
 
   const checkShufflingCorrect = Circuit.if(isShuffle, checkShuffling(oldData, newData), Bool(true));
-  checkShufflingCorrect.assertTrue('failed to check GameState.shuffle was performed correctly');
+  result = result.and(checkShufflingCorrect);
+  result.assertTrue('failed to check GameState.shuffle was performed correctly');
 
+  // check masking
   const isMasking = newData.gameState.equals(GameState.mask);
   const wasShuffle = oldData.gameState.equals(GameState.shuffle);
   Circuit.if(isShuffle, wasShuffle.or(wasIntroductions), Bool(true)).assertTrue(
@@ -377,11 +386,14 @@ export function isValidTransition(oldData: GameData, newData: GameData): boolean
     checkShufflingFinishedCorrectly(oldData, newData),
     Bool(true)
   );
-  checkShufflingCompleted.assertTrue('failed to check GameState.shuffle was completed correctly');
+  result = result.and(checkShufflingCompleted);
+  result.assertTrue('failed to check GameState.shuffle was completed correctly');
 
   const checkMaskingCorrect = Circuit.if(isMasking, checkMasking(oldData, newData), Bool(true));
-  checkMaskingCorrect.assertTrue('failed to check GameState.mask was performed correctly');
+  result = result.and(checkMaskingCorrect);
+  result.assertTrue('failed to check GameState.mask was performed correctly');
 
+  // check dealing
   const isDealing = newData.gameState.equals(GameState.deal);
   const wasMasking = oldData.gameState.equals(GameState.mask);
   Circuit.if(isMasking, wasMasking.or(wasShuffle), Bool(true)).assertTrue('masking can only be done after shuffling');
@@ -390,77 +402,31 @@ export function isValidTransition(oldData: GameData, newData: GameData): boolean
     checkMaskingFinishedCorrectly(oldData, newData),
     Bool(true)
   );
-  checkMaskingCompleted.assertTrue('failed to check GameState.mask was completed correctly');
+  result = result.and(checkMaskingCompleted);
+  result.assertTrue('failed to check GameState.mask was completed correctly');
 
   const checkDealingCorrect = Circuit.if(isDealing, checkDealing(oldData, newData), Bool(true));
-  checkDealingCorrect.assertTrue('failed to check GameState.deal was performed correctly');
+  result = result.and(checkDealingCorrect);
+  result.assertTrue('failed to check GameState.deal was performed correctly');
 
   const wasDealing = oldData.gameState.equals(GameState.deal);
-  Circuit.if(isDealing, wasMasking.or(wasDealing), Bool(true)).assertTrue('dealing can only be done after masking');
+  result = result.and(Circuit.if(isDealing, wasMasking.or(wasDealing), Bool(true)));
+  result.assertTrue('dealing can only be done after masking');
 
-  //
-  // // FIXME: this is not provable in circuit
-  // const oldState = Number.parseInt(oldData.gameState.toJSON());
-  // const newState = Number.parseInt(newData.gameState.toJSON());
-  // switch (oldState) {
-  //   case GameState.introductions:
-  //     if (newState === GameState.introductions) {
-  //       checkNewPlayerAddedCorrectly(oldData, newData);
-  //     } else if (newState === GameState.shuffle) {
-  //       // assert currentPlayer == 0
-  //       // assert all players not BLANK
-  //     } else {
-  //       return false;
-  //     }
-  //     break;
-  //   case GameState.shuffle:
-  //     if (newState === GameState.shuffle) {
-  //       // assert new cards are all different from the old cards
-  //       // assert cards joint public keys are the same
-  //       // and all equal to oldJointKey + players[currentPlayer].shuffleKey
-  //     } else if (newState === GameState.mask) {
-  //       // assert currentPlayer == 0
-  //     } else {
-  //       return false;
-  //     }
-  //     break;
-  //   case GameState.mask:
-  //     if (newState === GameState.mask) {
-  //       // assert each new cards jointPublicKey is oldJointKey - players[currentPlayer].shuffleKey +
-  //       // players[currentPlayer].keys[cardIndex]
-  //     } else if (newState === GameState.deal) {
-  //       // assert currentPlayer == 0
-  //     } else {
-  //       return false;
-  //     }
-  //     break;
-  //   case GameState.deal:
-  //     if (newState === GameState.deal) {
-  //       // for each card index that the currentPlayer should reveal
-  //       // assert each new cards jointPublicKey is oldJointKey - players[currentPlayer].keys[cardIndex]
-  //     } else if (newState === GameState.playCard) {
-  //       // assert currentPlayer == 0
-  //     } else {
-  //       return false;
-  //     }
-  //     break;
+  // TODO:
   //   case GameState.playCard:
   //     // assert top discard card was assigned to current player
   //     // assert card is now assigned to discard pile
   //     // assert card is unmasked using the proper mask key
-  //     // assert card meets discard rules (depending on game)
+  //     // assert card meets discard rules (rank, suite, challenge, etc)
   //     // assert other cards remain intact
   //     // assert all players remain intact
-  //     if (newState === GameState.playCard) {
-  //       // assert currentPlayer still has assigned cards
-  //     } else if (newState === GameState.win) {
-  //       // assert current player has no cards left
-  //     } else {
-  //       return false;
-  //     }
-  //     break;
-  // }
-  return true;
+  //   case GameState.requestCard:
+  //   case GameState.challenge:
+  //   case GameState.challengeComplete:
+  //   case GameState.reshuffleDiscard:
+
+  return result;
 }
 
 export function createGame(): GameData {
