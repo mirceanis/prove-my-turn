@@ -1,7 +1,7 @@
 import { Circuit, PrivateKey, PublicKey, Struct } from 'snarkyjs';
-import { addPlayerToCardMask, generateShuffle, KeyUtils, mask, partialUnmask, shuffleArray } from './utils';
-import { Card } from './card';
-import { CARDS_IN_DECK } from './deck';
+import { addPlayerToCardMask, generateShuffle, KeyUtils, mask, partialUnmask, shuffleArray } from './utils.js';
+import { Card } from './card.js';
+import { CARDS_IN_DECK } from './deck.js';
 
 /**
  * Holds the Public Keys a player uses to mask cards

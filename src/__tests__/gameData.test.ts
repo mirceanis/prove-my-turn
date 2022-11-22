@@ -1,14 +1,7 @@
 import { Circuit, Field, isReady, shutdown } from 'snarkyjs';
-import {
-  applyMask,
-  applyShuffle,
-  createGame,
-  dealFirstHand,
-  GameData,
-  isValidTransition,
-  joinGame,
-  TOP_CARD,
-} from '../gameData';
+import { GameData, TOP_CARD } from '../gameData';
+import { applyMask, applyShuffle, createGame, dealFirstHand, joinGame } from '../gameActions';
+import { isValidTransition } from '../gameValidation';
 import { Player } from '../player';
 import { CARDS_IN_DECK, Deck } from '../deck';
 import { Card } from '../card';

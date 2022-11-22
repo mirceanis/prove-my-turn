@@ -72,7 +72,7 @@ export class GameData extends Struct({
   playerSecrets: Circuit.array<PlayerSecrets>(PlayerSecrets, NUM_PLAYERS),
   // GameState (shuffling, dealing, playing, etc)
   gameState: Field,
-  // value specific to this game
+  // value specific to Macao
   challenge: Field,
 }) {}
 ```

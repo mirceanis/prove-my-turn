@@ -1,5 +1,5 @@
 import { Circuit, Field, Group, PrivateKey, PublicKey, Scalar } from 'snarkyjs';
-import { Card } from './card';
+import { Card } from './card.js';
 
 export class KeyUtils {
   private static _emptyPublicKey: PublicKey;
@@ -121,3 +121,6 @@ export function shuffleArray<T>(cards: Array<T>, shuffle: Array<number>): Array<
   }
   return c;
 }
+
+export { fromString as stringToBytes } from 'uint8arrays/from-string';
+export { toString as bytesToString } from 'uint8arrays/to-string';
