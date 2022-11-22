@@ -55,7 +55,7 @@ export class PlayerSecrets extends Struct({
 
   static generate(): PlayerSecrets {
     const _shuffleKey = PrivateKey.random();
-    const _cardKeys = [];
+    const _cardKeys: PrivateKey[] = [];
     for (let i = 0; i < CARDS_IN_DECK; i++) {
       _cardKeys.push(PrivateKey.random());
     }

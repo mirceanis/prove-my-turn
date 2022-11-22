@@ -13,10 +13,10 @@ import {
   shutdown,
   verify,
 } from 'snarkyjs';
-import { addPlayerToCardMask, KeyUtils, mask } from '../utils';
-import { Deck } from '../deck';
-import { Card } from '../card';
-import { Player } from '../player';
+import { addPlayerToCardMask, KeyUtils, mask } from '../utils.js';
+import { Deck } from '../deck.js';
+import { Card } from '../card.js';
+import { Player } from '../player.js';
 
 class TestGameState extends CircuitValue {
   static numPlayers = 2;

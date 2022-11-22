@@ -209,7 +209,7 @@ export function checkDealing(oldData: GameData, newData: GameData): Bool {
   // check opening of cards dealt to players
   for (let i = 0; i < totalCardsToDeal; i++) {
     cardIndex = cardIndex.sub(1);
-    const expectedOwner = Field(Math.floor(i / NUM_PLAYERS));
+    const expectedOwner = Field(Math.floor(i / INITIAL_NUM_CARDS));
     const owner = getCardOwner(newData.cardOwner, cardIndex);
     result = result.and(owner.equals(expectedOwner));
     const ownerIsCurrentPlayer = owner.equals(newData.currentPlayer);

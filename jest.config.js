@@ -13,7 +13,8 @@ export default {
     '^.+\\.(t)s$': ['ts-jest', { useESM: true }],
     '^.+\\.(j)s$': 'babel-jest',
   },
-  resolver: '<rootDir>/jest-resolver.cjs',
+  // resolver: '<rootDir>/jest-resolver.cjs',
+  resolver: 'ts-jest-resolver',
   transformIgnorePatterns: [
     // '<rootDir>/node_modules/(?!snarkyjs/node_modules/tslib)',
   ],

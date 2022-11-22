@@ -14,7 +14,7 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "cli": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads build/src/cli.mjs",
+    "cli": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads build/src/cli.js",
     "start": "yarn cli start",
     "build": "tsc -p tsconfig.json",
     "coverage": "yarn test --coverage",
@@ -45,6 +45,7 @@
     "lint-staged": "11.2.6",
     "prettier": "2.7.1",
     "ts-jest": "^29.0.3",
+    "ts-jest-resolver": "^2.0.0",
     "ts-node": "^10.9.1",
     "typescript": "4.8.4"
   },
@@ -58,6 +59,7 @@
     "@libp2p/pubsub-peer-discovery": "^7.0.0",
     "@libp2p/tcp": "^6.0.2",
     "libp2p": "^0.40.0",
+    "multiformats": "^10.0.2",
     "snarkyjs": "^0.7.1"
   }
 }
