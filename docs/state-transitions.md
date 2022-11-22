@@ -29,15 +29,15 @@ The high level game states and transitions for game setup:
 ```mermaid
 graph TD;
     subgraph SHUFFLE/MASK
-      introductions[Players generate keypairs and publish keys] --o introductions;
-      introductions-->shuffle[each player applies shuffle key and shuffles deck];
+      introductions(Players generate keypairs <br/>and publish keys) --o introductions;
+      introductions-->shuffle(each player applies shuffle key <br/> and shuffles deck);
       shuffle --o shuffle;
-      shuffle-->mask[each player removes shuffle key and applies mask key to each card];
+      shuffle-->mask(each player removes shuffle key <br/> and applies mask key to each card);
       mask --o mask
     end
-    mask-->cardIndex[cards get assigned a player owner]
-    subgraph DEAL
-      cardIndex-->keyShare([for every non-local dealt card, publish masking key])
+    mask-->cardIndex(cards to be dealt <br/> get assigned a player owner)
+    subgraph DEAL cards
+      cardIndex-->keyShare(for every non-owned dealt card , <br/> publish masking key)
       keyShare --o keyShare
     end
     keyShare-->game((game progress))
