@@ -1,6 +1,6 @@
 import { CircuitString, Poseidon, PrivateKey } from 'snarkyjs';
-import { Card } from './card';
-import { KeyUtils } from './utils';
+import { Card } from './card.js';
+import { KeyUtils } from './utils.js';
 
 export const CARDS_IN_DECK = 13 * 4 + 2; // includes 2 jokers
 export const INITIAL_NUM_CARDS = 5; // includes 2 jokers
@@ -54,6 +54,7 @@ export class Deck {
   }
 }
 
+/* eslint-disable */
 const CARDS_AS_POINTS = {
   byFace: {
     'Ace of Spades': 'B62qqUATRGziyHWbWB1Rntd31M9mSEZeLJQ3wfDL2VozcvLycUrRJQi',
