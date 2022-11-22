@@ -36,3 +36,11 @@ maybe? and return `PublicKey.empty()`?
 ## Unsure if I should be extracting values from Struct arrays using Circuit.switch.
 
 More examples of when that matters would help.
+
+### How can I define a base class for Struct?
+
+I wanted to create a Struct object factory, but ran into issues because of the lack of
+
+### jest resolver can be removed?
+
+and replaced with `resolver: 'ts-jest-resolver'`,
