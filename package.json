@@ -58,7 +58,7 @@
     "@libp2p/mplex": "^7.0.0",
     "@libp2p/pubsub-peer-discovery": "^7.0.0",
     "@libp2p/tcp": "^6.0.2",
-    "libp2p": "^0.40.0",
+    "libp2p": "^0.41.0",
     "multiformats": "^10.0.2",
     "snarkyjs": "^0.7.1"
   }

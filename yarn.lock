@@ -1509,18 +1509,6 @@
     "@multiformats/mafmt" "^11.0.3"
     "@multiformats/multiaddr" "^11.0.0"
 
-"@libp2p/connection@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@libp2p/connection/-/connection-4.0.2.tgz#6e4078487f8e75c0326465464d88248b2520d05f"
-  integrity sha512-l/mvmcA7QkAC/0qRmTpuD5CeMaiy4DuKCsutaY3PpwJbMegTOjxuZh0uzk3z94d0wJBnhquVZ0e4Yqvd+QGlng==
-  dependencies:
-    "@libp2p/interface-connection" "^3.0.2"
-    "@libp2p/interface-peer-id" "^1.0.4"
-    "@libp2p/interfaces" "^3.0.3"
-    "@libp2p/logger" "^2.0.1"
-    "@multiformats/multiaddr" "^11.0.0"
-    err-code "^3.0.1"
-
 "@libp2p/crypto@^1.0.0", "@libp2p/crypto@^1.0.3", "@libp2p/crypto@^1.0.4":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@libp2p/crypto/-/crypto-1.0.7.tgz#bce6bf1a05e31e677e0a050e148014d6505672be"
@@ -1611,15 +1599,7 @@
   resolved "https://registry.yarnpkg.com/@libp2p/interface-keys/-/interface-keys-1.0.4.tgz#fc9de2ed1a12200493323097f20c91b4379ae9b7"
   integrity sha512-XNyN237PmEuyQK/7G/7L1sC6NkppPoEsVgX8phBt1eUTCE+HgDphW2Kt/uO3oUi9i7sdScRM221pdNmoW/LPvQ==
 
-"@libp2p/interface-metrics@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@libp2p/interface-metrics/-/interface-metrics-3.0.0.tgz#7b448782e78f948abe92e2adef838e3e781f2e84"
-  integrity sha512-TxK63BrDalv0yW544608xfmg3rsbh31ykZzf7I1yjMCZpyIFOqLTH1WN4YQwXKNlMz/XURux99UTpGSRYl3nOA==
-  dependencies:
-    "@libp2p/interface-peer-id" "^1.0.0"
-    it-stream-types "^1.0.4"
-
-"@libp2p/interface-metrics@^4.0.2":
+"@libp2p/interface-metrics@^4.0.0", "@libp2p/interface-metrics@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-metrics/-/interface-metrics-4.0.2.tgz#329a1602f7844f6a9cf441439001f8e8f8e7dafc"
   integrity sha512-HON9yXhFaTnQ86tOdE18bFJv71zQdI7xrZJuA6pNUtpsfA+djhqWXv0a4mwEGUP7k4zz3FkH0M9CrrvL0pkBWg==
@@ -1941,12 +1921,12 @@
     err-code "^3.0.1"
     it-all "^1.0.6"
 
-"@libp2p/tracked-map@^2.0.1":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@libp2p/tracked-map/-/tracked-map-2.0.2.tgz#3ff2d34607a6cfbed95b0dc6a360631f99938df9"
-  integrity sha512-y5UnoB5NR+i7Xp/wPrHYyJxiNRS0/3ee8chphTG8GptdTWqWcZ+UALKXMb9neMtFL9pivNrOY+A0d+M60eI+RA==
+"@libp2p/tracked-map@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/tracked-map/-/tracked-map-3.0.0.tgz#135e80c4359efc9ed49b2c97c7622b14d58705da"
+  integrity sha512-IQjluWWbcKzNxZI3A+MgTu+5sITVX8YDOqQYE84toV3SNl6y7FrFEKQz1WlCjOHjvK1GNEB6NgirA6HKcaT23A==
   dependencies:
-    "@libp2p/interface-metrics" "^3.0.0"
+    "@libp2p/interface-metrics" "^4.0.0"
 
 "@libp2p/utils@^3.0.0", "@libp2p/utils@^3.0.2":
   version "3.0.2"
@@ -4359,13 +4339,12 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-libp2p@^0.40.0:
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/libp2p/-/libp2p-0.40.0.tgz#c93b586d99f58192b43801444053536a5f9cbbd1"
-  integrity sha512-AeLaA+8KIhUhjpXZcs20+Pnf2wIBp+zdSYPD1IgGCF0PlMbTdCvaIqhPzpTSd3+e5k7NZlgpd/BvCOLgQbfm5Q==
+libp2p@^0.41.0:
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/libp2p/-/libp2p-0.41.0.tgz#3fc5da1efbbdfd955d9cd8478963eb0a7712c76e"
+  integrity sha512-0H0MKpsKBxqzILLR7aPksxNNhhjKx+xtaw37xZ1DO6mbcXmFo0imvQ/IeSNM9NKQ1qqrstnaxYPfBAvZBYq4Bg==
   dependencies:
     "@achingbrain/nat-port-mapper" "^1.0.3"
-    "@libp2p/connection" "^4.0.2"
     "@libp2p/crypto" "^1.0.4"
     "@libp2p/interface-address-manager" "^2.0.0"
     "@libp2p/interface-connection" "^3.0.2"
@@ -4373,7 +4352,7 @@ libp2p@^0.40.0:
     "@libp2p/interface-connection-manager" "^1.1.1"
     "@libp2p/interface-content-routing" "^1.0.2"
     "@libp2p/interface-dht" "^1.0.1"
-    "@libp2p/interface-metrics" "^3.0.0"
+    "@libp2p/interface-metrics" "^4.0.0"
     "@libp2p/interface-peer-discovery" "^1.0.1"
     "@libp2p/interface-peer-id" "^1.0.4"
     "@libp2p/interface-peer-info" "^1.0.3"
@@ -4391,7 +4370,7 @@ libp2p@^0.40.0:
     "@libp2p/peer-id-factory" "^1.0.18"
     "@libp2p/peer-record" "^4.0.3"
     "@libp2p/peer-store" "^5.0.0"
-    "@libp2p/tracked-map" "^2.0.1"
+    "@libp2p/tracked-map" "^3.0.0"
     "@libp2p/utils" "^3.0.2"
     "@multiformats/mafmt" "^11.0.2"
     "@multiformats/multiaddr" "^11.0.0"
@@ -4417,7 +4396,6 @@ libp2p@^0.40.0:
     it-stream-types "^1.0.4"
     merge-options "^3.0.4"
     multiformats "^10.0.0"
-    mutable-proxy "^1.0.0"
     node-forge "^1.3.1"
     p-fifo "^1.0.0"
     p-retry "^5.0.0"
@@ -4630,11 +4608,6 @@ multiformats@^10.0.0, multiformats@^10.0.2:
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-10.0.2.tgz#e549ae833dac77edb534bece4adf1d1a214879f0"
   integrity sha512-nJEHLFOYhO4L+aNApHhCnWqa31FyqAHv9Q77AhmwU3KsM2f1j7tuJpCk5ByZ33smzycNCpSG5klNIejIyfFx2A==
-
-mutable-proxy@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/mutable-proxy/-/mutable-proxy-1.0.0.tgz#3c6e6f9304c2e5a4751bb65b5a66677de9bcf3c8"
-  integrity sha512-4OvNRr1DJpy2QuDUV74m+BWZ//n4gG4bmd21MzDSPqHEidIDWqwyOjcadU1LBMO3vXYGurVKjfBrxrSQIHFu9A==
 
 nanoid@^4.0.0:
   version "4.0.0"
