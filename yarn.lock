@@ -1523,18 +1523,18 @@
     protons-runtime "^4.0.1"
     uint8arrays "^4.0.2"
 
-"@libp2p/floodsub@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@libp2p/floodsub/-/floodsub-5.0.0.tgz#4aeb10c89cae6f04d9244ad8cb094494222eb61f"
-  integrity sha512-B39UW/AWgfVVUl2yJDardmL2kKo1Zd4E+11/rkyjnjbygh944DTLcp3B2gSarqRlyN+x4ChUTKiN75UGajOaog==
+"@libp2p/floodsub@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/floodsub/-/floodsub-6.0.0.tgz#07837dbc6da4d67f81a9120a09138fff84d761f2"
+  integrity sha512-GYzWERnafZRX8jkSkwamDHp0FqUThhu8GxeVobb0nrAFw4qqvlBNlNDTQFV6x5O+J/KJHiLFX7es97VbxbCHsg==
   dependencies:
-    "@libp2p/interface-peer-id" "^1.0.2"
+    "@libp2p/interface-peer-id" "^2.0.0"
     "@libp2p/interface-pubsub" "^3.0.0"
     "@libp2p/logger" "^2.0.0"
-    "@libp2p/pubsub" "^5.0.0"
+    "@libp2p/pubsub" "^6.0.0"
     protons-runtime "^4.0.1"
     uint8arraylist "^2.1.1"
-    uint8arrays "^4.0.2"
+    uint8arrays "^4.0.3"
 
 "@libp2p/interface-address-manager@^2.0.0":
   version "2.0.1"
@@ -1791,6 +1791,14 @@
     "@libp2p/interface-peer-id" "^1.0.4"
     "@libp2p/peer-id" "^1.1.0"
 
+"@libp2p/peer-collections@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/peer-collections/-/peer-collections-3.0.0.tgz#dd1eeb5f562d857f23dbe95b13d595b13c273d04"
+  integrity sha512-rVhfDmkVzfBVR4scAfaKb05htZENx01PYt2USi1EnODyoo2c2U2W5tfOfyaKI/4D+ayQDOjT27G0ZCyAgwkYGw==
+  dependencies:
+    "@libp2p/interface-peer-id" "^2.0.0"
+    "@libp2p/peer-id" "^2.0.0"
+
 "@libp2p/peer-id-factory@^1.0.18":
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/@libp2p/peer-id-factory/-/peer-id-factory-1.0.19.tgz#c08e9bc947767a723b9ace2b41bfeeac7c01186f"
@@ -1919,6 +1927,32 @@
     uint8arraylist "^2.0.0"
     uint8arrays "^4.0.2"
 
+"@libp2p/pubsub@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/pubsub/-/pubsub-6.0.0.tgz#8072ff511e901e5c0bb4226fa14f9529315af01d"
+  integrity sha512-WWViQ+fEL3JWt415UznUR6wQCm+UCi65SNQWQoTRYaCM2DYVCrIRfGpmFWAyKPCr76L6UesucIkZHuyh2c3xNA==
+  dependencies:
+    "@libp2p/crypto" "^1.0.0"
+    "@libp2p/interface-connection" "^3.0.1"
+    "@libp2p/interface-peer-id" "^2.0.0"
+    "@libp2p/interface-pubsub" "^3.0.0"
+    "@libp2p/interface-registrar" "^2.0.0"
+    "@libp2p/interfaces" "^3.0.2"
+    "@libp2p/logger" "^2.0.0"
+    "@libp2p/peer-collections" "^3.0.0"
+    "@libp2p/peer-id" "^2.0.0"
+    "@libp2p/topology" "^4.0.0"
+    "@multiformats/multiaddr" "^11.0.0"
+    abortable-iterator "^4.0.2"
+    err-code "^3.0.1"
+    it-length-prefixed "^8.0.2"
+    it-pipe "^2.0.3"
+    it-pushable "^3.0.0"
+    multiformats "^11.0.0"
+    p-queue "^7.2.0"
+    uint8arraylist "^2.0.0"
+    uint8arrays "^4.0.2"
+
 "@libp2p/tcp@^6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-6.0.2.tgz#388ab7e94df3987bc445e49536204453b0642fb1"
@@ -1945,6 +1979,17 @@
     "@libp2p/logger" "^2.0.1"
     err-code "^3.0.1"
     it-all "^1.0.6"
+
+"@libp2p/topology@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/topology/-/topology-4.0.0.tgz#467e6d4b3a663156b95af3c515f0e478b6e408d6"
+  integrity sha512-bkoGAQCN4Y84NPBqMWtL6ztaDxq+yltNQNxfhWX+SvbLelqA1VxYo2OlTU4BBiWWfgFXi1zyNdi0aMvUCG6G7g==
+  dependencies:
+    "@libp2p/interface-peer-id" "^2.0.0"
+    "@libp2p/interface-registrar" "^2.0.3"
+    "@libp2p/logger" "^2.0.1"
+    err-code "^3.0.1"
+    it-all "^2.0.0"
 
 "@libp2p/tracked-map@^3.0.0":
   version "3.0.0"
@@ -5615,6 +5660,13 @@ uint8arrays@^4.0.2:
   integrity sha512-8CWXXZdOvVrIL4SeY/Gnp+idxxiGK4XFkP4FY26Sx/fpTz/b6vv4BVWELMDzQweSyyhdcuAcU14H6izzB6k1Cw==
   dependencies:
     multiformats "^10.0.0"
+
+uint8arrays@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-4.0.3.tgz#43109c03c4c10d312e7f2e9f4d53e5cd2398c7fd"
+  integrity sha512-b+aKlI2oTnxnfeSQWV1sMacqSNxqhtXySaH6bflvONGxF8V/fT3ZlYH7z2qgGfydsvpVo4JUgM/Ylyfl2YouCg==
+  dependencies:
+    multiformats "^11.0.0"
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"
