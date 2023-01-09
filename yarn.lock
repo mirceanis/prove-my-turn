@@ -1149,18 +1149,18 @@
     uint8arraylist "^2.3.2"
     uint8arrays "^4.0.2"
 
-"@chainsafe/libp2p-noise@^10.1.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@chainsafe/libp2p-noise/-/libp2p-noise-10.1.0.tgz#92587e97902e342fa2c5e24de355d5c69d12691c"
-  integrity sha512-7Q5L/KDmjhA/X9va2wPpEMSW4VX9L7382qy23V3THV753z+7f3tFOfGjn1pWJ+rS6nm1OGLT1k5yoN3lF+MzLg==
+"@chainsafe/libp2p-noise@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@chainsafe/libp2p-noise/-/libp2p-noise-11.0.0.tgz#ecfc82230f0fa73be3ed92add4b09424d9d1e280"
+  integrity sha512-NEl5aIv6muz9OL+dsa3INEU89JX0NViBxOy7NwwG8eNRPUDHo5E3ZTMSHXQpVx1K/ofoNS4ANO9xwezY6ss5GA==
   dependencies:
     "@libp2p/crypto" "^1.0.0"
     "@libp2p/interface-connection-encrypter" "^3.0.0"
     "@libp2p/interface-keys" "^1.0.2"
     "@libp2p/interface-metrics" "^4.0.2"
-    "@libp2p/interface-peer-id" "^1.0.2"
+    "@libp2p/interface-peer-id" "^2.0.0"
     "@libp2p/logger" "^2.0.0"
-    "@libp2p/peer-id" "^1.1.8"
+    "@libp2p/peer-id" "^2.0.0"
     "@stablelib/chacha20poly1305" "^1.0.1"
     "@stablelib/hkdf" "^1.0.1"
     "@stablelib/sha256" "^1.0.1"
@@ -1813,7 +1813,7 @@
     uint8arraylist "^2.0.0"
     uint8arrays "^4.0.2"
 
-"@libp2p/peer-id@^1.0.0", "@libp2p/peer-id@^1.1.0", "@libp2p/peer-id@^1.1.13", "@libp2p/peer-id@^1.1.15", "@libp2p/peer-id@^1.1.8":
+"@libp2p/peer-id@^1.0.0", "@libp2p/peer-id@^1.1.0", "@libp2p/peer-id@^1.1.13", "@libp2p/peer-id@^1.1.15":
   version "1.1.16"
   resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-1.1.16.tgz#36461ce565371d9e897b49c38013f2ae9f200f38"
   integrity sha512-frt4wRNme5fR8sFl6LLL22brfEIDR09ewE4ICaRzYC32wvI9LK4oXfMOytpW7YUX1nH/r5mOcJgmZaDW0y6nZQ==
