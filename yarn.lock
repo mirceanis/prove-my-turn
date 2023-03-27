@@ -1258,9 +1258,9 @@
     uint8arrays "^4.0.2"
 
 "@chainsafe/libp2p-noise@^11.0.0":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@chainsafe/libp2p-noise/-/libp2p-noise-11.0.1.tgz#f3176bf416d799c892d899890dc7b11619d098d9"
-  integrity sha512-pByMPsbuuiAherDV7DRB/sBmxWJcLt2tkuST4vFpv6FZb3/AxKp+ck2f4pHFNaUCaFbGLQa2wN903i8tq8Qr7Q==
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/@chainsafe/libp2p-noise/-/libp2p-noise-11.0.2.tgz#c3f7c31557eb82ec77ed11c0412ea0f4807f5aa1"
+  integrity sha512-DscY1r3npdi2ZQU1VKdaU56MV7tBWjP1lQmCZaxNCqNmp8mBVMKbVz8qsPqXO48gtpuNNm3K3vfzJw1qMi7euQ==
   dependencies:
     "@libp2p/crypto" "^1.0.11"
     "@libp2p/interface-connection-encrypter" "^3.0.5"
@@ -1275,10 +1275,10 @@
     "@stablelib/x25519" "^1.0.3"
     it-length-prefixed "^8.0.2"
     it-pair "^2.0.2"
-    it-pb-stream "^2.0.2"
+    it-pb-stream "^3.2.0"
     it-pipe "^2.0.3"
     it-stream-types "^1.0.4"
-    protons-runtime "^4.0.1"
+    protons-runtime "^5.0.0"
     uint8arraylist "^2.3.2"
     uint8arrays "^4.0.2"
 
@@ -1879,20 +1879,10 @@
   resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-3.3.1.tgz#519c77c030b10d776250bbebf65990af53ccb2ee"
   integrity sha512-3N+goQt74SmaVOjwpwMPKLNgh1uDQGw8GD12c40Kc86WOq0qvpm3NfACW+H8Su2X6KmWjCSMzk9JWs9+8FtUfg==
 
-"@libp2p/logger@^2.0.0", "@libp2p/logger@^2.0.1":
+"@libp2p/logger@^2.0.0", "@libp2p/logger@^2.0.1", "@libp2p/logger@^2.0.5":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@libp2p/logger/-/logger-2.0.7.tgz#9a3996242b4a9edb8a9d825c8accaf62f617c5c6"
   integrity sha512-Zp9C9lMNGfVFTMVc7NvxuxMvIE6gyxDapQc/TqZH02IuIDl1JpZyCgNILr0APd8wcUxwvwRXYNf3kQ0Lmz7tuQ==
-  dependencies:
-    "@libp2p/interface-peer-id" "^2.0.0"
-    debug "^4.3.3"
-    interface-datastore "^8.0.0"
-    multiformats "^11.0.0"
-
-"@libp2p/logger@^2.0.5":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@libp2p/logger/-/logger-2.0.6.tgz#ede3a870d2f90ccf1389e2923a7a590672823821"
-  integrity sha512-PfTGCBT6buiGeww7heG1JucBK2io2sJ2hntNh+gTVohRy4FyEvZixnWfIVD2rCM8EsbZu3Hmt/qqetzX5BrziQ==
   dependencies:
     "@libp2p/interface-peer-id" "^2.0.0"
     debug "^4.3.3"
@@ -2521,9 +2511,9 @@
   integrity sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==
 
 "@types/node@>=13.7.0":
-  version "18.15.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.7.tgz#33514fca9bdf136f77027358850c0fb9cd93c669"
-  integrity sha512-LFmUbFunqmBn26wJZgZPYZPrDR1RwGOu2v79Mgcka1ndO6V0/cwjivPTc4yoK6n9kmw4/ls1r8cLrvh2iMibFA==
+  version "18.15.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.10.tgz#4ee2171c3306a185d1208dad5f44dae3dee4cfe3"
+  integrity sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==
 
 "@types/prettier@^2.1.5":
   version "2.7.1"
@@ -3981,14 +3971,15 @@ it-pair@^2.0.2:
     it-stream-types "^1.0.3"
     p-defer "^4.0.0"
 
-it-pb-stream@^2.0.2:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/it-pb-stream/-/it-pb-stream-2.0.4.tgz#9d246d186d6cbfc0e3860a1796e181085359638b"
-  integrity sha512-p0chBIT3HrZt3hIqvBEi+NgZxxT25MTJ362nKoHmzA/k/WsUPPbeSz7Ad+wRcGxZn2O5JEXCS5lOGRjSDSnlNg==
+it-pb-stream@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/it-pb-stream/-/it-pb-stream-3.2.0.tgz#484f0e8c23e6da376d78c8a21ca77db19850cfbe"
+  integrity sha512-ChA6NX0MsxS5Qhb/Mkb+82/O3U6H0or1Y0lQeyohk9Y+1nrGCVFk5OUah51Zk3ex+mlJqQxTUuspCw/C7REjwg==
   dependencies:
     it-handshake "^4.1.2"
     it-length-prefixed "^8.0.2"
     it-stream-types "^1.0.4"
+    protons-runtime "^5.0.0"
     uint8arraylist "^2.0.0"
 
 it-pipe@^2.0.3, it-pipe@^2.0.4:
@@ -4837,9 +4828,9 @@ multiformats@^11.0.0:
   integrity sha512-b5mYMkOkARIuVZCpvijFj9a6m5wMVLC7cf/jIPd5D/ARDOfLC5+IFkbgDXQgcU2goIsTD/O9NY4DI/Mt4OGvlg==
 
 nanoid@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.1.tgz#398d7ccfdbf9faf2231b2ca7e8fff5dbca6a509b"
-  integrity sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.2.tgz#140b3c5003959adbebf521c170f282c5e7f9fb9e"
+  integrity sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==
 
 native-fetch@^4.0.2:
   version "4.0.2"
