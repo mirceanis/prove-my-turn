@@ -1890,9 +1890,9 @@
     multiformats "^11.0.0"
 
 "@libp2p/mdns@^7.0.0":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@libp2p/mdns/-/mdns-7.0.1.tgz#6963b6e7b36a8ffb4e5059a1fdcbf577451fc162"
-  integrity sha512-u+E1S9XAztcLS1BsWj6yeXomDNYH1Kya/7LJMroBCtkNlU2XS5Zb+l4tFvUY+Wa7oaxjQcNzYmmpZEtOf0QWGg==
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@libp2p/mdns/-/mdns-7.0.2.tgz#89621ae437ac84896d070734ae6b52f8df617eff"
+  integrity sha512-OFMNHnv3uiF8i+U9ihwbFJ4AsrFfG0s9E+BsafyIwApeUkaw3fCXOUxj+m3GloUlgWZQ61z5MD+JzeW8K8thYQ==
   dependencies:
     "@libp2p/interface-peer-discovery" "^1.0.5"
     "@libp2p/interface-peer-id" "^2.0.1"
@@ -1968,20 +1968,10 @@
     uint8arraylist "^2.0.0"
     uint8arrays "^4.0.2"
 
-"@libp2p/peer-id@^2.0.0":
+"@libp2p/peer-id@^2.0.0", "@libp2p/peer-id@^2.0.1":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-2.0.3.tgz#7299d74eae7b2526123d941bdb2d08462704c79a"
   integrity sha512-eZX+5ByUAzh8DrfjCan0spZGpvF7SxEBz4tOPoBMBCuKJJLr+8EokBO/5E3ceIw04f5+lAcD3CO3bccuKomp3Q==
-  dependencies:
-    "@libp2p/interface-peer-id" "^2.0.0"
-    "@libp2p/interfaces" "^3.2.0"
-    multiformats "^11.0.0"
-    uint8arrays "^4.0.2"
-
-"@libp2p/peer-id@^2.0.1":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-2.0.2.tgz#4278750e7545429665ad49ea3c405badd08807cf"
-  integrity sha512-RBjCMtSLnX43OK6zIpMW/cKzEgnsunihgyVPhnB/U7DAAEnovxe8F1Q4jBQp9+9DYSgQJrsdiEBpT5JH0Eh2lA==
   dependencies:
     "@libp2p/interface-peer-id" "^2.0.0"
     "@libp2p/interfaces" "^3.2.0"
@@ -2070,9 +2060,9 @@
     uint8arrays "^4.0.2"
 
 "@libp2p/tcp@^6.0.2":
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-6.1.4.tgz#fb2685349d15b9597af025e8ae5717a93c3839c9"
-  integrity sha512-fLT1rY04agWLJm52rXoT03MLjRZJCKolRx0Ph61z/pHXqHSrgWbNHod3uF3oGH8N7+AkVn3ScohGLHF89NeEcA==
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-6.1.5.tgz#405d6ff58f3e7ecede7a19820003a1b88005ffdf"
+  integrity sha512-j5+pNbd9hPuveA4t5FL2loet50XFP9VLQ9Y33zKdOc/heTnhrRzCtDMrpMUlMYq6jE18EmjXizio63LwcdNamg==
   dependencies:
     "@libp2p/interface-connection" "^3.0.2"
     "@libp2p/interface-metrics" "^4.0.0"
@@ -2119,9 +2109,9 @@
     uint8arraylist "^2.3.2"
 
 "@libp2p/utils@^3.0.2":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@libp2p/utils/-/utils-3.0.5.tgz#28fe2ada66c29369e51cb13abadc53e3d703ca79"
-  integrity sha512-2O1+X26W6K0Nf06rITtSDrXqyz8Uk49/rK91YIPKbGSgp7emTWrD0ZtETBsds9HbyWKPvdCeNSLXSueXmrffRQ==
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@libp2p/utils/-/utils-3.0.6.tgz#c4ca0277c139120fa41e791bcd85ec2929208d60"
+  integrity sha512-4ynja0AxZM3vC411ixXP9g9TM9OnEqxvmJChK0Xjv/9euPzuP5NuZxH0IZRx0zl7E0NgMnmALbQeNmmO7CIdAA==
   dependencies:
     "@achingbrain/ip-address" "^8.1.0"
     "@libp2p/interface-connection" "^3.0.2"
@@ -2506,9 +2496,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "18.15.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.3.tgz#f0b991c32cfc6a4e7f3399d6cb4b8cf9a0315014"
-  integrity sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==
+  version "18.15.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.11.tgz#b3b790f09cb1696cffcec605de025b088fa4225f"
+  integrity sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==
 
 "@types/node@>=13.7.0":
   version "18.15.10"
@@ -3176,9 +3166,9 @@ dns-over-http-resolver@^2.1.0:
     undici "^5.12.0"
 
 dns-packet@^5.2.2, dns-packet@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/dns-packet/-/dns-packet-5.4.0.tgz#1f88477cf9f27e78a213fb6d118ae38e759a879b"
-  integrity sha512-EgqGeaBB8hLiHLZtp/IbaDQTL8pZ0+IvwzSHA6d7VyMDM+B9hgddEMa9xjK5oYnw0ci0JQ6g2XCD7/f6cafU6g==
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/dns-packet/-/dns-packet-5.5.0.tgz#f59cbf3396c130957c56a6ad5fd3959ccdc30065"
+  integrity sha512-USawdAUzRkV6xrqTjiAEp6M9YagZEzWcSUaZTcIFAiyQWW1SoI6KyId8y2+/71wbgHKQAKd+iupLv4YvEwYWvA==
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 
