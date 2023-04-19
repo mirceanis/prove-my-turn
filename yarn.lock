@@ -1927,17 +1927,6 @@
     it-stream-types "^2.0.1"
     uint8arraylist "^2.4.3"
 
-"@libp2p/interface-transport@^2.0.0":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@libp2p/interface-transport/-/interface-transport-2.1.3.tgz#3fbc8457013a1552d281a3d94ee7ae0725cc16e0"
-  integrity sha512-ez+0X+w2Wyw3nJY6mP0DHFgrRnln/miAH4TJLcRfUSJHjGXH5ZfpuK1TnRxXpEUiqOezSbwke06/znI27KpRiQ==
-  dependencies:
-    "@libp2p/interface-connection" "^4.0.0"
-    "@libp2p/interface-stream-muxer" "^3.0.0"
-    "@libp2p/interfaces" "^3.0.0"
-    "@multiformats/multiaddr" "^12.0.0"
-    it-stream-types "^1.0.4"
-
 "@libp2p/interface-transport@^2.1.0":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-transport/-/interface-transport-2.1.1.tgz#e463f30b272494c177d3a0bd494545616fd7b624"
@@ -1948,6 +1937,17 @@
     "@libp2p/interfaces" "^3.0.0"
     "@multiformats/multiaddr" "^11.0.0"
     it-stream-types "^1.0.4"
+
+"@libp2p/interface-transport@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/interface-transport/-/interface-transport-3.0.0.tgz#404a599215af1538e6fc82e25768fa65f45d4b5d"
+  integrity sha512-XDyk/GJX9+z3WcB+2FaFSluj6w3Qcn9LElNt4jXsgnUkzvN229CvF6LmYlYKkWa7m4+GLfmKozBdhWVTANhs/g==
+  dependencies:
+    "@libp2p/interface-connection" "^5.0.0"
+    "@libp2p/interface-stream-muxer" "^4.0.0"
+    "@libp2p/interfaces" "^3.0.0"
+    "@multiformats/multiaddr" "^12.0.0"
+    it-stream-types "^2.0.1"
 
 "@libp2p/interfaces@^3.0.0", "@libp2p/interfaces@^3.0.2", "@libp2p/interfaces@^3.0.3", "@libp2p/interfaces@^3.2.0", "@libp2p/interfaces@^3.3.1":
   version "3.3.1"
@@ -2133,14 +2133,14 @@
     uint8arraylist "^2.0.0"
     uint8arrays "^4.0.2"
 
-"@libp2p/tcp@^6.0.2":
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-6.2.1.tgz#eaa167dc671e7d1dde718869cd5eca7dfce30d6d"
-  integrity sha512-XHephji2C2lCUWd8ZSjap6PxHvbWibH6t6j6h7XjaPoL+9IfB2V7N4y1BSldH0yrFJYjNORwPbyveqYzBc9pQw==
+"@libp2p/tcp@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-7.0.0.tgz#726f9111ce64fca121f678cd117896012d6a1a8d"
+  integrity sha512-rvlK1Zza5vwTZ4YqMpe4Z9PxRzxb+AbnCTyzypEVqkMl9XLotimgJlDwgAtiNRoz4aqHCG9VzJLyNHS0zR12jQ==
   dependencies:
-    "@libp2p/interface-connection" "^4.0.0"
+    "@libp2p/interface-connection" "^5.0.0"
     "@libp2p/interface-metrics" "^4.0.0"
-    "@libp2p/interface-transport" "^2.0.0"
+    "@libp2p/interface-transport" "^3.0.0"
     "@libp2p/interfaces" "^3.2.0"
     "@libp2p/logger" "^2.0.0"
     "@libp2p/utils" "^3.0.2"
