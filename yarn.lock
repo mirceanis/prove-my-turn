@@ -1809,7 +1809,7 @@
   dependencies:
     "@libp2p/interface-connection" "^3.0.0"
 
-"@libp2p/interface-peer-discovery@^1.0.0", "@libp2p/interface-peer-discovery@^1.0.1", "@libp2p/interface-peer-discovery@^1.0.5":
+"@libp2p/interface-peer-discovery@^1.0.0", "@libp2p/interface-peer-discovery@^1.0.1":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-peer-discovery/-/interface-peer-discovery-1.0.5.tgz#0fb935d55221e0ff58b4dad93646111a4fc7dcdf"
   integrity sha512-R0TN/vDaCJLvRhop0y4qoPqapHxX4AEQDEtqmpayAA1BuPgbBq4fS4mepR3FAMcNva/szeqVCDuI4gDejtCaVg==
@@ -1991,12 +1991,12 @@
     interface-datastore "^8.0.0"
     multiformats "^11.0.0"
 
-"@libp2p/mdns@^7.0.0":
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/@libp2p/mdns/-/mdns-7.0.3.tgz#f2193a3f5bccaae5922f53d3886866dff045b194"
-  integrity sha512-QzIVS8RhaJqkQoYryL11jMwtPPkdcLFf9NyxGkSqpYg8gA6szkqhQUW8llFFszIDx1oMzENwfZdBGCbhUJSDig==
+"@libp2p/mdns@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/mdns/-/mdns-8.0.0.tgz#250e498bb0b5d3a4b253460ef310598033b4b2c0"
+  integrity sha512-/q2qDWGzZpv2/LmvlwsImoEwjOhmaO9H7HDFloEs2D1+rT0dRFuQpXHAm7/sCLwx9PtmSUZp/sNj0ppnGGwK5A==
   dependencies:
-    "@libp2p/interface-peer-discovery" "^1.0.5"
+    "@libp2p/interface-peer-discovery" "^2.0.0"
     "@libp2p/interface-peer-info" "^1.0.8"
     "@libp2p/interfaces" "^3.3.1"
     "@libp2p/logger" "^2.0.5"
