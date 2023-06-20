@@ -1227,10 +1227,10 @@
   resolved "https://registry.yarnpkg.com/@chainsafe/is-ip/-/is-ip-2.0.1.tgz#62cb285669d91f88fd9fa285048dde3882f0993b"
   integrity sha512-nqSJ8u2a1Rv9FYbyI8qpDhTYujaKEyLknNrTejLYoSWmdeg+2WB7R6BZqPZYfrJzDxVi3rl6ZQuoaEvpKRZWgQ==
 
-"@chainsafe/libp2p-gossipsub@^8.0.0":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@chainsafe/libp2p-gossipsub/-/libp2p-gossipsub-8.0.1.tgz#8cb8647b162e23769f8bc349a2a7a908dc300757"
-  integrity sha512-vzRN7F1zLd/DKfK9VLQ7rrc/lYQFvE/RGnXjr+EanD2RoX+BjSdqZkvzcrJcaDzkCMJRCvpsFzgz2iLbV7SgYg==
+"@chainsafe/libp2p-gossipsub@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@chainsafe/libp2p-gossipsub/-/libp2p-gossipsub-9.0.0.tgz#add9b714852c06b1eccb6a5de27eb5e91cfafcea"
+  integrity sha512-B+jCG8xDkzURjaf8NvZ42aX/qMMKCBchv7sCyJx+7ApuIGA44kvAj0I2batxEy3A7Oy8jBkvzb/sH8nzSWsPTQ==
   dependencies:
     "@libp2p/crypto" "^1.0.3"
     "@libp2p/interface-connection" "^5.0.1"
