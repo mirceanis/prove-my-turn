@@ -1627,19 +1627,16 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@libp2p/bootstrap@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@libp2p/bootstrap/-/bootstrap-8.0.0.tgz#dc9fc3f0367953b69c7b726a205ba5d17a8eac50"
-  integrity sha512-xbaJ+ybx1FGsi8FeGl9g1Wk6P2zf5/Thdk9Fe1qXV0O0xIW0xRWrefOYG5Dvt+BV54C/zlnQ4CG+Xs+Rr7wsbA==
+"@libp2p/bootstrap@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/bootstrap/-/bootstrap-9.0.0.tgz#d6203d1e1c530cbf1a3d8947d274c22ea74d0d2e"
+  integrity sha512-4AvCPnigqYA4yNiULmxJ4qMgAjkjqH5EIRr0BbFJOQOm/zXTUq1TZZfA/JaT+q+5oJ2/EiG09xG+f5GZsnfpXw==
   dependencies:
-    "@libp2p/interface-peer-discovery" "^2.0.0"
-    "@libp2p/interface-peer-info" "^1.0.7"
-    "@libp2p/interface-peer-store" "^2.0.0"
-    "@libp2p/interfaces" "^3.0.3"
-    "@libp2p/logger" "^2.0.1"
-    "@libp2p/peer-id" "^2.0.0"
-    "@multiformats/mafmt" "^12.0.0"
-    "@multiformats/multiaddr" "^12.0.0"
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/logger" "^3.0.0"
+    "@libp2p/peer-id" "^3.0.0"
+    "@multiformats/mafmt" "^12.1.2"
+    "@multiformats/multiaddr" "^12.1.3"
 
 "@libp2p/crypto@^1.0.0", "@libp2p/crypto@^1.0.11", "@libp2p/crypto@^1.0.3":
   version "1.0.17"
@@ -1873,7 +1870,7 @@
     "@libp2p/interface-peer-id" "^2.0.0"
     "@multiformats/multiaddr" "^11.0.0"
 
-"@libp2p/interface-peer-info@^1.0.7", "@libp2p/interface-peer-info@^1.0.8":
+"@libp2p/interface-peer-info@^1.0.8":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-peer-info/-/interface-peer-info-1.0.9.tgz#4b1ff859b7861f4387a69711850b3ac31eaedc56"
   integrity sha512-XewuwXMVYMcwaxhH9PFVfsFNEXi2OEe9TgkBwvZbbtwTI2Cz6zvKS1tT4f+ATCXjQbN840Nhe6ETPQ4TfhThOQ==
@@ -2003,6 +2000,19 @@
     "@multiformats/multiaddr" "^12.0.0"
     it-stream-types "^2.0.1"
 
+"@libp2p/interface@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/interface/-/interface-0.1.0.tgz#6baf7608dc43c0afc4f06c35598c64d6c505e6f1"
+  integrity sha512-n4CFkkQydQAcgvvAEPQV6KZBc2p6Vitqy7cjal19FYs7FZW6/YFf7MF8gBU7xg1QnM5YCeXsPb8Zr/RV2vxkFg==
+  dependencies:
+    "@multiformats/multiaddr" "^12.1.3"
+    abortable-iterator "^5.0.1"
+    it-pushable "^3.2.0"
+    it-stream-types "^2.0.1"
+    multiformats "^12.0.1"
+    p-defer "^4.0.0"
+    uint8arraylist "^2.4.3"
+
 "@libp2p/interfaces@^3.0.0", "@libp2p/interfaces@^3.0.3", "@libp2p/interfaces@^3.2.0", "@libp2p/interfaces@^3.3.1":
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-3.3.2.tgz#5d8079be845b0960939b5b18880e785a4714465a"
@@ -2033,6 +2043,17 @@
     debug "^4.3.3"
     interface-datastore "^8.0.0"
     multiformats "^11.0.0"
+
+"@libp2p/logger@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/logger/-/logger-3.0.0.tgz#dc0fd33753f2d6c88a093a89ddc47057de427b3a"
+  integrity sha512-y9uSofeLPzvGeDo41HiH8uOENBCgNI8jRp4lMPY9zVWixjT8HJ1nIRWRzD4ktvaHP3vQlJyc8PejO5GIVf0JEw==
+  dependencies:
+    "@libp2p/interface" "^0.1.0"
+    "@multiformats/multiaddr" "^12.1.3"
+    debug "^4.3.4"
+    interface-datastore "^8.2.0"
+    multiformats "^12.0.1"
 
 "@libp2p/mdns@^8.0.0":
   version "8.0.0"
@@ -2131,6 +2152,15 @@
     "@libp2p/interfaces" "^3.2.0"
     multiformats "^11.0.0"
     uint8arrays "^4.0.2"
+
+"@libp2p/peer-id@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-3.0.0.tgz#3d5022ec38361796d843e19e59646b361eca08e2"
+  integrity sha512-ZSpUD6GbZn7zrKoAcDkLbUIZY2NiMLDTqcKbd7mcQKP+mowiE/G2JQ/yMj+0WerF831EhnTvtr0dDNRUsAYVwg==
+  dependencies:
+    "@libp2p/interface" "^0.1.0"
+    multiformats "^12.0.1"
+    uint8arrays "^4.0.4"
 
 "@libp2p/peer-record@^5.0.0":
   version "5.0.4"
@@ -2269,7 +2299,7 @@
   dependencies:
     "@multiformats/multiaddr" "^11.0.0"
 
-"@multiformats/mafmt@^12.0.0":
+"@multiformats/mafmt@^12.0.0", "@multiformats/mafmt@^12.1.2":
   version "12.1.5"
   resolved "https://registry.yarnpkg.com/@multiformats/mafmt/-/mafmt-12.1.5.tgz#bb4d470bbfb73bb4f1fe582ef7263ffe95008771"
   integrity sha512-hz8CreKgs99pNIfea5/BHTPY90nrVLDHgGNrrHPCe51pkO+OM95PiF43q7ivIlytU++asOxcp+FhZymIwYy6LA==
@@ -4193,7 +4223,7 @@ it-pushable@^3.0.0:
   resolved "https://registry.yarnpkg.com/it-pushable/-/it-pushable-3.1.3.tgz#b6f4a1e0236502f12b5661b40468b629799baf0e"
   integrity sha512-f50iQ85HISS6DaWCyrqf9QJ6G/kQtKIMf9xZkgZgyOvxEQDfn8OfYcLXXquCqgoLboxQtAW1ZFZyFIAsLHDtJw==
 
-it-pushable@^3.1.0, it-pushable@^3.1.2, it-pushable@^3.1.3:
+it-pushable@^3.1.0, it-pushable@^3.1.2, it-pushable@^3.1.3, it-pushable@^3.2.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/it-pushable/-/it-pushable-3.2.1.tgz#72d7ccf7e7c0ccecf8cbaf74064f7be56e775c59"
   integrity sha512-sLFz2Q0oyDCJpTciZog7ipP4vSftfPy3e6JnH6YyztRa1XqkpGQaafK3Jw/JlfEBtCXfnX9uVfcpu3xpSAqCVQ==
@@ -5036,7 +5066,7 @@ multiformats@^11.0.0, multiformats@^11.0.2:
   resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-11.0.2.tgz#b14735efc42cd8581e73895e66bebb9752151b60"
   integrity sha512-b5mYMkOkARIuVZCpvijFj9a6m5wMVLC7cf/jIPd5D/ARDOfLC5+IFkbgDXQgcU2goIsTD/O9NY4DI/Mt4OGvlg==
 
-multiformats@^12.0.0:
+multiformats@^12.0.0, multiformats@^12.0.1:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-12.0.1.tgz#dd3e19dd44114c2672e4795a36888d263be30131"
   integrity sha512-s01wijBJoDUqESWSzePY0lvTw7J3PVO9x2Cc6ASI5AMZM2Gnhh7BC17+nlFhHKU7dDzaCaRfb+NiqNzOsgPUoQ==
@@ -6005,7 +6035,7 @@ uint8arraylist@^2.0.0, uint8arraylist@^2.1.0, uint8arraylist@^2.1.1, uint8arrayl
   dependencies:
     uint8arrays "^4.0.2"
 
-uint8arrays@^4.0.2, uint8arrays@^4.0.3:
+uint8arrays@^4.0.2, uint8arrays@^4.0.3, uint8arrays@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-4.0.4.tgz#3254e01aeb166a3f35e66e60e4e37002f4ea13fd"
   integrity sha512-AOoA66e/A7zoXm1mgzQjGmkWDTvCrS3ttWXLHFtlVAwMobLcaOA7G7WRNNAcyfjjYdFDtkEK6njRDX7hZLIO9Q==
