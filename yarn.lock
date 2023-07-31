@@ -1839,14 +1839,6 @@
     "@libp2p/interface-peer-info" "^1.0.0"
     "@libp2p/interfaces" "^3.0.0"
 
-"@libp2p/interface-peer-discovery@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@libp2p/interface-peer-discovery/-/interface-peer-discovery-2.0.0.tgz#90f176cfd202f5a362912386199e64f8b1e0fc53"
-  integrity sha512-Mien5t3Tc+ntP5p50acKUYJN90ouMnq1lOTQDKQNvGcXoajG8A1AEYLocnzVia/MXiexuj6S/Q28WBBacoOlBg==
-  dependencies:
-    "@libp2p/interface-peer-info" "^1.0.0"
-    "@libp2p/interfaces" "^3.0.0"
-
 "@libp2p/interface-peer-id@^2.0.0", "@libp2p/interface-peer-id@^2.0.1", "@libp2p/interface-peer-id@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-peer-id/-/interface-peer-id-2.0.2.tgz#6302e70b6fc17c451bc3daa11447d059357bcc32"
@@ -1869,14 +1861,6 @@
   dependencies:
     "@libp2p/interface-peer-id" "^2.0.0"
     "@multiformats/multiaddr" "^11.0.0"
-
-"@libp2p/interface-peer-info@^1.0.8":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@libp2p/interface-peer-info/-/interface-peer-info-1.0.9.tgz#4b1ff859b7861f4387a69711850b3ac31eaedc56"
-  integrity sha512-XewuwXMVYMcwaxhH9PFVfsFNEXi2OEe9TgkBwvZbbtwTI2Cz6zvKS1tT4f+ATCXjQbN840Nhe6ETPQ4TfhThOQ==
-  dependencies:
-    "@libp2p/interface-peer-id" "^2.0.0"
-    "@multiformats/multiaddr" "^12.0.0"
 
 "@libp2p/interface-peer-routing@^1.0.0", "@libp2p/interface-peer-routing@^1.0.1":
   version "1.0.8"
@@ -2055,17 +2039,15 @@
     interface-datastore "^8.2.0"
     multiformats "^12.0.1"
 
-"@libp2p/mdns@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@libp2p/mdns/-/mdns-8.0.0.tgz#250e498bb0b5d3a4b253460ef310598033b4b2c0"
-  integrity sha512-/q2qDWGzZpv2/LmvlwsImoEwjOhmaO9H7HDFloEs2D1+rT0dRFuQpXHAm7/sCLwx9PtmSUZp/sNj0ppnGGwK5A==
+"@libp2p/mdns@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/mdns/-/mdns-9.0.0.tgz#5a8893d6eabce3d8a0bb8c381a87ca46a8d8398c"
+  integrity sha512-//Yj5kutqFo9YassYNfZkh4DleULvYvaPw+lHU2Z4870bRnmuW65kEoOnJk7Gql7wtQFjfEe33FDsbF1Oo6AdQ==
   dependencies:
-    "@libp2p/interface-peer-discovery" "^2.0.0"
-    "@libp2p/interface-peer-info" "^1.0.8"
-    "@libp2p/interfaces" "^3.3.1"
-    "@libp2p/logger" "^2.0.5"
-    "@libp2p/peer-id" "^2.0.1"
-    "@multiformats/multiaddr" "^12.0.0"
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/logger" "^3.0.0"
+    "@libp2p/peer-id" "^3.0.0"
+    "@multiformats/multiaddr" "^12.1.3"
     "@types/multicast-dns" "^7.2.1"
     dns-packet "^5.4.0"
     multicast-dns "^7.2.5"
@@ -2137,16 +2119,6 @@
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-2.0.4.tgz#d50d2ae4663ef79f6e31ce4eaf25e1f44e1667ab"
   integrity sha512-gcOsN8Fbhj6izIK+ejiWsqiqKeJ2yWPapi/m55VjOvDa52/ptQzZszxQP8jUk93u36de92ATFXDfZR/Bi6eeUQ==
-  dependencies:
-    "@libp2p/interface-peer-id" "^2.0.0"
-    "@libp2p/interfaces" "^3.2.0"
-    multiformats "^11.0.0"
-    uint8arrays "^4.0.2"
-
-"@libp2p/peer-id@^2.0.1":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-2.0.3.tgz#7299d74eae7b2526123d941bdb2d08462704c79a"
-  integrity sha512-eZX+5ByUAzh8DrfjCan0spZGpvF7SxEBz4tOPoBMBCuKJJLr+8EokBO/5E3ceIw04f5+lAcD3CO3bccuKomp3Q==
   dependencies:
     "@libp2p/interface-peer-id" "^2.0.0"
     "@libp2p/interfaces" "^3.2.0"
