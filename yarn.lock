@@ -1948,7 +1948,7 @@
     "@libp2p/interfaces" "^3.0.0"
     it-stream-types "^1.0.4"
 
-"@libp2p/interface-stream-muxer@^4.0.0", "@libp2p/interface-stream-muxer@^4.1.2":
+"@libp2p/interface-stream-muxer@^4.1.2":
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-stream-muxer/-/interface-stream-muxer-4.1.2.tgz#f0a5edb906ec784d991b9421a024f0f21ebdaab4"
   integrity sha512-dQJcn67UaAa8YQFRJDhbo4uT453z/2lCzD/ZwTk1YOqJxATXbXgVcB8dXDQFEUiUX3ZjVQ1IBu+NlQd+IZ++zw==
@@ -1972,17 +1972,6 @@
     "@libp2p/interfaces" "^3.0.0"
     "@multiformats/multiaddr" "^11.0.0"
     it-stream-types "^1.0.4"
-
-"@libp2p/interface-transport@^4.0.0":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@libp2p/interface-transport/-/interface-transport-4.0.3.tgz#8cc63bb4863ece507cbc54bff167fc7588fd3a85"
-  integrity sha512-jXFQ3blhFMEyQbFw/U8Glo3F/fUO5LEaX5HIdeqNpCliK+XnwTfpkcaG+WsJrcApWK4FFyUHc+GGqiWR0hAFFg==
-  dependencies:
-    "@libp2p/interface-connection" "^5.0.0"
-    "@libp2p/interface-stream-muxer" "^4.0.0"
-    "@libp2p/interfaces" "^3.0.0"
-    "@multiformats/multiaddr" "^12.0.0"
-    it-stream-types "^2.0.1"
 
 "@libp2p/interface@^0.1.0":
   version "0.1.0"
@@ -2216,19 +2205,16 @@
     uint8arraylist "^2.0.0"
     uint8arrays "^4.0.2"
 
-"@libp2p/tcp@^7.0.0":
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-7.0.3.tgz#b657b0738f4703add5b75ca180af5f1c5e01d0c6"
-  integrity sha512-w1g5/BYDNpZKXrJZd1PW8kUS0GxHwFO6oql3rIizh5WaxmWtMa21LtKWIoHJyC8Wp4vshEUPeZthAIKECqUafg==
+"@libp2p/tcp@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/tcp/-/tcp-8.0.0.tgz#cf185970276058ba65d87973b5d3939608f70cba"
+  integrity sha512-w7yKoeez3UuZbW/p6gFhmqEtbolf8d1GM46jUHiQValQz9OGs5mpimfFLbkbFHouw/0u2MGovHzwFo2LsoVbkw==
   dependencies:
-    "@libp2p/interface-connection" "^5.0.0"
-    "@libp2p/interface-metrics" "^4.0.0"
-    "@libp2p/interface-transport" "^4.0.0"
-    "@libp2p/interfaces" "^3.2.0"
-    "@libp2p/logger" "^2.0.0"
-    "@libp2p/utils" "^3.0.2"
-    "@multiformats/mafmt" "^12.0.0"
-    "@multiformats/multiaddr" "^12.0.0"
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/logger" "^3.0.0"
+    "@libp2p/utils" "^4.0.0"
+    "@multiformats/mafmt" "^12.1.2"
+    "@multiformats/multiaddr" "^12.1.3"
     "@types/sinon" "^10.0.15"
     stream-to-it "^0.2.2"
 
@@ -2264,6 +2250,20 @@
     private-ip "^3.0.0"
     uint8arraylist "^2.3.2"
 
+"@libp2p/utils@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/utils/-/utils-4.0.0.tgz#2f85f02d85de22618da23a27fde6faf1fcb8a96e"
+  integrity sha512-nax6iKtozIppZDpfdGMgU7vYsBzAOq2aWuSvMxuPRmyckVIaxB8Xcq/AQJKQWBjXG6byqKCYqzpNzWCDlxrxpA==
+  dependencies:
+    "@achingbrain/ip-address" "^8.1.0"
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/logger" "^3.0.0"
+    "@multiformats/multiaddr" "^12.1.3"
+    is-loopback-addr "^2.0.1"
+    it-stream-types "^2.0.1"
+    private-ip "^3.0.0"
+    uint8arraylist "^2.4.3"
+
 "@multiformats/mafmt@^11.0.2":
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/@multiformats/mafmt/-/mafmt-11.1.0.tgz#0ba5d5556b7e39afdb02fc5f04d0cc8517dd0221"
@@ -2271,7 +2271,7 @@
   dependencies:
     "@multiformats/multiaddr" "^11.0.0"
 
-"@multiformats/mafmt@^12.0.0", "@multiformats/mafmt@^12.1.2":
+"@multiformats/mafmt@^12.1.2":
   version "12.1.5"
   resolved "https://registry.yarnpkg.com/@multiformats/mafmt/-/mafmt-12.1.5.tgz#bb4d470bbfb73bb4f1fe582ef7263ffe95008771"
   integrity sha512-hz8CreKgs99pNIfea5/BHTPY90nrVLDHgGNrrHPCe51pkO+OM95PiF43q7ivIlytU++asOxcp+FhZymIwYy6LA==
