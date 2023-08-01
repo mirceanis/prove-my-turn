@@ -53,7 +53,7 @@
     "@chainsafe/libp2p-gossipsub": "^9.0.0",
     "@chainsafe/libp2p-noise": "^11.0.0",
     "@libp2p/bootstrap": "^9.0.0",
-    "@libp2p/floodsub": "^7.0.0",
+    "@libp2p/floodsub": "^8.0.0",
     "@libp2p/mdns": "^9.0.0",
     "@libp2p/mplex": "^8.0.0",
     "@libp2p/pubsub-peer-discovery": "^8.0.0",

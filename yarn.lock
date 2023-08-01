@@ -1668,18 +1668,31 @@
     uint8arraylist "^2.4.3"
     uint8arrays "^4.0.2"
 
-"@libp2p/floodsub@^7.0.0":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@libp2p/floodsub/-/floodsub-7.0.2.tgz#a51c12828bcd7950b9f7ae6656563ce41ea5f244"
-  integrity sha512-FjIUYmSsvMhQD0Y7BHWf75BrIH2yEMyoMp5tWfb1zEptbU5gfGL57id+Yzh082wrueI0E6LYw5TfEYMx/Ai1dw==
+"@libp2p/crypto@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/crypto/-/crypto-2.0.0.tgz#cda04a8cc4911b3f6526f0c2a93294f41c9c0b3b"
+  integrity sha512-+fNHbecB18Ka/5tT9A6xqMDo3ekGzkmZEa1Y9jgITvetR8VgjEwcoh6+6KQFlHXdFAhi2VA1zRPwOH1AJjEUhw==
   dependencies:
-    "@libp2p/interface-peer-id" "^2.0.0"
-    "@libp2p/interface-pubsub" "^4.0.0"
-    "@libp2p/logger" "^2.0.0"
-    "@libp2p/pubsub" "^7.0.0"
+    "@libp2p/interface" "^0.1.0"
+    "@noble/ed25519" "^1.6.0"
+    "@noble/secp256k1" "^1.5.4"
+    multiformats "^12.0.1"
+    node-forge "^1.1.0"
     protons-runtime "^5.0.0"
-    uint8arraylist "^2.1.1"
-    uint8arrays "^4.0.3"
+    uint8arraylist "^2.4.3"
+    uint8arrays "^4.0.4"
+
+"@libp2p/floodsub@^8.0.0":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@libp2p/floodsub/-/floodsub-8.0.1.tgz#8634d3228549e7a453e7967c358c40ed9529fbac"
+  integrity sha512-pXFhvybkb5uur2JYPsPP6o1xfqmndjhsCs5Kcpdmfnz5GrLsqtODbJb837QhwFUGJRple5DWZuFKbzjm81EMew==
+  dependencies:
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/logger" "^3.0.0"
+    "@libp2p/pubsub" "^8.0.1"
+    protons-runtime "^5.0.0"
+    uint8arraylist "^2.4.3"
+    uint8arrays "^4.0.4"
 
 "@libp2p/interface-address-manager@^2.0.0":
   version "2.0.4"
@@ -1771,6 +1784,16 @@
     "@libp2p/interface-peer-info" "^1.0.0"
     "@libp2p/interfaces" "^3.0.0"
     multiformats "^11.0.0"
+
+"@libp2p/interface-internal@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/interface-internal/-/interface-internal-0.1.0.tgz#75d371691ff6192c2e306107dfd4db7446ed69d3"
+  integrity sha512-Xvq6j5x8MEF3huujWdKdmauj//WVzWd073UiZjAwA+S+e1UoHz8btLf7acr98Uke74nQINFtKQ75lJdP4mqJfw==
+  dependencies:
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/peer-collections" "^4.0.0"
+    "@multiformats/multiaddr" "^12.1.3"
+    uint8arraylist "^2.4.3"
 
 "@libp2p/interface-keychain@^2.0.0":
   version "2.0.4"
@@ -2090,6 +2113,14 @@
     "@libp2p/interface-peer-id" "^2.0.0"
     "@libp2p/peer-id" "^2.0.0"
 
+"@libp2p/peer-collections@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/peer-collections/-/peer-collections-4.0.0.tgz#dbccfaddbd729ab1205c700ef001456fd0efa629"
+  integrity sha512-K+q4jTr94Kb6U+bVGvkD+gqSepKrnMK+OMpXe/sX0jPfpjyigMJBG6uDz1ZXeXxItIrBMXm0AmbjjM3XATdDDw==
+  dependencies:
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/peer-id" "^3.0.0"
+
 "@libp2p/peer-id-factory@^2.0.0":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@libp2p/peer-id-factory/-/peer-id-factory-2.0.2.tgz#a1815d9bcf149a6645646d03d4523cd3a24e333a"
@@ -2181,7 +2212,7 @@
     protons-runtime "^5.0.0"
     uint8arraylist "^2.4.3"
 
-"@libp2p/pubsub@^7.0.0", "@libp2p/pubsub@^7.0.1":
+"@libp2p/pubsub@^7.0.1":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@libp2p/pubsub/-/pubsub-7.0.3.tgz#d7e37c43e020c0f2de9dbe2ebb862de3f7e61175"
   integrity sha512-BrUBQ6ljN1tU+2Hn1Vq+ZT/foVBGUVIywqoavNrFw5CmaBBTGuVRrmqE/MUToIS8dhonpW5RNCRabz3woq/4iQ==
@@ -2204,6 +2235,26 @@
     p-queue "^7.2.0"
     uint8arraylist "^2.0.0"
     uint8arrays "^4.0.2"
+
+"@libp2p/pubsub@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@libp2p/pubsub/-/pubsub-8.0.1.tgz#80c47ccc388017e1afb1157fb64a49408bd97e12"
+  integrity sha512-xdG9hKYu6k6lDN4Tmjj4dxORP6EXFxV1xdxs0PMBV1AOK8M6mclacl/3+OnzfUJACNN9ysR5YZtOOwZwGEJASQ==
+  dependencies:
+    "@libp2p/crypto" "^2.0.0"
+    "@libp2p/interface" "^0.1.0"
+    "@libp2p/interface-internal" "^0.1.0"
+    "@libp2p/logger" "^3.0.0"
+    "@libp2p/peer-collections" "^4.0.0"
+    "@libp2p/peer-id" "^3.0.0"
+    abortable-iterator "^5.0.1"
+    it-length-prefixed "^9.0.1"
+    it-pipe "^3.0.1"
+    it-pushable "^3.2.0"
+    multiformats "^12.0.1"
+    p-queue "^7.3.4"
+    uint8arraylist "^2.4.3"
+    uint8arrays "^4.0.4"
 
 "@libp2p/tcp@^8.0.0":
   version "8.0.0"
@@ -5212,7 +5263,7 @@ p-map@^4.0.0:
   dependencies:
     aggregate-error "^3.0.0"
 
-p-queue@^7.2.0:
+p-queue@^7.2.0, p-queue@^7.3.4:
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/p-queue/-/p-queue-7.3.4.tgz#7ef7d89b6c1a0563596d98adbc9dc404e9ed4a84"
   integrity sha512-esox8CWt0j9EZECFvkFl2WNPat8LN4t7WWeXq73D9ha0V96qPRufApZi4ZhPwXAln1uVVal429HVVKPa2X0yQg==
@@ -6007,7 +6058,7 @@ uint8arraylist@^2.0.0, uint8arraylist@^2.1.0, uint8arraylist@^2.1.1, uint8arrayl
   dependencies:
     uint8arrays "^4.0.2"
 
-uint8arrays@^4.0.2, uint8arrays@^4.0.3, uint8arrays@^4.0.4:
+uint8arrays@^4.0.2, uint8arrays@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-4.0.4.tgz#3254e01aeb166a3f35e66e60e4e37002f4ea13fd"
   integrity sha512-AOoA66e/A7zoXm1mgzQjGmkWDTvCrS3ttWXLHFtlVAwMobLcaOA7G7WRNNAcyfjjYdFDtkEK6njRDX7hZLIO9Q==
