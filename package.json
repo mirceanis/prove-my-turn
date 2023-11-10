@@ -60,6 +60,6 @@
     "@libp2p/tcp": "^8.0.0",
     "libp2p": "^0.42.0",
     "multiformats": "^12.0.0",
-    "snarkyjs": "^0.7.1"
+    "snarkyjs": "^0.12.0"
   }
 }
