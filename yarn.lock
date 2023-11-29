@@ -1423,16 +1423,15 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@libp2p/bootstrap@^9.0.0":
-  version "9.0.12"
-  resolved "https://registry.yarnpkg.com/@libp2p/bootstrap/-/bootstrap-9.0.12.tgz#d2a2cdb9befb40d619f8948cfd9e6c0289b0820f"
-  integrity sha512-w/Mzq8tNBy4DQJXlIN4mwged/6ZHltsAr/J2Wpv0mijrKrr3PLEF1XWfQtdvNUb/exOlXOMCNwVRcXfeAha1qg==
+"@libp2p/bootstrap@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/bootstrap/-/bootstrap-10.0.0.tgz#b36be957fc47a9cb764910b95136928f58c7929a"
+  integrity sha512-SCwLkZxeJrADygOClpU7RDAlTi9V1rlwbDvMv8+HBalCek+NQjgNhBnBh0LJXW5i0b6nwFYQdVKK0t3hsdejWw==
   dependencies:
-    "@libp2p/interface" "^0.1.6"
-    "@libp2p/logger" "^3.1.0"
-    "@libp2p/peer-id" "^3.0.6"
-    "@multiformats/mafmt" "^12.1.2"
-    "@multiformats/multiaddr" "^12.1.5"
+    "@libp2p/interface" "^1.0.0"
+    "@libp2p/peer-id" "^4.0.0"
+    "@multiformats/mafmt" "^12.1.6"
+    "@multiformats/multiaddr" "^12.1.10"
 
 "@libp2p/crypto@^1.0.0", "@libp2p/crypto@^1.0.11":
   version "1.0.17"
@@ -1808,6 +1807,17 @@
     race-signal "^1.0.0"
     uint8arraylist "^2.4.3"
 
+"@libp2p/interface@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/interface/-/interface-1.0.0.tgz#45a952ba0916489dac42b7e6ee3e56e3c73c54cf"
+  integrity sha512-Djd3KB3CXsFPdTFqbkwmvinPcZV3ISp+ZqXwPHnBzr2zRdZrU8ptUldPYT4uzx7q7P2IgyBbSQvKlz0Qr/w1/w==
+  dependencies:
+    "@multiformats/multiaddr" "^12.1.10"
+    it-pushable "^3.2.1"
+    it-stream-types "^2.0.1"
+    multiformats "^12.1.3"
+    uint8arraylist "^2.4.3"
+
 "@libp2p/interfaces@^3.0.0", "@libp2p/interfaces@^3.0.3", "@libp2p/interfaces@^3.2.0":
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-3.3.2.tgz#5d8079be845b0960939b5b18880e785a4714465a"
@@ -1982,6 +1992,15 @@
     multiformats "^12.0.1"
     uint8arrays "^4.0.6"
 
+"@libp2p/peer-id@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-4.0.0.tgz#97096e2f4ded67f8512be71d4a290ade71b1a219"
+  integrity sha512-ltZqVmtQ27qgTB2ZQE3zsdLPnAxu8ehfGNI63njz87G+H7RWVnEeXFdISaQnxQchyewYda7klNc0Cr+aN0b1IA==
+  dependencies:
+    "@libp2p/interface" "^1.0.0"
+    multiformats "^12.1.3"
+    uint8arrays "^4.0.6"
+
 "@libp2p/peer-record@^5.0.0":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@libp2p/peer-record/-/peer-record-5.0.4.tgz#b8f337a2864ffe2ffbb34596cb03d7c339ed18ae"
@@ -2116,7 +2135,7 @@
   dependencies:
     "@multiformats/multiaddr" "^11.0.0"
 
-"@multiformats/mafmt@^12.1.2":
+"@multiformats/mafmt@^12.1.2", "@multiformats/mafmt@^12.1.6":
   version "12.1.6"
   resolved "https://registry.yarnpkg.com/@multiformats/mafmt/-/mafmt-12.1.6.tgz#e7c1831c1e94c94932621826049afc89f3ad43b7"
   integrity sha512-tlJRfL21X+AKn9b5i5VnaTD6bNttpSpcqwKVmDmSHLwxoz97fAHaepqFOk/l1fIu94nImIXneNbhsJx/RQNIww==
@@ -2144,7 +2163,7 @@
     uint8arrays "^4.0.2"
     varint "^6.0.0"
 
-"@multiformats/multiaddr@^12.0.0", "@multiformats/multiaddr@^12.1.3":
+"@multiformats/multiaddr@^12.0.0", "@multiformats/multiaddr@^12.1.10", "@multiformats/multiaddr@^12.1.3":
   version "12.1.10"
   resolved "https://registry.yarnpkg.com/@multiformats/multiaddr/-/multiaddr-12.1.10.tgz#a9c771ee84fe3fd4b2e3361aad38d3ff9e36939c"
   integrity sha512-Bi3nJ/SE17+te40OLxFOpr9CvRodusZZLYZb3e5a0w9RzQcHzfKnnlfqdysLXZ2W5vXgxCUL/Uhndl51Ff2S+Q==
@@ -4050,6 +4069,13 @@ it-pushable@^3.1.0, it-pushable@^3.1.2, it-pushable@^3.1.3, it-pushable@^3.2.0:
   dependencies:
     p-defer "^4.0.0"
 
+it-pushable@^3.2.1:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/it-pushable/-/it-pushable-3.2.3.tgz#e2b80aed90cfbcd54b620c0a0785e546d4e5f334"
+  integrity sha512-gzYnXYK8Y5t5b/BnJUr7glfQLO4U5vyb05gPx/TyTw+4Bv1zM9gFk4YsOrnulWefMewlphCjKkakFvj1y99Tcg==
+  dependencies:
+    p-defer "^4.0.0"
+
 it-reader@^6.0.1:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/it-reader/-/it-reader-6.0.2.tgz#2177afca42f0b41c6acc582cc6fc6869ae8d4dd4"
@@ -4789,7 +4815,7 @@ multiformats@^11.0.0, multiformats@^11.0.2:
   resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-11.0.2.tgz#b14735efc42cd8581e73895e66bebb9752151b60"
   integrity sha512-b5mYMkOkARIuVZCpvijFj9a6m5wMVLC7cf/jIPd5D/ARDOfLC5+IFkbgDXQgcU2goIsTD/O9NY4DI/Mt4OGvlg==
 
-multiformats@^12.0.0, multiformats@^12.0.1:
+multiformats@^12.0.0, multiformats@^12.0.1, multiformats@^12.1.3:
   version "12.1.3"
   resolved "https://registry.yarnpkg.com/multiformats/-/multiformats-12.1.3.tgz#cbf7a9861e11e74f8228b21376088cb43ba8754e"
   integrity sha512-eajQ/ZH7qXZQR2AgtfpmSMizQzmyYVmCql7pdhldPuYQi4atACekbJaQplk6dWyIi10jCaFnd6pqvcEFXjbaJw==
