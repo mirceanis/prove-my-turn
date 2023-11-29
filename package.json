@@ -55,7 +55,7 @@
     "@libp2p/bootstrap": "^9.0.0",
     "@libp2p/floodsub": "^8.0.0",
     "@libp2p/mdns": "^9.0.0",
-    "@libp2p/mplex": "^8.0.0",
+    "@libp2p/mplex": "^10.0.0",
     "@libp2p/pubsub-peer-discovery": "^9.0.0",
     "@libp2p/tcp": "^8.0.0",
     "libp2p": "^0.42.0",
