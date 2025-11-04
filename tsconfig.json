@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "es2022",
+    "target": "ES2022",
+    "module": "ES2022",
     "lib": ["dom", "esnext"],
     "outDir": "./build",
     "rootDir": ".",

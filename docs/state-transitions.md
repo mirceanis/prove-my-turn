@@ -24,7 +24,7 @@ graph TD;
     end
 ```
 
-The high level game states and transitions for game setup:
+The high-level game states and transitions for game setup:
 
 ```mermaid
 graph TD;
@@ -105,7 +105,6 @@ required to perform these checks.
 #### Benchmark of a ZKProgram method calling assertEquals 3 times
 
 - On m1 mac:
-
   - without other methods in program:
     > compile: 23069 ms;
     > prove equalities: 346759 ms;
