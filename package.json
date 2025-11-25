@@ -16,11 +16,9 @@
   "scripts": {
     "start": "tsx src/cli.ts",
     "build": "tsc",
-    "coverage": "yarn test --coverage",
+    "test": "tsx --test src/__tests__/*.test.ts",
+    "test:watch": "tsx --test --watch src/__tests__/*.test.ts",
     "format": "prettier --write --ignore-unknown **/*",
-    "prepare": "husky install",
-    "test": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js",
-    "testw": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --watch",
     "lint": "eslint --fix"
   },
   "lint-staged": {
@@ -32,15 +30,11 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "30.0.0",
     "@typescript-eslint/eslint-plugin": "6.9.1",
     "@typescript-eslint/parser": "6.9.1",
     "eslint": "8.53.0",
     "eslint-plugin-o1js": "0.4.0",
-    "husky": "8.0.3",
-    "jest": "30.2.0",
     "prettier": "3.6.2",
-    "ts-jest": "29.4.5",
     "tsx": "4.20.6",
     "typescript": "5.9.3"
   },
@@ -53,9 +47,12 @@
     "@libp2p/mplex": "^8.0.0",
     "@libp2p/pubsub-peer-discovery": "^9.0.0",
     "@libp2p/tcp": "^8.0.0",
+    "@noble/curves": "^2.0.1",
+    "@noble/hashes": "^2.0.1",
     "commander": "^14.0.2",
     "libp2p": "^0.42.0",
     "multiformats": "^12.0.0",
-    "snarkyjs": "^0.7.1"
+    "o1js": "^2.11.0",
+    "uint8arrays": "^5.1.0"
   }
 }

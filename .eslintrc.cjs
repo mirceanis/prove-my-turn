@@ -5,12 +5,12 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ['eslint:recommended', 'plugin:snarkyjs/recommended'],
+  extends: ['eslint:recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaVersion: 'ES2022',
   },
-  plugins: ['@typescript-eslint', 'snarkyjs'],
+  plugins: ['@typescript-eslint'],
   rules: {
     'no-unused-vars': 'warn',
   },
