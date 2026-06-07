@@ -3,8 +3,8 @@ import { bytesToHex, hexToBytes } from '@noble/curves/utils.js';
 import { Card, EllipticCurve, CurvePoint, LocalPlayer, PRNG, Scalar } from './types';
 
 /**
- * jointEphemeral = jointEphemeral * (g ^ nonce)
- * maskedPoint = maskedPoint * (jointKey ^ nonce)
+ * jointEphemeral = jointEphemeral + nonce * G
+ * maskedPoint = maskedPoint + nonce * jointKey
  *
  * it doesn't really matter if a card gets masked multiple times.
  *
@@ -22,8 +22,8 @@ export function mask(curve: EllipticCurve, card: Card, jointPublicKey: CurvePoin
 }
 
 /**
- * d1 = jointEphemeral ^ playerSecret
- * maskedPoint = maskedPoint / d1
+ * D1 = playerSecret * jointEphemeral
+ * unmaskedPoint = maskedPoint - D1
  *
  * Partially unmasks a card.
  *
