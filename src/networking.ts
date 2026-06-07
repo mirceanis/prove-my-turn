@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 
-import { createLibp2p } from 'libp2p';
+import { createLibp2p, type Libp2p } from 'libp2p';
 import { tcp } from '@libp2p/tcp';
 import { mplex } from '@libp2p/mplex';
 import { noise } from '@chainsafe/libp2p-noise';
 import { bootstrap } from '@libp2p/bootstrap';
 import { mdns } from '@libp2p/mdns';
 import { pubsubPeerDiscovery } from '@libp2p/pubsub-peer-discovery';
-import { gossipsub } from '@chainsafe/libp2p-gossipsub';
+import { gossipsub } from '@libp2p/gossipsub';
 
 const bootstrapNodes = [
   '/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
@@ -18,16 +18,17 @@ const bootstrapNodes = [
   '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt',
 ];
 
-export async function createNode(bootstrappers: string[] = bootstrapNodes) {
+export async function createNode(bootstrappers: string[] = bootstrapNodes): Promise<Libp2p> {
   return await createLibp2p({
     addresses: {
       listen: ['/ip4/0.0.0.0/tcp/0'],
     },
     transports: [tcp()],
     streamMuxers: [mplex()],
-    connectionEncryption: [noise()],
-    // we add the Pubsub module we want
-    pubsub: gossipsub({ allowPublishToZeroPeers: true }),
+    connectionEncrypters: [noise()],
+    services: {
+      gossipsub: gossipsub({ allowPublishToZeroTopicPeers: true }),
+    },
     peerDiscovery: [
       bootstrap({
         list: bootstrappers,
@@ -39,13 +40,6 @@ export async function createNode(bootstrappers: string[] = bootstrapNodes) {
         interval: 20e3,
       }),
     ],
-    relay: {
-      enabled: true, // Allows you to dial and accept relayed connections. Does not make you a relay.
-      hop: {
-        enabled: true, // Allows you to be a relay for other peers
-        active: true,
-      },
-    },
   });
 }
 

@@ -16,6 +16,8 @@ const rng: PRNG = {
 describe('shuffleMaskProof', () => {
   it('round trip shuffle-mask proof with Secp256k1 & Keccak256', () => {
     const curve = new Secp256k1Impl();
+    const fsrng = new KeccakFSRNG(new TextEncoder().encode('shuffle-mask-proof-test-seed'));
+
     const deckBuilder = new DeckBuilder().withCardFaces(STANDARD_DECK).withCurve(curve);
     let originalDeck = deckBuilder.buildDeck();
     const p1 = newPlayer(curve, rng);
@@ -27,8 +29,6 @@ describe('shuffleMaskProof', () => {
     const permutation = generatePermutation(originalDeck.cards.length, rng);
     const masks = Array.from({ length: originalDeck.cards.length }, () => curve.randomScalar(rng));
     const shuffledDeck = shuffleMask(curve, originalDeck, permutation, masks);
-
-    const fsrng = new KeccakFSRNG(new TextEncoder().encode('shuffle-mask-proof-test-seed'));
 
     const p1ShuffleProof = generateShuffleMaskProof(
       curve,
