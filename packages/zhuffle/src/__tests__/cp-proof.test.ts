@@ -13,7 +13,6 @@ const rng: PRNG = {
 describe('Chaum-Pedersen proofs', () => {
   describe('generateCPProof', () => {
     it('should generate a valid proof with correct structure', () => {
-
       const g = curve.mul(curve.generator(), 2n);
       const h = curve.mul(curve.generator(), 3n);
       const alfa = curve.randomScalar(rng);

@@ -19,9 +19,7 @@
     "start": "tsx src/cli.ts",
     "build": "tsc",
     "test": "tsx --test src/__tests__/*.test.ts",
-    "test:watch": "tsx --test --watch src/__tests__/*.test.ts",
-    "format": "prettier --write --ignore-unknown **/*",
-    "lint": "eslint --fix"
+    "test:watch": "tsx --test --watch src/__tests__/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "^25.9.2",
