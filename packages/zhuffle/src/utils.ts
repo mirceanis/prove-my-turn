@@ -1,6 +1,7 @@
-// import { Group, Scalar } from 'o1js';
-import { bytesToHex, hexToBytes } from '@noble/curves/utils.js';
+// import { bytesToHex, hexToBytes } from '@noble/curves/utils.js';
 import { Card, EllipticCurve, CurvePoint, LocalPlayer, PRNG, Scalar } from './types';
+import {bytesToHex, hexToBytes} from '@noble/hashes/utils.js'
+import { hexToNumber } from '@noble/curves/utils.js';
 
 /**
  * jointEphemeral = jointEphemeral + nonce * G
@@ -54,13 +55,42 @@ export function newPlayer(curve: EllipticCurve, rnd: PRNG): LocalPlayer {
  * Convert a Uint8Array to a bigint
  */
 export function bytesToBigInt(bytes: Uint8Array): bigint {
-  return BigInt('0x' + bytesToHex(bytes));
+  return BigInt('0x' + bytesToHex(bytes))
+  // return bytes.reduce((acc, byte) => (acc << 8n) | BigInt(byte), 0n);
 }
 
 /**
- * Convert a bigint to a Uint8Array of specified length
+ * Convert a bigint to a Uint8Array of specified length (big-endian).
+ * Pads with leading zeros if smaller, throws if larger.
  */
 export function bigIntToBytes(value: bigint, length: number = 32): Uint8Array {
+
   const hex = value.toString(16).padStart(length * 2, '0');
   return hexToBytes(hex);
+  //
+  // if (value === 0n) {
+  //   return new Uint8Array(length);
+  // }
+  //
+  // const bytes: number[] = [];
+  // while (value > 0n) {
+  //   bytes.push(Number(value & 0xffn));
+  //   value >>= 8n;
+  // }
+  //
+  // const result = Uint8Array.from(bytes.reverse());
+  //
+  // if (result.length > length) {
+  //   throw new Error(
+  //     `bigintToBytes: value requires ${result.length} bytes, but length ${length} was specified`,
+  //   );
+  // }
+  //
+  // if (result.length < length) {
+  //   const padded = new Uint8Array(length);
+  //   padded.set(result, length - result.length);
+  //   return padded;
+  // }
+  //
+  // return result;
 }

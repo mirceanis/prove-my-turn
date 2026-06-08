@@ -1,6 +1,6 @@
-import { CurvePoint, EllipticCurve, FSRNG, PRNG, Scalar } from './types';
+import type { CurvePoint, EllipticCurve, FSRNG, PRNG, Scalar } from 'zhuffle';
+import { bigIntToBytes, bytesToBigInt } from 'zhuffle';
 import { Crypto, Field, Poseidon } from 'o1js';
-import { bigIntToBytes, bytesToBigInt } from './utils';
 
 // the modulus. called `p` in most of our code.
 const p = 0x40000000000000000000000000000000224698fc094cf91b992d30ed00000001n;

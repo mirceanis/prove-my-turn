@@ -1,5 +1,5 @@
-import { Card, Deck, EllipticCurve, PRNG, Scalar } from './types';
-import { bytesToBigInt, mask } from './utils';
+import { Card, Deck, EllipticCurve, PRNG, Scalar } from './types.js';
+import { bytesToBigInt, mask } from './utils.js';
 
 export const RANKS = 'A,2,3,4,5,6,7,8,9,10,J,Q,K'.split(',');
 export const SUITES = '♠️,♥️,♦️,♣️'.split(',');

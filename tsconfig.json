@@ -4,24 +4,17 @@
     "module": "ES2022",
     "lib": ["dom", "esnext"],
     "types": ["node"],
-    "outDir": "./build",
-    "rootDir": ".",
     "strict": true,
-    "strictPropertyInitialization": false, // to enable generic constructors, e.g. on CircuitValue
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "moduleResolution": "bundler",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowJs": true,
     "declaration": true,
     "sourceMap": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "noImplicitAny": false
+    "isolatedModules": true
   },
-  "include": ["./src"],
-  "exclude": ["./src/**/*.test.ts"]
+  "references": [
+    { "path": "packages/zhuffle" },
+    { "path": "packages/zhuffle-ristretto-sha512"},
+    { "path": "packages/network" }
+  ]
 }

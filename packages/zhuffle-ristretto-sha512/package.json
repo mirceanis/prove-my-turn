@@ -1,0 +1,29 @@
+{
+  "name": "zhuffle-ristretto-sha512",
+  "version": "0.1.5",
+  "description": "Experiments in zk gaming",
+  "author": "Mircea Nistor",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "start": "tsx src/cli.ts",
+    "build": "tsc",
+    "test": "tsx --test src/__tests__/*.test.ts",
+    "test:watch": "tsx --test --watch src/__tests__/*.test.ts",
+    "format": "prettier --write --ignore-unknown **/*",
+    "lint": "eslint --fix"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.2",
+    "tsx": "4.22.4",
+    "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "@noble/curves": "^2.2.0",
+    "@noble/hashes": "^2.2.0",
+    "o1js": "^2.15.0",
+    "zhuffle": "workspace:*"
+  }
+}

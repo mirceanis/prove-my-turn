@@ -1,0 +1,33 @@
+{
+  "name": "zhuffle-network",
+  "version": "0.1.5",
+  "description": "Experiments in zk gaming",
+  "author": "Mircea Nistor",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "start": "tsx src/cli.ts",
+    "build": "tsc",
+    "test": "tsx --test src/__tests__/*.test.ts",
+    "test:watch": "tsx --test --watch src/__tests__/*.test.ts",
+    "format": "prettier --write --ignore-unknown **/*",
+    "lint": "eslint --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "@libp2p/gossipsub": "^16.0.2",
+    "@chainsafe/libp2p-noise": "^17.0.0",
+    "@libp2p/bootstrap": "^12.0.24",
+    "@libp2p/mdns": "^12.0.24",
+    "@libp2p/mplex": "^12.0.24",
+    "@libp2p/pubsub-peer-discovery": "^12.0.0",
+    "@libp2p/tcp": "^11.0.21",
+    "commander": "^15.0.0",
+    "libp2p": "^3.3.3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strictPropertyInitialization": false,
+    "composite": true
+  },
+  "include": ["./src"],
+  "exclude": ["./src/**/*.test.ts"]
+}

@@ -1,51 +1,19 @@
 {
-  "name": "zhuffle",
-  "version": "0.1.5",
+  "name": "prove-my-turn",
+  "private": true,
   "description": "Experiments in zk gaming",
   "author": "Mircea Nistor",
   "license": "Apache-2.0",
-  "keywords": [
-    "mina-zkapp",
-    "mina-zk-app",
-    "mina-dapp",
-    "zkapp"
-  ],
   "type": "module",
-  "main": "build/src/index.js",
-  "types": "build/src/index.d.ts",
   "scripts": {
-    "start": "tsx src/cli.ts",
-    "build": "tsc",
-    "test": "tsx --test src/__tests__/*.test.ts",
-    "test:watch": "tsx --test --watch src/__tests__/*.test.ts",
-    "format": "prettier --write --ignore-unknown **/*",
-    "lint": "eslint --fix"
+    "start": "pnpm --filter zhuffle start",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format"
   },
-  "devDependencies": {
-    "@types/node": "^25.9.2",
-    "@typescript-eslint/eslint-plugin": "6.9.1",
-    "@typescript-eslint/parser": "6.9.1",
-    "eslint": "8.53.0",
-    "eslint-plugin-o1js": "0.4.0",
-    "prettier": "3.8.3",
-    "tsx": "4.22.4",
-    "typescript": "6.0.3"
-  },
-  "dependencies": {
-    "@libp2p/gossipsub": "^16.0.2",
-    "@chainsafe/libp2p-noise": "^17.0.0",
-    "@libp2p/bootstrap": "^12.0.24",
-
-    "@libp2p/mdns": "^12.0.24",
-    "@libp2p/mplex": "^12.0.24",
-    "@libp2p/pubsub-peer-discovery": "^12.0.0",
-    "@libp2p/tcp": "^11.0.21",
-    "@noble/curves": "^2.2.0",
-    "@noble/hashes": "^2.2.0",
-    "commander": "^15.0.0",
-    "libp2p": "^3.3.3",
-    "multiformats": "^14.0.0",
-    "o1js": "^2.15.0",
-    "uint8arrays": "^6.1.1"
+  "devDependencies": {},
+  "engines": {
+    "node": ">=20"
   }
 }

@@ -1,7 +1,7 @@
-import { CurvePoint, EllipticCurve, FSRNG, PRNG, Scalar } from './types';
-import { ristretto255, ristretto255_hasher, ed25519, ed25519_hasher } from '@noble/curves/ed25519.js';
+import type { CurvePoint, EllipticCurve, FSRNG, PRNG, Scalar } from 'zhuffle';
+import { bigIntToBytes } from 'zhuffle';
+import { ed25519, ed25519_hasher, ristretto255, ristretto255_hasher } from '@noble/curves/ed25519.js';
 import { sha512 } from '@noble/hashes/sha2.js';
-import { bigIntToBytes } from './utils';
 
 export class Ristretto255Impl implements EllipticCurve {
   add(p1: CurvePoint, p2: CurvePoint): CurvePoint {
@@ -75,7 +75,7 @@ export class Ed25519Impl implements EllipticCurve {
   }
 }
 
-export class Sha256FSRNG implements FSRNG {
+export class Sha512FSRNG implements FSRNG {
   state: Uint8Array;
 
   constructor(seed?: Uint8Array, initialState?: Uint8Array) {
@@ -107,7 +107,7 @@ export class Sha256FSRNG implements FSRNG {
   }
 
   clone(): FSRNG {
-    return new Sha256FSRNG(undefined, this.state.slice());
+    return new Sha512FSRNG(undefined, this.state.slice());
   }
 
   randomBytes(length: number): Uint8Array {

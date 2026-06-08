@@ -1,5 +1,3 @@
-// import { Group, Scalar } from 'o1js';
-
 /**
  * Random Number Generator interface.
  */
@@ -13,10 +11,6 @@ export interface PRNG {
 export interface FSRNG extends PRNG {
   absorb(message: Uint8Array | CurvePoint[]): FSRNG;
   clone(): FSRNG;
-}
-
-export interface HashFunction {
-  hash(data: Uint8Array): Uint8Array;
 }
 
 /**
