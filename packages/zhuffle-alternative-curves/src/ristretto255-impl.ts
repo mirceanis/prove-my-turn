@@ -4,6 +4,10 @@ import { ed25519, ed25519_hasher, ristretto255, ristretto255_hasher } from '@nob
 import { sha512 } from '@noble/hashes/sha2.js';
 
 export class Ristretto255Impl implements EllipticCurve {
+  hashToScalar(data: Uint8Array): Scalar {
+      return ristretto255_hasher.hashToScalar(data);
+  }
+
   add(p1: CurvePoint, p2: CurvePoint): CurvePoint {
     const result = ristretto255.Point.fromAffine(p1).add(ristretto255.Point.fromAffine(p2)).toAffine();
     return { x: result.x, y: result.y };
@@ -72,6 +76,10 @@ export class Ed25519Impl implements EllipticCurve {
   zero(): CurvePoint {
     const result = ed25519.Point.ZERO.toAffine();
     return { x: result.x, y: result.y };
+  }
+
+  hashToScalar(data: Uint8Array): Scalar {
+    return ed25519_hasher.hashToScalar(data);
   }
 }
 

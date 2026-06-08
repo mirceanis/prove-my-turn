@@ -1,19 +1,24 @@
 {
-  "name": "zhuffle-ristretto-sha512",
+  "name": "zhuffle-alternative-curves",
   "version": "0.1.5",
   "description": "Experiments in zk gaming",
   "author": "Mircea Nistor",
   "license": "Apache-2.0",
   "type": "module",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "scripts": {
-    "start": "tsx src/cli.ts",
     "build": "tsc",
     "test": "tsx --test src/__tests__/*.test.ts",
-    "test:watch": "tsx --test --watch src/__tests__/*.test.ts",
-    "format": "prettier --write --ignore-unknown **/*",
-    "lint": "eslint --fix"
+    "test:watch": "tsx --test --watch src/__tests__/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "25.9.2",

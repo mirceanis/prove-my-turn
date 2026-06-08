@@ -59,6 +59,10 @@ export class PallasImpl implements EllipticCurve {
     const result = pallas.zero;
     return { x: result.x, y: result.y };
   }
+
+  hashToScalar(data: Uint8Array): Scalar {
+    return pallas.Scalar.fromBigint(bytesToBigInt(data) % pallas.order);
+  }
 }
 
 export class PoseidonFSPRNG implements FSRNG {

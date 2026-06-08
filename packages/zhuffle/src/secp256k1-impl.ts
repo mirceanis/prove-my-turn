@@ -1,9 +1,13 @@
 import { CurvePoint, EllipticCurve, FSRNG, PRNG, Scalar } from './types';
-import { secp256k1 } from '@noble/curves/secp256k1.js';
+import { secp256k1, secp256k1_hasher } from '@noble/curves/secp256k1.js';
 import { keccak_256 } from '@noble/hashes/sha3.js';
 import { bigIntToBytes, bytesToBigInt } from './utils';
 
 export class Secp256k1Impl implements EllipticCurve {
+  hashToScalar(data: Uint8Array): Scalar {
+    return secp256k1_hasher.hashToScalar(data);
+  }
+
   add(p1: CurvePoint, p2: CurvePoint): CurvePoint {
     const result = secp256k1.Point.fromAffine(p1).add(secp256k1.Point.fromAffine(p2)).toAffine();
     return { x: result.x, y: result.y };

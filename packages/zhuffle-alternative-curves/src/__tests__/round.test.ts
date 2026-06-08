@@ -12,7 +12,7 @@ const rng: PRNG = {
 };
 const deckBuilder = new DeckBuilder().withCardFaces(STANDARD_DECK).withCurve(curve);
 
-describe('shuffleMask', () => {
+describe('shuffleMask, no proofs', () => {
   it('one player shuffle and mask the deck', () => {
     const p1 = newPlayer(curve, rng);
 

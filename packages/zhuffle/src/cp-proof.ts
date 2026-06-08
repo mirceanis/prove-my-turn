@@ -1,9 +1,8 @@
 import { CPProof, EllipticCurve, FSRNG, CurvePoint, PRNG, Scalar } from './types';
-import { bytesToBigInt } from './utils';
 
-function computeChallenge(fsprng: FSRNG, elements: CurvePoint[]): Scalar {
+function computeChallenge(curve: EllipticCurve, fsprng: FSRNG, elements: CurvePoint[]): Scalar {
   fsprng.absorb(elements);
-  return bytesToBigInt(fsprng.randomBytes(32));
+  return curve.hashToScalar(fsprng.randomBytes(32));
 }
 
 export function generateCPProof(
@@ -21,7 +20,7 @@ export function generateCPProof(
   const a = curve.mul(g, omega);
   const b = curve.mul(h, omega);
   // Prover computes the challenge c = H(g, h, x, y, a, b)
-  const c = computeChallenge(fsprng, [g, h, x, y, a, b]);
+  const c = computeChallenge(curve, fsprng, [g, h, x, y, a, b]);
   const response = (omega + alfa * c) % curve.order();
 
   return {
@@ -41,7 +40,7 @@ export function verifyCPProof(
   fsprng: FSRNG
 ): boolean {
   // Verifier computes the challenge c = H(g, h, x, y, a, b)
-  const c = computeChallenge(fsprng, [g, h, x, y, proof.a, proof.b]);
+  const c = computeChallenge(curve, fsprng, [g, h, x, y, proof.a, proof.b]);
 
   // Verifier checks the two equations:
   // g^r = a + x^c

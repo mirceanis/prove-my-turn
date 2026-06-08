@@ -14,7 +14,7 @@
   },
   "references": [
     { "path": "packages/zhuffle" },
-    { "path": "packages/zhuffle-ristretto-sha512"},
+    { "path": "packages/zhuffle-alternative-curves"},
     { "path": "packages/network" }
   ]
 }

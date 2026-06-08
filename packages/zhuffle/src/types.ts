@@ -66,4 +66,5 @@ export interface EllipticCurve {
   negate(p: CurvePoint): CurvePoint;
   order(): bigint;
   randomScalar(rng: PRNG): Scalar;
+  hashToScalar(data: Uint8Array): Scalar;
 }
