@@ -16,7 +16,7 @@ export function generateCPProof(
   rng: PRNG
 ): CPProof {
   const omega = curve.randomScalar(rng);
-  // Prover computes: a = g^omega, b = h^omega
+  // Prover computes: A = G * omega, B = H * omega
   const a = curve.mul(g, omega);
   const b = curve.mul(h, omega);
   // Prover computes the challenge c = H(g, h, x, y, a, b)
@@ -43,11 +43,11 @@ export function verifyCPProof(
   const c = computeChallenge(curve, fsprng, [g, h, x, y, proof.a, proof.b]);
 
   // Verifier checks the two equations:
-  // g^r = a + x^c
+  // G * r = A + X * c
   const left1 = curve.mul(g, proof.r);
   const right1 = curve.add(proof.a, curve.mul(x, c));
 
-  // h^r = b + y^c
+  // H * r = B + Y * c
   const left2 = curve.mul(h, proof.r);
   const right2 = curve.add(proof.b, curve.mul(y, c));
 
